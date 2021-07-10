@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import { Link } from "react-router";
-import { tokenContext } from "../Context/Contexts";
+import { tokenContext, userContext } from "../Context/Contexts";
 import { userData } from "../API/API";
 import {
   Collapse,
@@ -21,18 +21,13 @@ export const Navigation = (props) => {
 
   const toggle = () => setIsOpen(!isOpen);
 
-  const user = useContext(tokenContext);
-
-  useEffect(() => {
-    console.log("hits one");
-    userData();
-  }, []);
+  const user = useContext(userContext);
 
   return (
     <div className="px-2">
       <Navbar color="light" light expand="md">
         {user ? (
-          <NavbarBrand href="/">User</NavbarBrand>
+          <NavbarBrand href="/">{user.username}</NavbarBrand>
         ) : (
           <a
             href="http://localhost:5000/user/google/login"
@@ -63,6 +58,9 @@ export const Navigation = (props) => {
                 <DropdownItem>Comprar</DropdownItem>
               </DropdownMenu>
             </UncontrolledDropdown>
+            <NavItem>
+              <NavLink>Salir</NavLink>
+            </NavItem>
           </Nav>
         </Collapse>
       </Navbar>
