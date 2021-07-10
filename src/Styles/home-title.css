@@ -1,0 +1,7 @@
+.home-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+  background-color: rgb(170, 170, 164);
+}

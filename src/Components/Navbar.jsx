@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import { Link } from "react-router";
-import { tokenContext, userContext } from "../Context/Contexts";
-import { userData } from "../API/API";
+import { userContext } from "../Context/Contexts";
+import { logout } from "../API/API";
 import {
   Collapse,
   Navbar,
@@ -21,18 +21,16 @@ export const Navigation = (props) => {
 
   const toggle = () => setIsOpen(!isOpen);
 
-  const user = useContext(userContext);
+  const { user } = useContext(userContext);
 
+  // TODO CREATE CLIENT AND ADMIN NAVBAR
   return (
     <div className="px-2">
       <Navbar color="light" light expand="md">
         {user ? (
           <NavbarBrand href="/">{user.username}</NavbarBrand>
         ) : (
-          <a
-            href="http://localhost:5000/user/google/login"
-            className="btn btn-primary"
-          >
+          <a href="/#/login" className="btn btn-primary">
             Log in
           </a>
         )}
@@ -59,7 +57,7 @@ export const Navigation = (props) => {
               </DropdownMenu>
             </UncontrolledDropdown>
             <NavItem>
-              <NavLink>Salir</NavLink>
+              <NavLink onClick={logout}>Salir</NavLink>
             </NavItem>
           </Nav>
         </Collapse>
