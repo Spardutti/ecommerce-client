@@ -82,3 +82,16 @@ export const getProducts = async () => {
     return err;
   }
 };
+
+// GET ALL CATEGORIES
+
+export const getCategories = async () => {
+  try {
+    const response = await fetch(url + "/categories");
+    const data = await response.json();
+    console.log(data);
+    return data;
+  } catch (err) {
+    return err;
+  }
+};
