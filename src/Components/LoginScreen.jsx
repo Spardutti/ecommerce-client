@@ -1,8 +1,8 @@
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 import "../Styles/google-btn.css";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { localUser } from "../API/API";
-import { Redirect } from "react-router";
+import { Redirect, Link } from "react-router-dom";
 import { userContext } from "../Context/Contexts";
 
 export const LoginScreen = () => {
@@ -20,8 +20,12 @@ export const LoginScreen = () => {
     setPassword(e.target.value);
   };
 
+  useEffect(() => {
+    setLogged(false);
+  }, []);
+
   return (
-    <Form className="container  mt-4 bg-dark text-light p-4">
+    <Form className="container  mt-4 bg-dark text-light p-4 rounded">
       <FormGroup>
         <Label for="email">Email</Label>
         <Input
@@ -52,7 +56,6 @@ export const LoginScreen = () => {
           className="mt-2 mb-1 bg-primary w-25"
           onClick={async () => {
             const data = await localUser(email, password);
-            console.log(data);
             if (data.status === 200) {
               setLogged(true);
               setUser(data.user);
@@ -62,9 +65,6 @@ export const LoginScreen = () => {
         >
           Log in
         </Button>
-      </FormGroup>
-      <FormGroup className="text-center">
-        <Label>Or</Label>
       </FormGroup>
       <FormGroup className="d-flex justify-content-center pt-2">
         <div className="google-btn">
@@ -79,6 +79,12 @@ export const LoginScreen = () => {
             <b>Log in with google</b>
           </a>
         </div>
+      </FormGroup>
+      <hr />
+      <FormGroup className="text-center">
+        <Link to="/newaccount" className="btn bg-success">
+          Crear cuenta
+        </Link>
       </FormGroup>
       {logged ? <Redirect to="/" /> : null}
     </Form>

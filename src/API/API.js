@@ -57,6 +57,22 @@ export const localUser = async (email, password) => {
   return { token: data.token, user: data.user, status: response.status };
 };
 
+// CREATE LOCAL USER
+export const newUser = async (email, username, password, confirm) => {
+  const response = await fetch(url + "/user/new", {
+    method: "POST",
+    headers: params,
+    body: JSON.stringify({
+      email,
+      username,
+      password,
+      confirm,
+    }),
+  });
+  const data = await response.json();
+  return { response, data };
+};
+
 // GET PRODUCTS
 export const getProducts = async () => {
   try {

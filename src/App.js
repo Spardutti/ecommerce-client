@@ -1,5 +1,5 @@
 import Home from "./Components/Home";
-import { Navigation } from "./Components/Navbar";
+import { NavBar } from "./Components/Navbar";
 import { useState, useEffect } from "react";
 import { userContext } from "./Context/Contexts";
 import { userData, checkForToken } from "./API/API";
@@ -7,6 +7,7 @@ import { HashRouter, Switch, Route } from "react-router-dom";
 import { Token } from "./Components/Token";
 import { Compras } from "./Components/Compras";
 import { LoginScreen } from "./Components/LoginScreen";
+import { NewAccount } from "./Components/NewAccount";
 
 function App() {
   const [user, setUser] = useState();
@@ -22,11 +23,12 @@ function App() {
   return (
     <HashRouter>
       <userContext.Provider value={{ user, setUser }}>
-        <Navigation />
+        <NavBar />
         <Switch>
           <Route path="/logged" component={Token} />
           <Route path="/compras" component={Compras} />
           <Route path="/login" component={LoginScreen} />
+          <Route path="/newaccount" component={NewAccount} />
           <Route path="/" component={Home} />
         </Switch>
       </userContext.Provider>

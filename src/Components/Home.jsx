@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { getProducts } from "../API/API";
 import { ProductCard } from "./ProductCard";
+import uniqid from "uniqid";
 import "../Styles/home-title.css";
 
 const Home = () => {
@@ -15,12 +16,11 @@ const Home = () => {
 
   return (
     <div>
-      <div className="home-title">
-        <h1>Lorem</h1>
-      </div>
-      {products.map((product) => {
-        return <ProductCard />;
-      })}
+      {products
+        ? products.map((product) => {
+            return <ProductCard key={uniqid()} />;
+          })
+        : null}
     </div>
   );
 };
