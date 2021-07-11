@@ -1,9 +1,9 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { userContext } from "../Context/Contexts";
-import { AdminNav } from "./AdminNav";
+import { AdminNav } from "./Admin/AdminNav";
 import { ClientNav } from "./ClientNav";
 
-export const NavBar = (props) => {
+export const NavBar = () => {
   const { user } = useContext(userContext);
   return user ? user.admin ? <AdminNav /> : <ClientNav /> : <ClientNav />;
 };

@@ -8,6 +8,7 @@ import { Token } from "./Components/Token";
 import { Compras } from "./Components/Compras";
 import { LoginScreen } from "./Components/LoginScreen";
 import { NewAccount } from "./Components/NewAccount";
+import { AdminProductos } from "./Components/Admin/AdminProductos";
 
 function App() {
   const [user, setUser] = useState();
@@ -29,6 +30,7 @@ function App() {
           <Route path="/compras" component={Compras} />
           <Route path="/login" component={LoginScreen} />
           <Route path="/newaccount" component={NewAccount} />
+          <Route path="/admin-productos" component={AdminProductos} />
           <Route path="/" component={Home} />
         </Switch>
       </userContext.Provider>

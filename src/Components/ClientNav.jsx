@@ -15,7 +15,7 @@ import {
   DropdownItem,
 } from "reactstrap";
 
-export const ClientNav = (props) => {
+export const ClientNav = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggle = () => setIsOpen(!isOpen);

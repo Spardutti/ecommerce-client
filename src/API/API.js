@@ -1,5 +1,4 @@
 import jwt from "jsonwebtoken";
-import { Redirect } from "react-router";
 
 const url = "http://localhost:5000";
 let token;

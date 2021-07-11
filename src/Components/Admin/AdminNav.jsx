@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
-import { userContext } from "../Context/Contexts";
-import { logout } from "../API/API";
+import { userContext } from "../../Context/Contexts";
+import { logout } from "../../API/API";
 import {
   Collapse,
   Navbar,
@@ -26,13 +26,13 @@ export const AdminNav = () => {
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>
             <NavItem>
-              <NavLink href="/#/">Ventas</NavLink>
+              <NavLink href="/#/admin-ventas">Ventas</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="/#/categorias">Categorias</NavLink>
+              <NavLink href="/#/admin-categorias">Categorias</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink>Productos</NavLink>
+              <NavLink href="/#/admin-productos">Productos</NavLink>
             </NavItem>
             {user ? (
               <NavItem>
