@@ -38,7 +38,6 @@ export const userData = async () => {
 export const logout = async () => {
   await fetch(url + "/logout");
   localStorage.clear();
-  console.log("clicked");
 };
 
 // LOG IN LOCAL USER
@@ -83,13 +82,30 @@ export const getProducts = async () => {
   }
 };
 
+// ADD NEW PRODUCT
+export const addNewProduct = async (productName, category) => {
+  try {
+    const response = await fetch(url + "/product/new", {
+      method: "POST",
+      headers: params,
+      body: JSON.stringify({
+        productName,
+        productCategory: category,
+      }),
+    });
+    const data = await response.json();
+    return { status: response.status, data };
+  } catch (err) {
+    return err;
+  }
+};
+
 // GET ALL CATEGORIES
 
 export const getCategories = async () => {
   try {
     const response = await fetch(url + "/categories");
     const data = await response.json();
-    console.log(data);
     return data;
   } catch (err) {
     return err;

@@ -28,15 +28,15 @@ export const AddCategory = () => {
   ) : (
     <div className="text-center mb-2">
       <Button className="bg-primary" onClick={toggleForm}>
-        Ocultar
+        Hide
       </Button>
       <Form>
         <FormGroup>
-          <Label>Agregar nueva Categoria</Label>
+          <Label>Category name</Label>
           <Input
             name="productCategory"
             value={productCategory}
-            placeholder="Nombre del producto"
+            placeholder="enter category name"
             onChange={nameHandler}
           />
         </FormGroup>
@@ -46,7 +46,7 @@ export const AddCategory = () => {
               console.log(productCategory);
             }}
           >
-            Add
+            Add category
           </Button>
         </FormGroup>
       </Form>

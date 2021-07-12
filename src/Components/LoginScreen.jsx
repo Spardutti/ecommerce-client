@@ -55,12 +55,12 @@ export const LoginScreen = () => {
         <Button
           className="mt-2 mb-1 bg-primary w-25"
           onClick={async () => {
-            const data = await localUser(email, password);
-            if (data.status === 200) {
+            const response = await localUser(email, password);
+            if (response.status === 200) {
               setLogged(true);
-              setUser(data.user);
+              setUser(response.user);
             }
-            if (data.status === 500) setLogginErros(data.data);
+            if (response.status === 500) setLogginErros(response.data);
           }}
         >
           Log in
