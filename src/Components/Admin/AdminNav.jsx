@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { userContext } from "../../Context/Contexts";
 import { logout } from "../../API/API";
 import {

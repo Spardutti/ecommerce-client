@@ -1,97 +1,47 @@
 import { getCategories, getProducts } from "../../API/API";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { ProductCard } from "../ProductCard";
 import uniqid from "uniqid";
-import { Form, FormGroup, Label, Input, Button } from "reactstrap";
+import { Form, FormGroup, Label, Input, Button, Col, Row } from "reactstrap";
+import { userContext } from "../../Context/Contexts";
+import { Redirect } from "react-router-dom";
+import { AddProduct } from "./AddProduct";
+import { AddCategory } from "./AddCategory";
 
 export const AdminProductos = () => {
   const [products, setProducts] = useState([]);
-  const [categories, setCategories] = useState([]);
-  const [showProductForm, setShowProductForm] = useState(false);
-  const [productName, setProductName] = useState("");
-  const [productCategory, setProductCategory] = useState("");
 
-  const productForm = () => {
-    setShowProductForm(!showProductForm);
-  };
-
-  const nameHandler = (e) => {
-    setProductName(e.target.value);
-  };
-
-  const categoryHandler = (e) => {
-    setProductCategory(e.target.value);
-  };
+  const { user } = useContext(userContext);
 
   useEffect(() => {
     (async () => {
       setProducts(await getProducts());
-      setCategories(await getCategories());
     })();
+
+    return () => setProducts();
   }, []);
-  return (
-    <div className="mt-5 mx-2">
-      <div className="col-md-6 mx-auto">
-        {!showProductForm ? (
-          <div className="text-center mb-2">
-            <Button className="bg-primary" onClick={productForm}>
-              Agregar producto nuevo
-            </Button>
-          </div>
-        ) : (
-          <div>
-            <div className="text-center mb-2">
-              <Button className="bg-primary" onClick={productForm}>
-                Ocultar
-              </Button>
-            </div>
-            <Form>
-              <FormGroup>
-                <Label>Agregar nuevo producto</Label>
-                <Input
-                  name="productName"
-                  value={productName}
-                  placeholder="Nombre del producto"
-                  onChange={nameHandler}
-                />
-              </FormGroup>
-              <FormGroup>
-                <Label>Categoria</Label>
-                <Input
-                  type="select"
-                  name="category"
-                  value={productCategory}
-                  onChange={categoryHandler}
-                >
-                  {categories.map((cat) => {
-                    return (
-                      <option id={cat._id} key={cat._id}>
-                        {cat.name}
-                      </option>
-                    );
-                  })}
-                </Input>
-              </FormGroup>
-              <FormGroup className="text-center mt-3">
-                <Button
-                  onClick={() => {
-                    console.log(productName, productCategory);
-                  }}
-                >
-                  Agregar
-                </Button>
-              </FormGroup>
-            </Form>
-          </div>
-        )}
-      </div>
-      <div>
+
+  return user ? (
+    !user.admin ? (
+      <Redirect to="/" />
+    ) : (
+      <Col className="mt-5 mx-2">
+        <Row>
+          <Col md={6}>
+            <AddProduct />
+          </Col>
+          <Col md={6}>
+            <AddCategory />
+          </Col>
+        </Row>
         {products
           ? products.map((product) => {
               return <ProductCard key={uniqid()} />;
             })
           : null}
-      </div>
-    </div>
+      </Col>
+    )
+  ) : (
+    <p>loading</p>
   );
 };
