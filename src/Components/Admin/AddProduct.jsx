@@ -5,6 +5,7 @@ import uniqid from "uniqid";
 
 export const AddProduct = () => {
   const [productName, setProductName] = useState("");
+  const [productPrice, setProductPrice] = useState("");
   const [categoryId, setCategoryId] = useState("");
   const [categories, setCategories] = useState([]);
   const [showProductForm, setShowProductForm] = useState(false);
@@ -18,6 +19,10 @@ export const AddProduct = () => {
     const index = e.target.selectedIndex;
     const element = e.target.options[index];
     setCategoryId(element.id);
+  };
+
+  const priceHandler = (e) => {
+    setProductPrice(e.target.value);
   };
 
   const productForm = () => {
@@ -39,10 +44,12 @@ export const AddProduct = () => {
         </Button>
       </div>
     ) : (
-      <div className="text-center mb-2">
-        <Button className="bg-primary" onClick={productForm}>
-          Hide
-        </Button>
+      <div className=" mb-2">
+        <div className="text-center">
+          <Button className="bg-primary" onClick={productForm}>
+            Hide
+          </Button>
+        </div>
         <Form>
           <FormGroup>
             <Label>Product name</Label>
@@ -52,6 +59,17 @@ export const AddProduct = () => {
               value={productName}
               placeholder="enter product name"
               onChange={nameHandler}
+            />
+          </FormGroup>
+          <FormGroup>
+            <Label>Product price</Label>
+            <Input
+              type="number"
+              name="productPrice"
+              autoComplete="off"
+              value={productPrice}
+              onChange={priceHandler}
+              placeholder="Enter product price"
             />
           </FormGroup>
           <FormGroup>
@@ -86,9 +104,19 @@ export const AddProduct = () => {
               : null}
             <Button
               onClick={async () => {
-                const result = await addNewProduct(productName, categoryId);
+                const result = await addNewProduct(
+                  productName,
+                  categoryId,
+                  productPrice
+                );
                 if (result.status === 500) setProductErrors(result.data);
                 // TODO redirect to product page on sucess
+                else {
+                  console.log(result);
+                  setProductPrice("");
+                  setProductName("");
+                  setCategoryId("");
+                }
               }}
             >
               Add prdouct
