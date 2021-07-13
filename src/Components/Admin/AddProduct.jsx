@@ -11,6 +11,8 @@ export const AddProduct = () => {
   const [showProductForm, setShowProductForm] = useState(false);
   const [productErrors, setProductErrors] = useState("");
 
+  // TODO ADD DESCRIPTION
+
   const nameHandler = (e) => {
     setProductName(e.target.value);
   };

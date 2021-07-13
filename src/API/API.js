@@ -105,8 +105,20 @@ export const addNewProduct = async (
   }
 };
 
-// GET ALL CATEGORIES
+// PRODUCT DETAIL
+export const productDetail = async (productId) => {
+  try {
+    const response = await fetch(url + "/product/" + productId, {
+      method: "GET",
+    });
+    const data = await response.json();
+    return data;
+  } catch (err) {
+    return err;
+  }
+};
 
+// GET ALL CATEGORIES
 export const getCategories = async () => {
   try {
     const response = await fetch(url + "/categories");
