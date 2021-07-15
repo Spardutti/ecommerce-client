@@ -22,19 +22,27 @@ export const ProductDetail = () => {
     }
   }, [productId]);
 
-  return (
+  return product.images ? (
     <div className="container mt-5">
       <Row>
         <Col xs={6} className=" bg-light">
           <h1>{product.name}</h1>
           <hr />
           <p>{product.description}</p>
+          {product.sizeColor.map((elem) => {
+            return (
+              <div>
+                <p>{elem.size}</p>
+              </div>
+            );
+          })}
         </Col>
         <Col xs={6} className="mx-auto">
           <img className="w-100 h-100 p-2" src={product.images[0].url} alt="" />
         </Col>
-        {console.log(product)}
       </Row>
     </div>
+  ) : (
+    <p>loading</p>
   );
 };

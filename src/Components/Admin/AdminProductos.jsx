@@ -36,7 +36,18 @@ export const AdminProductos = () => {
         </Row>
         {products
           ? products.map((product) => {
-              return <ProductCard key={uniqid()} />;
+              const { name, _id, price, img, description, sizeColor } = product;
+              return (
+                <ProductCard
+                  key={uniqid()}
+                  id={_id}
+                  name={name}
+                  price={price}
+                  img={img}
+                  description={description}
+                  sizeColor={sizeColor}
+                />
+              );
             })
           : null}
       </Col>

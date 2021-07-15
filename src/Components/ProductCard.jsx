@@ -17,15 +17,17 @@ export const ProductCard = (props) => {
   const [sizes, setSizes] = useState([]);
   useEffect(() => {
     (async () => {
-      await props.sizeColor;
-      let size = [];
-      let color = [];
-      props.sizeColor.map((elem) => {
-        if (size.indexOf(elem.size) === -1) size.push(elem.size);
-        if (color.indexOf(elem.color) === -1) color.push(elem.color);
-      });
-      setColors(color);
-      setSizes(size);
+      const { sizeColor } = props;
+      if (sizeColor) {
+        let size = [];
+        let color = [];
+        sizeColor.map((elem) => {
+          if (size.indexOf(elem.size) === -1) size.push(elem.size);
+          if (color.indexOf(elem.color) === -1) color.push(elem.color);
+        });
+        setColors(color);
+        setSizes(size);
+      }
     })();
   }, []);
 
