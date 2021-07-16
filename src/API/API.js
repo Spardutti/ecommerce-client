@@ -52,7 +52,7 @@ export const localUser = async (email, password) => {
   });
   const data = await response.json();
   if (response.status === 200) localStorage.setItem("token", data.token);
-  return { token: data.token, user: data.user, status: response.status };
+  return { data, status: response.status };
 };
 
 // CREATE LOCAL USER

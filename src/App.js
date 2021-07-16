@@ -9,7 +9,7 @@ import { Compras } from "./Components/Compras";
 import { LoginScreen } from "./Components/LoginScreen";
 import { NewAccount } from "./Components/NewAccount";
 import { AdminProductos } from "./Components/Admin/AdminProductos";
-import { ProductDetail } from "./Components/Admin/ProductDetail";
+import { ProductDetail } from "./Components/ProductDetail";
 
 function App() {
   const [user, setUser] = useState();

@@ -19,7 +19,8 @@ const Home = () => {
     <Row>
       {products
         ? products.map((product) => {
-            const { name, _id, price, description, sizeColor } = product;
+            const { name, _id, price, description, images, size, color } =
+              product;
             return (
               <Col md={3} className="mt-5" key={_id}>
                 <ProductCard
@@ -27,9 +28,10 @@ const Home = () => {
                   id={_id}
                   name={name}
                   price={price}
-                  img={product.images[0].url}
+                  images={images}
                   description={description}
-                  sizeColor={sizeColor}
+                  size={size}
+                  color={color}
                 />
               </Col>
             );

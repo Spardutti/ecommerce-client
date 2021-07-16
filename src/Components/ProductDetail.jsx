@@ -1,10 +1,15 @@
-import { useState, useEffect } from "react";
-import { productDetail } from "../../API/API";
+import { useState, useEffect, useContext } from "react";
+import { productDetail } from "../API/API";
 import { Col, Row } from "reactstrap";
+import { userContext } from "../Context/Contexts";
 
 export const ProductDetail = () => {
   const [productId, setProductId] = useState("");
   const [product, setProduct] = useState({});
+  const [size, setSize] = useState([]);
+  const [color, setColor] = useState([]);
+
+  const { user } = useContext(userContext);
 
   // GET THE ID FROM URL
   useEffect(() => {
@@ -29,16 +34,11 @@ export const ProductDetail = () => {
           <h1>{product.name}</h1>
           <hr />
           <p>{product.description}</p>
-          {product.sizeColor.map((elem) => {
-            return (
-              <div>
-                <p>{elem.size}</p>
-              </div>
-            );
-          })}
+          <Col xs={6}>color</Col>
+          <Col xs={6}>size</Col>
         </Col>
         <Col xs={6} className="mx-auto">
-          <img className="w-100 h-100 p-2" src={product.images[0].url} alt="" />
+          <img className="w-100 h-100 p-2" src={""} alt="" />
         </Col>
       </Row>
     </div>

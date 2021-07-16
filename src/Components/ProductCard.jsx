@@ -11,27 +11,25 @@ import {
   CardSubtitle,
   Button,
 } from "reactstrap";
+import uniqid from "uniqid";
 
 export const ProductCard = (props) => {
   const [colors, setColors] = useState([]);
   const [sizes, setSizes] = useState([]);
+  const { id, name, price, images, description, size, color } = props;
+
   useEffect(() => {
-    (async () => {
-      const { sizeColor } = props;
-      if (sizeColor) {
-        let size = [];
-        let color = [];
-        sizeColor.map((elem) => {
-          if (size.indexOf(elem.size) === -1) size.push(elem.size);
-          if (color.indexOf(elem.color) === -1) color.push(elem.color);
-        });
-        setColors(color);
-        setSizes(size);
-      }
-    })();
+    // FIND ALL THE UNIQUE COLORS AND SIZES
+    let sizeArr = [],
+      colorArr = [];
+    if (size && color) {
+      if (sizeArr.indexOf(size) === -1) sizeArr.push(size);
+      if (colorArr.indexOf(color) === -1) colorArr.push(color);
+      setSizes(sizeArr);
+      setColors(colorArr);
+    }
   }, []);
 
-  const { id, name, price, img, description, sizeColor } = props;
   return (
     <div>
       <Link
@@ -49,7 +47,7 @@ export const ProductCard = (props) => {
             <CardImg
               top
               width="auto"
-              src={img}
+              src={images.length ? images[0].url : null}
               alt="Product image"
               style={{ height: "150px" }}
             />
@@ -60,7 +58,7 @@ export const ProductCard = (props) => {
                 <Row>
                   {sizes.map((elem) => {
                     return (
-                      <Col xs={2} className="mx-auto">
+                      <Col xs={2} className="mx-auto" key={uniqid()}>
                         <p className="border">{elem}</p>
                       </Col>
                     );
@@ -74,7 +72,7 @@ export const ProductCard = (props) => {
                 <Row>
                   {colors.map((elem) => {
                     return (
-                      <Col xs={2} className="mx-auto">
+                      <Col xs={2} className="mx-auto" key={uniqid()}>
                         <p
                           className="mx-auto"
                           style={{

@@ -58,7 +58,7 @@ export const LoginScreen = () => {
             const response = await localUser(email, password);
             if (response.status === 200) {
               setLogged(true);
-              setUser(response.user);
+              setUser(response.data.user);
             }
             if (response.status === 500) setLogginErros(response.data);
           }}
