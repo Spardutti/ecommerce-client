@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from "react";
-import { productDetail } from "../API/API";
+import { productDetail } from "../../API/API";
 import { Col, Row, Button } from "reactstrap";
-import { userContext } from "../Context/Contexts";
+import { userContext } from "../../Context/Contexts";
 
 export const ProductDetail = () => {
   const [productId, setProductId] = useState("");

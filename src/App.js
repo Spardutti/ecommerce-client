@@ -8,7 +8,7 @@ import { Token } from "./Components/Token";
 import { Compras } from "./Components/Compras";
 import { LoginScreen } from "./Components/LoginScreen";
 import { NewAccount } from "./Components/NewAccount";
-import { AdminProductos } from "./Components/Admin/AdminProductos";
+import { AdminHome } from "./Components/Admin/AdminHome";
 import { ProductDetail } from "./Components/ProductDetail";
 
 function App() {
@@ -31,7 +31,7 @@ function App() {
           <Route path="/compras" component={Compras} />
           <Route path="/login" component={LoginScreen} />
           <Route path="/newaccount" component={NewAccount} />
-          <Route path="/admin-productos" component={AdminProductos} />
+          <Route path="/admin-productos" component={AdminHome} />
           <Route path="/product" component={ProductDetail} />
           <Route path="/" component={Home} />
         </Switch>

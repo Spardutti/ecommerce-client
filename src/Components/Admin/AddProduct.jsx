@@ -1,15 +1,20 @@
 import { Form, FormGroup, Label, Input, Button } from "reactstrap";
 import { getCategories, addNewProduct } from "../../API/API";
 import { useState, useEffect } from "react";
+import { Redirect } from "react-router-dom";
 import uniqid from "uniqid";
 
 export const AddProduct = () => {
   const [productName, setProductName] = useState("");
-  const [productPrice, setProductPrice] = useState("");
+  const [productPrice, setProductPrice] = useState(0);
   const [categoryId, setCategoryId] = useState("");
+  const [size, setSize] = useState("");
+  const [color, setColor] = useState("");
+  const [quantity, setQuantity] = useState(0);
   const [categories, setCategories] = useState([]);
   const [showProductForm, setShowProductForm] = useState(false);
   const [productErrors, setProductErrors] = useState("");
+  const [productId, setProductId] = useState("");
 
   // TODO ADD DESCRIPTION
 
@@ -27,8 +32,26 @@ export const AddProduct = () => {
     setProductPrice(e.target.value);
   };
 
+  const sizeHandler = (e) => {
+    setSize(e.target.value);
+  };
+
+  const colorHandler = (e) => {
+    setColor(e.target.value);
+  };
+
+  const stockHandler = (e) => {
+    setQuantity(e.target.value);
+  };
+
   const productForm = () => {
     setShowProductForm(!showProductForm);
+    setCategoryId("");
+    setProductName("");
+    setProductPrice(0);
+    setColor("");
+    setQuantity(0);
+    setSize("");
   };
 
   useEffect(() => {
@@ -54,27 +77,6 @@ export const AddProduct = () => {
         </div>
         <Form>
           <FormGroup>
-            <Label>Product name</Label>
-            <Input
-              name="productName"
-              autoComplete="off"
-              value={productName}
-              placeholder="enter product name"
-              onChange={nameHandler}
-            />
-          </FormGroup>
-          <FormGroup>
-            <Label>Product price</Label>
-            <Input
-              type="number"
-              name="productPrice"
-              autoComplete="off"
-              value={productPrice}
-              onChange={priceHandler}
-              placeholder="Enter product price"
-            />
-          </FormGroup>
-          <FormGroup>
             <Label>Category</Label>
             <Input
               type="select"
@@ -94,6 +96,60 @@ export const AddProduct = () => {
               })}
             </Input>
           </FormGroup>
+          <FormGroup>
+            <Label>Product name</Label>
+            <Input
+              name="productName"
+              autoComplete="off"
+              value={productName}
+              placeholder="enter product name"
+              onChange={nameHandler}
+            />
+          </FormGroup>
+          <FormGroup>
+            <Label>Product price</Label>
+            <Input
+              type="number"
+              name="productPrice"
+              autoComplete="off"
+              value={productPrice}
+              onChange={priceHandler}
+              placeholder="Enter product price"
+              onFocus={() => setProductPrice("")}
+            />
+          </FormGroup>
+          <FormGroup>
+            <Label>Product size</Label>
+            <Input
+              name="size"
+              autoComplete="off"
+              value={size}
+              placeholder="enter product size"
+              onChange={sizeHandler}
+            />
+          </FormGroup>
+          <FormGroup>
+            <Label>Product color</Label>
+            <Input
+              name="color"
+              autoComplete="off"
+              value={color}
+              placeholder="enter product color"
+              onChange={colorHandler}
+            />
+          </FormGroup>
+          <FormGroup>
+            <Label>Product stock</Label>
+            <Input
+              type="number"
+              name="quantity"
+              autoComplete="off"
+              value={quantity}
+              placeholder="enter product quantity/stock"
+              onChange={stockHandler}
+              onFocus={() => setQuantity("")}
+            />
+          </FormGroup>
           <FormGroup className="text-center mt-3">
             {productErrors
               ? productErrors.map((err) => {
@@ -109,15 +165,21 @@ export const AddProduct = () => {
                 const result = await addNewProduct(
                   productName,
                   categoryId,
-                  productPrice
+                  productPrice,
+                  color,
+                  size,
+                  quantity
                 );
                 if (result.status === 500) setProductErrors(result.data);
                 // TODO redirect to product page on sucess
                 else {
-                  console.log(result);
-                  setProductPrice("");
+                  setProductPrice(0);
                   setProductName("");
                   setCategoryId("");
+                  setColor("");
+                  setSize("");
+                  setQuantity(0);
+                  setProductId(result.data._id);
                 }
               }}
             >
@@ -125,6 +187,7 @@ export const AddProduct = () => {
             </Button>
           </FormGroup>
         </Form>
+        {productId ? <Redirect to={"/product?" + productId} /> : null}
       </div>
     )
   ) : (

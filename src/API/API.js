@@ -84,18 +84,24 @@ export const getProducts = async () => {
 
 // ADD NEW PRODUCT
 export const addNewProduct = async (
-  productName,
-  productCategory,
-  productPrice
+  name,
+  category,
+  price,
+  color,
+  size,
+  quantity
 ) => {
   try {
     const response = await fetch(url + "/product/new", {
       method: "POST",
       headers: params,
       body: JSON.stringify({
-        productName,
-        productCategory,
-        productPrice,
+        name,
+        category,
+        price,
+        color,
+        size,
+        quantity,
       }),
     });
     const data = await response.json();

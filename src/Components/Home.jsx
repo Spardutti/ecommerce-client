@@ -16,7 +16,7 @@ const Home = () => {
   }, []);
 
   return (
-    <Row>
+    <Row className="container mx-auto">
       {products
         ? products.map((product) => {
             const { name, _id, price, description, images, size, color } =

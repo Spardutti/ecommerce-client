@@ -8,7 +8,7 @@ import { Redirect } from "react-router-dom";
 import { AddProduct } from "./AddProduct";
 import { AddCategory } from "./AddCategory";
 
-export const AdminProductos = () => {
+export const AdminHome = () => {
   const [products, setProducts] = useState([]);
 
   const { user } = useContext(userContext);
@@ -25,7 +25,7 @@ export const AdminProductos = () => {
     !user.admin ? (
       <Redirect to="/" />
     ) : (
-      <Col className="mt-5 mx-2">
+      <Col className="mt-5 mx-auto container">
         <Row>
           <Col md={6}>
             <AddProduct />

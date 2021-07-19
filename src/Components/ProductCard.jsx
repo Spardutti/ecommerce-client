@@ -51,42 +51,6 @@ export const ProductCard = (props) => {
               alt="Product image"
               style={{ height: "150px" }}
             />
-            <CardText>{description}</CardText>
-            {sizes ? (
-              <div className="border bg-light">
-                <CardText> Size</CardText>
-                <Row>
-                  {sizes.map((elem) => {
-                    return (
-                      <Col xs={2} className="mx-auto" key={uniqid()}>
-                        <p className="border">{elem}</p>
-                      </Col>
-                    );
-                  })}
-                </Row>
-              </div>
-            ) : null}
-            {colors ? (
-              <div className="bg-light mt-1 border">
-                <CardText>Colors</CardText>
-                <Row>
-                  {colors.map((elem) => {
-                    return (
-                      <Col xs={2} className="mx-auto" key={uniqid()}>
-                        <p
-                          className="mx-auto"
-                          style={{
-                            backgroundColor: elem,
-                            width: "20px",
-                            height: "20px",
-                          }}
-                        ></p>
-                      </Col>
-                    );
-                  })}
-                </Row>
-              </div>
-            ) : null}
           </CardBody>
         </Card>
       </Link>

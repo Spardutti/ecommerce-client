@@ -23,7 +23,7 @@ export const ClientNav = () => {
   const { user, setUser } = useContext(userContext);
 
   return (
-    <div className="px-2">
+    <div className="px-2 container">
       <Navbar color="light" light expand="md">
         {user ? (
           <NavbarBrand href="/">{user.username}</NavbarBrand>
