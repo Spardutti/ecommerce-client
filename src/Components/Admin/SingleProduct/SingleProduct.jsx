@@ -1,19 +1,15 @@
 import { useState, useEffect, useContext } from "react";
-import { productDetail } from "../../API/API";
-import { Col, Row, Button } from "reactstrap";
-import { userContext } from "../../Context/Contexts";
+import { productDetail } from "../../../API/API";
+import { Col, Row } from "reactstrap";
+import { userContext } from "../../../Context/Contexts";
+import { AdminCard } from "./AdminProductCard";
+import uniqid from "uniqid";
 
-export const ProductDetail = () => {
+export const SingleProduct = () => {
   const [productId, setProductId] = useState("");
   const [product, setProduct] = useState({});
-  const [editForm, setEditForm] = useState(false);
 
   const { user } = useContext(userContext);
-
-  // TOGGLE EDIT FORM
-  const toggleForm = () => {
-    setEditForm(!editForm);
-  };
 
   // GET THE ID FROM URL
   useEffect(() => {
@@ -31,7 +27,7 @@ export const ProductDetail = () => {
     }
   }, [productId]);
 
-  return product ? (
+  return product.details ? (
     <div className="container mt-5">
       <Row>
         <Col xs={6} className=" bg-light">
@@ -39,37 +35,19 @@ export const ProductDetail = () => {
           <p>{product.description}</p>
           <hr />
           <Row>
-            {editForm
-              ? product.details
-                ? product.details.map((elem) => {
-                    return (
-                      <Col xs={6} className="text-center">
-                        <p>Size: {elem.size}</p>
-                        <p>color: {elem.color}</p>
-                        <input value={elem.price} />
-                        <input value={elem.quantity} />
-                        <Button className="bg-primary mb-2">
-                          edit product
-                        </Button>
-                      </Col>
-                    );
-                  })
-                : null
-              : product.details
-              ? product.details.map((elem) => {
-                  return (
-                    <Col xs={6} className="text-center">
-                      <p>Size: {elem.size}</p>
-                      <p>color: {elem.color}</p>
-                      <p>price: {elem.price}</p>
-                      <p>stock: {elem.quantity}</p>
-                      <Button onClick={toggleForm} className="bg-primary mb-2">
-                        edit product
-                      </Button>
-                    </Col>
-                  );
-                })
-              : null}
+            {product.details.map((elem) => {
+              const { price, color, size, quantity } = elem;
+              return (
+                <Col xs={6} className="text-center" key={uniqid()}>
+                  <AdminCard
+                    price={price}
+                    color={color}
+                    size={size}
+                    quantity={quantity}
+                  />
+                </Col>
+              );
+            })}
           </Row>
         </Col>
         <Col xs={6} className="mx-auto">

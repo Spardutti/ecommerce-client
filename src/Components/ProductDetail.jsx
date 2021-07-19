@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from "react";
 import { productDetail } from "../API/API";
 import { Col, Row, Button } from "reactstrap";
 import { userContext } from "../Context/Contexts";
+import { SingleProduct } from "./Admin/SingleProduct/SingleProduct";
 
 export const ProductDetail = () => {
   const [productId, setProductId] = useState("");
@@ -31,53 +32,37 @@ export const ProductDetail = () => {
     }
   }, [productId]);
 
-  return product ? (
-    <div className="container mt-5">
-      <Row>
-        <Col xs={6} className=" bg-light">
-          <h1 className="text-center">{product.name}</h1>
-          <p>{product.description}</p>
-          <hr />
-          <Row>
-            {editForm
-              ? product.details
-                ? product.details.map((elem) => {
-                    return (
-                      <Col xs={6} className="text-center">
-                        <p>Size: {elem.size}</p>
-                        <p>color: {elem.color}</p>
-                        <input value={elem.price} />
-                        <input value={elem.quantity} />
-                        <Button className="bg-primary mb-2">
-                          edit product
-                        </Button>
-                      </Col>
-                    );
-                  })
-                : null
-              : product.details
-              ? product.details.map((elem) => {
-                  return (
-                    <Col xs={6} className="text-center">
-                      <p>Size: {elem.size}</p>
-                      <p>color: {elem.color}</p>
-                      <p>price: {elem.price}</p>
-                      <p>stock: {elem.quantity}</p>
-                      <Button onClick={toggleForm} className="bg-primary mb-2">
-                        edit product
-                      </Button>
-                    </Col>
-                  );
-                })
-              : null}
-          </Row>
-        </Col>
-        <Col xs={6} className="mx-auto">
-          <img className="w-100 h-100 p-2" src={""} alt="" />
-        </Col>
-      </Row>
-    </div>
-  ) : (
-    <p>loading</p>
-  );
+  return user ? (
+    user.admin ? (
+      <SingleProduct />
+    ) : product ? (
+      <div className="container mt-5">
+        <Row>
+          <Col xs={6} className=" bg-light">
+            <h1 className="text-center">{product.name}</h1>
+            <p>{product.description}</p>
+            <hr />
+            <Row>
+              {product.details.map((elem) => {
+                return (
+                  <Col xs={6} className="text-center">
+                    <p>Size: {elem.size}</p>
+                    <p>color: {elem.color}</p>
+                    <p>price: {elem.price}</p>
+                    <p>stock: {elem.quantity}</p>
+                    <Button className="bg-primary mb-2">Buy</Button>
+                  </Col>
+                );
+              })}
+            </Row>
+          </Col>
+          <Col xs={6} className="mx-auto">
+            <img className="w-100 h-100 p-2" src={""} alt="" />
+          </Col>
+        </Row>
+      </div>
+    ) : (
+      <p>loading</p>
+    )
+  ) : null;
 };
