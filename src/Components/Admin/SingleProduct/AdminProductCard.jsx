@@ -37,8 +37,8 @@ export const AdminCard = (props) => {
           updateProduct(
             props.id,
             props.size,
-            props.quantity,
-            props.price,
+            quantity,
+            price,
             props.color,
             props.description
           );

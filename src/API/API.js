@@ -133,7 +133,6 @@ export const updateProduct = async (
   color,
   description
 ) => {
-  console.log("clickd");
   try {
     const response = await fetch(url + "/product/update/" + id, {
       method: "PUT",
@@ -141,7 +140,6 @@ export const updateProduct = async (
       body: JSON.stringify({ size, quantity, color, price, description }),
     });
     const data = await response.json();
-    console.log(data);
   } catch (err) {
     return err;
   }
