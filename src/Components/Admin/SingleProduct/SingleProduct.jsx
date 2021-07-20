@@ -5,17 +5,24 @@ import { userContext } from "../../../Context/Contexts";
 import { AdminCard } from "./AdminProductCard";
 import uniqid from "uniqid";
 import { AddProductImage } from "./AddProductImage";
+import { NewInfoForm } from "./NewInfoForm";
 
 export const SingleProduct = () => {
   const [productId, setProductId] = useState("");
   const [product, setProduct] = useState({});
   const [showImageForm, setShowImageForm] = useState(false);
+  const [newInfoForm, setNewInfoForm] = useState(false);
 
   const { user } = useContext(userContext);
 
   // TOGGLE ADD IMAGE FORM
   const toggleForm = () => {
     setShowImageForm(!showImageForm);
+  };
+
+  // TOGGLE ADD NEW INFO FORM
+  const toggleInfoForm = () => {
+    setNewInfoForm(!newInfoForm);
   };
 
   // GET THE ID FROM URL
@@ -41,6 +48,18 @@ export const SingleProduct = () => {
           <h1 className="text-center">{product.name}</h1>
           <p>{product.description}</p>
           <hr />
+          <div className="text-center">
+            <Button className="bg-primary" onClick={toggleInfoForm}>
+              Add new info
+            </Button>
+          </div>
+          {newInfoForm ? (
+            <NewInfoForm
+              newInfoForm={newInfoForm}
+              setNewInfoForm={setNewInfoForm}
+              id={productId}
+            />
+          ) : null}
           <Row>
             {product.details.map((elem) => {
               const { price, color, size, quantity } = elem;

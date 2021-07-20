@@ -140,6 +140,7 @@ export const updateProduct = async (
       body: JSON.stringify({ size, quantity, color, price, description }),
     });
     const data = await response.json();
+    return { status: response.status, data };
   } catch (err) {
     return err;
   }

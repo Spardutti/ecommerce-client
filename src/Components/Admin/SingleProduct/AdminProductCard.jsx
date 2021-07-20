@@ -23,7 +23,7 @@ export const AdminCard = (props) => {
         <Label>Color: {props.color}</Label>
       </FormGroup>
       <FormGroup>
-        <Label>Stock</Label>
+        <Label>Quantity to add to stock</Label>
         <Input value={quantity} onChange={quantityHandler} type="number" />
       </FormGroup>
       <FormGroup>
@@ -33,8 +33,7 @@ export const AdminCard = (props) => {
       <Button
         className="bg-primary my-1"
         onClick={() => {
-          // TODO FIX THIS
-          updateProduct(
+          const edit = updateProduct(
             props.id,
             props.size,
             quantity,
@@ -42,7 +41,11 @@ export const AdminCard = (props) => {
             props.color,
             props.description
           );
-          setEditProduct(!editProduct);
+          // TODO UPDATE THE DOM
+          if (edit) {
+            setPrice(price);
+            setEditProduct(!editProduct);
+          }
         }}
       >
         Add
@@ -52,8 +55,8 @@ export const AdminCard = (props) => {
     <div className="border border-dark m-1">
       <p>Size: {props.size}</p>
       <p>Color: {props.color}</p>
-      <p>Stock: {props.quantity}</p>
-      <p>Price: {props.price}</p>
+      <p>Stock: {quantity}</p>
+      <p>Price: {price}</p>
       <Button
         className="bg-primary mb-1"
         onClick={() => setEditProduct(!editProduct)}
