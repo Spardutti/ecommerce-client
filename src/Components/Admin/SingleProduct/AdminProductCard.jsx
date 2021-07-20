@@ -1,18 +1,53 @@
 import { useState } from "react";
-import { Button } from "reactstrap";
+import { Button, Form, FormGroup, Label, Input } from "reactstrap";
+import { updateProduct } from "../../../API/API";
 
 export const AdminCard = (props) => {
   const [editProduct, setEditProduct] = useState(false);
+  const [price, setPrice] = useState(props.price);
+  const [quantity, setQuantity] = useState(props.quantity);
+
+  const priceHandler = (e) => {
+    setPrice(e.target.value);
+  };
+
+  const quantityHandler = (e) => {
+    setQuantity(e.target.value);
+  };
   return editProduct ? (
-    <div>
-      <p>edit</p>
+    <Form>
+      <FormGroup>
+        <Label>Size: {props.size}</Label>
+      </FormGroup>
+      <FormGroup>
+        <Label>Color: {props.color}</Label>
+      </FormGroup>
+      <FormGroup>
+        <Label>Stock</Label>
+        <Input value={quantity} onChange={quantityHandler} type="number" />
+      </FormGroup>
+      <FormGroup>
+        <Label>Price</Label>
+        <Input value={price} onChange={priceHandler} type="number" />{" "}
+      </FormGroup>
       <Button
-        className="bg-primary mb-1"
-        onClick={() => setEditProduct(!editProduct)}
+        className="bg-primary my-1"
+        onClick={() => {
+          // TODO FIX THIS
+          updateProduct(
+            props.id,
+            props.size,
+            props.quantity,
+            props.price,
+            props.color,
+            props.description
+          );
+          setEditProduct(!editProduct);
+        }}
       >
-        Edit
+        Add
       </Button>
-    </div>
+    </Form>
   ) : (
     <div className="border border-dark m-1">
       <p>Size: {props.size}</p>

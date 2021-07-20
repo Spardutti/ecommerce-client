@@ -124,6 +124,29 @@ export const productDetail = async (productId) => {
   }
 };
 
+// EDIT PRODUCT PRICE STOCK
+export const updateProduct = async (
+  id,
+  size,
+  quantity,
+  price,
+  color,
+  description
+) => {
+  console.log("clickd");
+  try {
+    const response = await fetch(url + "/product/update/" + id, {
+      method: "PUT",
+      headers: params,
+      body: JSON.stringify({ size, quantity, color, price, description }),
+    });
+    const data = await response.json();
+    console.log(data);
+  } catch (err) {
+    return err;
+  }
+};
+
 // GET ALL CATEGORIES
 export const getCategories = async () => {
   try {

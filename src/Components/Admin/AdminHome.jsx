@@ -2,7 +2,7 @@ import { getCategories, getProducts } from "../../API/API";
 import { useState, useEffect, useContext } from "react";
 import { ProductCard } from "../ProductCard";
 import uniqid from "uniqid";
-import { Form, FormGroup, Label, Input, Button, Col, Row } from "reactstrap";
+import { Col, Row } from "reactstrap";
 import { userContext } from "../../Context/Contexts";
 import { Redirect } from "react-router-dom";
 import { AddProduct } from "./AddProduct";
@@ -34,26 +34,28 @@ export const AdminHome = () => {
             <AddCategory />
           </Col>
         </Row>
-        {products
-          ? products.map((product) => {
-              const { name, _id, price, images, description, color, size } =
-                product;
-              return (
-                <Col md={3} className="mt-2">
-                  <ProductCard
-                    key={uniqid()}
-                    id={_id}
-                    name={name}
-                    price={price}
-                    images={images}
-                    description={description}
-                    color={color}
-                    size={size}
-                  />
-                </Col>
-              );
-            })
-          : null}
+        <Row>
+          {products
+            ? products.map((product) => {
+                const { name, _id, price, images, description, color, size } =
+                  product;
+                return (
+                  <Col md={3} className="mt-2" key={uniqid()}>
+                    <ProductCard
+                      key={uniqid()}
+                      id={_id}
+                      name={name}
+                      price={price}
+                      images={images}
+                      description={description}
+                      color={color}
+                      size={size}
+                    />
+                  </Col>
+                );
+              })
+            : null}
+        </Row>
       </Col>
     )
   ) : (

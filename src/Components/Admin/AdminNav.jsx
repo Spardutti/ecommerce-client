@@ -21,7 +21,7 @@ export const AdminNav = () => {
   return (
     <div className="px-2 container">
       <Navbar color="light" light expand="md">
-        <NavbarBrand href="/">{user.username}</NavbarBrand>
+        <NavbarBrand href="/#/admin-productos">{user.username}</NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>
