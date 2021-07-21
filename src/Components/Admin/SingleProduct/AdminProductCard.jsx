@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
-import { updateProduct } from "../../../API/API";
+import { updateProduct, deleteProductInfo } from "../../../API/API";
 
 export const AdminCard = (props) => {
   const [editProduct, setEditProduct] = useState(false);
@@ -57,12 +57,26 @@ export const AdminCard = (props) => {
       <p>Color: {props.color}</p>
       <p>Stock: {quantity}</p>
       <p>Price: {price}</p>
-      <Button
-        className="bg-primary mb-1"
-        onClick={() => setEditProduct(!editProduct)}
-      >
-        Edit
-      </Button>
+      <div className="d-flex justify-content-around">
+        <Button
+          className="bg-primary mb-1"
+          onClick={() => setEditProduct(!editProduct)}
+        >
+          Edit
+        </Button>
+        <Button
+          className="bg-danger mb-1"
+          onClick={async () => {
+            const deleted = await deleteProductInfo(props.id, props.index);
+            if (deleted) {
+              let product = deleted;
+              props.setProduct(product);
+            }
+          }}
+        >
+          Delete
+        </Button>
+      </div>
     </div>
   );
 };

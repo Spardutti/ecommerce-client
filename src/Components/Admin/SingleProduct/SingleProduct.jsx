@@ -49,8 +49,8 @@ export const SingleProduct = () => {
           <p>{product.description}</p>
           <hr />
           <div className="text-center">
-            <Button className="bg-primary" onClick={toggleInfoForm}>
-              Add new info
+            <Button className="bg-primary mb-1" onClick={toggleInfoForm}>
+              {newInfoForm ? "Hide" : "Add new info"}
             </Button>
           </div>
           {newInfoForm ? (
@@ -58,10 +58,12 @@ export const SingleProduct = () => {
               newInfoForm={newInfoForm}
               setNewInfoForm={setNewInfoForm}
               id={productId}
+              setProduct={setProduct}
+              product={product}
             />
           ) : null}
           <Row>
-            {product.details.map((elem) => {
+            {product.details.map((elem, index) => {
               const { price, color, size, quantity } = elem;
               return (
                 <Col xs={6} className="text-center" key={uniqid()}>
@@ -71,6 +73,9 @@ export const SingleProduct = () => {
                     size={size}
                     quantity={quantity}
                     id={productId}
+                    index={index}
+                    setProduct={setProduct}
+                    product={product}
                   />
                 </Col>
               );

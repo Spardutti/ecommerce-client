@@ -1,4 +1,5 @@
 import jwt from "jsonwebtoken";
+import { NavbarText } from "reactstrap";
 
 const url = "http://localhost:5000";
 let token;
@@ -141,6 +142,23 @@ export const updateProduct = async (
     });
     const data = await response.json();
     return { status: response.status, data };
+  } catch (err) {
+    return err;
+  }
+};
+
+// DELETE PRODUCT INFO
+export const deleteProductInfo = async (id, index) => {
+  try {
+    const response = await fetch(url + "/product/details/" + id, {
+      method: "DELETE",
+      headers: params,
+      body: JSON.stringify({
+        index,
+      }),
+    });
+    const data = await response.json();
+    return data;
   } catch (err) {
     return err;
   }

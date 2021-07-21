@@ -41,13 +41,7 @@ export const AddCategory = () => {
           />
         </FormGroup>
         <FormGroup className="text-center mt-3">
-          <Button
-            onClick={() => {
-              console.log(productCategory);
-            }}
-          >
-            Add category
-          </Button>
+          <Button onClick={() => {}}>Add category</Button>
         </FormGroup>
       </Form>
     </div>
