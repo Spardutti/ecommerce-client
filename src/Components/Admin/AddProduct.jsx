@@ -15,6 +15,7 @@ export const AddProduct = () => {
   const [showProductForm, setShowProductForm] = useState(false);
   const [productErrors, setProductErrors] = useState("");
   const [productId, setProductId] = useState("");
+  const [image, setImage] = useState("");
 
   // TODO ADD DESCRIPTION
 
@@ -44,8 +45,17 @@ export const AddProduct = () => {
     setQuantity(e.target.value);
   };
 
+  const imageHandler = (e) => {
+    console.log(e.target.files[0]);
+    setImage(e.target.files[0]);
+  };
+
   const productForm = () => {
     setShowProductForm(!showProductForm);
+    resetState();
+  };
+
+  const resetState = () => {
     setCategoryId("");
     setProductName("");
     setProductPrice(0);
@@ -75,7 +85,7 @@ export const AddProduct = () => {
             Hide
           </Button>
         </div>
-        <Form>
+        <Form encType="multipart/form-data">
           <FormGroup>
             <Label>Category</Label>
             <Input
@@ -150,6 +160,12 @@ export const AddProduct = () => {
               onFocus={() => setQuantity("")}
             />
           </FormGroup>
+          <FormGroup>
+            <Label>Product picture</Label>
+            <div>
+              <Input type="file" name="image" onChange={imageHandler} />
+            </div>
+          </FormGroup>
           <FormGroup className="text-center mt-3">
             {productErrors
               ? productErrors.map((err) => {
@@ -170,15 +186,11 @@ export const AddProduct = () => {
                   size,
                   quantity
                 );
+                console.log(result);
                 if (result.status === 500) setProductErrors(result.data);
                 // TODO redirect to product page on sucess
                 else {
-                  setProductPrice(0);
-                  setProductName("");
-                  setCategoryId("");
-                  setColor("");
-                  setSize("");
-                  setQuantity(0);
+                  resetState();
                   setProductId(result.data._id);
                 }
               }}

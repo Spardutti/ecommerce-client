@@ -1,17 +1,19 @@
 import { useState, useEffect, useContext } from "react";
-import { productDetail } from "../../../API/API";
+import { productDetail, deleteProduct } from "../../../API/API";
 import { Col, Row, Button } from "reactstrap";
 import { userContext } from "../../../Context/Contexts";
-import { AdminCard } from "./AdminProductCard";
+import { AdminProductCard } from "./AdminProductCard";
 import uniqid from "uniqid";
 import { AddProductImage } from "./AddProductImage";
 import { NewInfoForm } from "./NewInfoForm";
+import { Redirect } from "react-router";
 
 export const SingleProduct = () => {
   const [productId, setProductId] = useState("");
   const [product, setProduct] = useState({});
   const [showImageForm, setShowImageForm] = useState(false);
   const [newInfoForm, setNewInfoForm] = useState(false);
+  const [productDeleted, setProductDeleted] = useState(false);
 
   const { user } = useContext(userContext);
 
@@ -48,9 +50,18 @@ export const SingleProduct = () => {
           <h1 className="text-center">{product.name}</h1>
           <p>{product.description}</p>
           <hr />
-          <div className="text-center">
+          <div className="d-flex justify-content-around">
             <Button className="bg-primary mb-1" onClick={toggleInfoForm}>
               {newInfoForm ? "Hide" : "Add new info"}
+            </Button>
+            <Button
+              className="bg-danger mb-1"
+              onClick={async () => {
+                await deleteProduct(productId);
+                setProductDeleted(true);
+              }}
+            >
+              Delete product
             </Button>
           </div>
           {newInfoForm ? (
@@ -67,7 +78,7 @@ export const SingleProduct = () => {
               const { price, color, size, quantity } = elem;
               return (
                 <Col xs={6} className="text-center" key={uniqid()}>
-                  <AdminCard
+                  <AdminProductCard
                     price={price}
                     color={color}
                     size={size}
@@ -90,6 +101,7 @@ export const SingleProduct = () => {
           {showImageForm ? <AddProductImage images={product.images} /> : null}
         </Col>
       </Row>
+      {productDeleted ? <Redirect to="/#/admin-productos" /> : null}
     </div>
   ) : (
     // TODO EDIT IMAGE SIZE TO AVOID HEIGHT PROBLEMS

@@ -125,6 +125,16 @@ export const productDetail = async (productId) => {
   }
 };
 
+// DELETE PRODUCT WITH ALL INFO AND IMAGES
+export const deleteProduct = async (id) => {
+  const response = await fetch(url + "/product/" + id, {
+    method: "DELETE",
+    headers: params,
+  });
+  const data = await response.json();
+  console.log(data);
+};
+
 // EDIT PRODUCT PRICE STOCK
 export const updateProduct = async (
   id,
