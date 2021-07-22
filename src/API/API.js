@@ -90,20 +90,21 @@ export const addNewProduct = async (
   price,
   color,
   size,
-  quantity
+  quantity,
+  image
 ) => {
+  const formData = new FormData();
+  formData.append("name", name);
+  formData.append("price", price);
+  formData.append("category", category);
+  formData.append("color", color);
+  formData.append("size", size);
+  formData.append("quantity", quantity);
+  formData.append("image", image);
   try {
     const response = await fetch(url + "/product/new", {
       method: "POST",
-      headers: params,
-      body: JSON.stringify({
-        name,
-        category,
-        price,
-        color,
-        size,
-        quantity,
-      }),
+      body: formData,
     });
     const data = await response.json();
     return { status: response.status, data };

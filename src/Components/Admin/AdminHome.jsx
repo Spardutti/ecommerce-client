@@ -37,8 +37,9 @@ export const AdminHome = () => {
         <Row>
           {products
             ? products.map((product) => {
-                const { name, _id, price, images, description, color, size } =
-                  product;
+                const { name, _id, images, description, color, size } = product;
+                // TODO CHECK THE CORRECT PRICE
+                const price = product.details[0].price;
                 return (
                   <Col md={3} className="mt-2" key={uniqid()}>
                     <ProductCard

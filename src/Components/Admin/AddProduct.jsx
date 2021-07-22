@@ -46,7 +46,6 @@ export const AddProduct = () => {
   };
 
   const imageHandler = (e) => {
-    console.log(e.target.files[0]);
     setImage(e.target.files[0]);
   };
 
@@ -184,11 +183,10 @@ export const AddProduct = () => {
                   productPrice,
                   color,
                   size,
-                  quantity
+                  quantity,
+                  image
                 );
-                console.log(result);
                 if (result.status === 500) setProductErrors(result.data);
-                // TODO redirect to product page on sucess
                 else {
                   resetState();
                   setProductId(result.data._id);
