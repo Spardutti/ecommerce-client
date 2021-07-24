@@ -20,10 +20,6 @@ export const LoginScreen = () => {
     setPassword(e.target.value);
   };
 
-  useEffect(() => {
-    setLogged(false);
-  }, []);
-
   return (
     <Form className="container  mt-4 bg-dark text-light p-4 rounded">
       <FormGroup>
@@ -75,7 +71,11 @@ export const LoginScreen = () => {
               className="google-icon"
             />
           </div>
-          <a href="/google/login" className="btn-text">
+          {/* CHANGE URL ON */}
+          <a
+            href="http://localhost:5000/user/google/login"
+            className="btn-text"
+          >
             <b>Log in with google</b>
           </a>
         </div>

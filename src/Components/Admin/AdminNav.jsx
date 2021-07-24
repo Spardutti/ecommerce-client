@@ -11,6 +11,9 @@ import {
   NavLink,
 } from "reactstrap";
 
+/* DISPLAY THE ADMIN NAV BAR, WITH LINKS TO SELLS, CATEGORIES AND 
+PRODUCTS LINKS */
+
 export const AdminNav = () => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -37,6 +40,7 @@ export const AdminNav = () => {
             {user ? (
               <NavItem>
                 <NavLink
+                  href="#"
                   onClick={() => {
                     logout();
                     setUser(null);

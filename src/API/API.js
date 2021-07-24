@@ -158,6 +158,37 @@ export const updateProduct = async (
   }
 };
 
+// ADD IMAGES TO PRODUCT
+export const addImagesToProduct = async (id, image) => {
+  const formData = new FormData();
+  formData.append("image", image);
+  try {
+    const response = await fetch(url + "/product/image/" + id, {
+      method: "PUT",
+      body: formData,
+    });
+    const data = await response.json();
+    return data;
+  } catch (err) {
+    return err;
+  }
+};
+
+// DELETE PRODUCT IMAGE
+export const deleteProductImage = async (index, id) => {
+  try {
+    const response = await fetch(url + "/product/delete/image/" + id, {
+      method: "DELETE",
+      headers: params,
+      body: JSON.stringify({ imageToDeleteIndex: index }),
+    });
+    const data = await response.json();
+    return data;
+  } catch (err) {
+    return err;
+  }
+};
+
 // DELETE PRODUCT INFO
 export const deleteProductInfo = async (id, index) => {
   try {

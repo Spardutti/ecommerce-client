@@ -4,6 +4,9 @@ import { useState, useEffect } from "react";
 import { Redirect } from "react-router-dom";
 import uniqid from "uniqid";
 
+/* ADDS A NEW PRODUCT WITH ALL THE DETAILS AND 1 IMAGE, 
+MORE IMAGES CAN BE ADDED LATER. REDIRECTS TO SINGLEPRODUCT */
+
 export const AddProduct = () => {
   const [productName, setProductName] = useState("");
   const [productPrice, setProductPrice] = useState(0);
@@ -16,8 +19,6 @@ export const AddProduct = () => {
   const [productErrors, setProductErrors] = useState("");
   const [productId, setProductId] = useState("");
   const [image, setImage] = useState("");
-
-  // TODO ADD DESCRIPTION
 
   const nameHandler = (e) => {
     setProductName(e.target.value);
@@ -63,6 +64,7 @@ export const AddProduct = () => {
     setSize("");
   };
 
+  // GET ALL CATEGORIES
   useEffect(() => {
     (async () => {
       setCategories(await getCategories());
@@ -176,6 +178,7 @@ export const AddProduct = () => {
                 })
               : null}
             <Button
+              className="bg-primary"
               onClick={async () => {
                 const result = await addNewProduct(
                   productName,
@@ -193,7 +196,7 @@ export const AddProduct = () => {
                 }
               }}
             >
-              Add prdouct
+              Add product
             </Button>
           </FormGroup>
         </Form>

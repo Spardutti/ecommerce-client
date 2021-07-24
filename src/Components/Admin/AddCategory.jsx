@@ -2,6 +2,8 @@ import { Form, FormGroup, Label, Input, Button } from "reactstrap";
 import { getCategories } from "../../API/API";
 import { useState, useEffect } from "react";
 
+/* ADDS A NEW PRODUCT CATEGORY */
+
 export const AddCategory = () => {
   const [productCategory, setCategoryName] = useState("");
   const [categories, setCategories] = useState([]);

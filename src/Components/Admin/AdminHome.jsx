@@ -8,6 +8,8 @@ import { Redirect } from "react-router-dom";
 import { AddProduct } from "./AddProduct";
 import { AddCategory } from "./AddCategory";
 
+/* DISPLAY THE ADMIN PRODUDCT PAGE WITH ALL THE PRODUCTS */
+
 export const AdminHome = () => {
   const [products, setProducts] = useState([]);
 
@@ -38,7 +40,6 @@ export const AdminHome = () => {
           {products
             ? products.map((product) => {
                 const { name, _id, images, description, color, size } = product;
-                // TODO CHECK THE CORRECT PRICE
                 const price = product.details[0].price;
                 return (
                   <Col md={3} className="mt-2" key={uniqid()}>

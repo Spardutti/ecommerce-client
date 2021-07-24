@@ -58,6 +58,7 @@ export const ClientNav = () => {
             {user ? (
               <NavItem>
                 <NavLink
+                  href="#"
                   onClick={() => {
                     logout();
                     setUser(null);

@@ -1,12 +1,18 @@
 import { useState, useEffect, useContext } from "react";
-import { productDetail, deleteProduct } from "../../../API/API";
+import {
+  productDetail,
+  deleteProduct,
+  deleteProductImage,
+} from "../../../API/API";
 import { Col, Row, Button } from "reactstrap";
-import { userContext } from "../../../Context/Contexts";
-import { AdminProductCard } from "./AdminProductCard";
+import { ProductInfoUpdate } from "./ProductInfoUpdate";
 import uniqid from "uniqid";
 import { AddProductImage } from "./AddProductImage";
 import { NewInfoForm } from "./NewInfoForm";
 import { Redirect } from "react-router";
+
+/*  DISPLAY A SINGLE PRODUCT, WITH ALL THE INFO. ALLOWS TO
+DELETE THE PRODUCT, ADD NEW INFO OR ADD NEW IMAGES */
 
 export const SingleProduct = () => {
   const [productId, setProductId] = useState("");
@@ -14,8 +20,6 @@ export const SingleProduct = () => {
   const [showImageForm, setShowImageForm] = useState(false);
   const [newInfoForm, setNewInfoForm] = useState(false);
   const [productDeleted, setProductDeleted] = useState(false);
-
-  const { user } = useContext(userContext);
 
   // TOGGLE ADD IMAGE FORM
   const toggleForm = () => {
@@ -44,11 +48,11 @@ export const SingleProduct = () => {
   }, [productId]);
 
   return product.details ? (
-    <div className="container mt-5">
+    <div className="container mt-5 bg-light">
       <Row>
-        <Col xs={6} className=" bg-light">
+        <Col xs={6} className=" bg-light ">
           <h1 className="text-center">{product.name}</h1>
-          <p>{product.description}</p>
+          <p className="text-center">{product.description}</p>
           <hr />
           <div className="d-flex justify-content-around">
             <Button className="bg-primary mb-1" onClick={toggleInfoForm}>
@@ -78,7 +82,7 @@ export const SingleProduct = () => {
               const { price, color, size, quantity } = elem;
               return (
                 <Col xs={6} className="text-center" key={uniqid()}>
-                  <AdminProductCard
+                  <ProductInfoUpdate
                     price={price}
                     color={color}
                     size={size}
@@ -94,11 +98,42 @@ export const SingleProduct = () => {
           </Row>
         </Col>
         <Col xs={6} className="mx-auto text-center">
-          <img className="w-100 p-2" src={""} alt="" />
-          <Button className="bg-primary" onClick={toggleForm}>
-            Add product image
-          </Button>
-          {showImageForm ? <AddProductImage images={product.images} /> : null}
+          <Row>
+            {product.images.map((image, index) => {
+              console.log(product.images);
+              return (
+                <Col xs={6} className="mx-auto">
+                  <img
+                    key={uniqid()}
+                    className="w-100 h-75 p-2"
+                    src={image.url}
+                    alt=""
+                  />
+                  <Button
+                    className="bg-danger"
+                    // ON DELETE UPDATE IMAGES
+                    onClick={() => {
+                      const deleted = deleteProductImage(index, productId);
+                    }}
+                  >
+                    Delete
+                  </Button>
+                </Col>
+              );
+            })}
+          </Row>
+          {product.images.length === 5 ? null : (
+            <Button className="bg-primary" onClick={toggleForm}>
+              {showImageForm ? "hide" : "Add product image"}
+            </Button>
+          )}
+          {showImageForm ? (
+            <AddProductImage
+              product={product}
+              setProduct={setProduct}
+              id={productId}
+            />
+          ) : null}
         </Col>
       </Row>
       {productDeleted ? <Redirect to="/#/admin-productos" /> : null}

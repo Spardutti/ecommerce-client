@@ -2,7 +2,10 @@ import { useState } from "react";
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 import { updateProduct, deleteProductInfo } from "../../../API/API";
 
-export const AdminProductCard = (props) => {
+/* ALLOWS TO EDIT THE PRICE AND STOCK,
+ DELETE A SPECIFIC PRODUCT SIZE OR COLOR */
+
+export const ProductInfoUpdate = (props) => {
   const [editProduct, setEditProduct] = useState(false);
   const [price, setPrice] = useState(props.price);
   const [quantity, setQuantity] = useState(props.quantity);

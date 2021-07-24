@@ -2,6 +2,9 @@ import { useState } from "react";
 import { Form, FormGroup, Input, Label, Button } from "reactstrap";
 import { updateProduct } from "../../../API/API";
 
+/* FORM TO ADD A NEW PRODUCT DETAIL, MEANING A NEW COLOR,
+SIZE, PRICE AND STOCK */
+
 export const NewInfoForm = (props) => {
   const [price, setPrice] = useState(0);
   const [size, setSize] = useState("");
