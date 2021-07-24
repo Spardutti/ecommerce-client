@@ -1,7 +1,7 @@
 import Home from "./Components/Home";
 import { NavBar } from "./Components/Navbar";
 import { useState, useEffect } from "react";
-import { userContext } from "./Context/Contexts";
+import { userContext, isLoadingContext } from "./Context/Contexts";
 import { userData, checkForToken } from "./API/API";
 import { HashRouter, Switch, Route } from "react-router-dom";
 import { Token } from "./Components/Token";
@@ -13,6 +13,7 @@ import { ProductDetail } from "./Components/ProductDetail";
 
 function App() {
   const [user, setUser] = useState();
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -25,16 +26,18 @@ function App() {
   return (
     <HashRouter>
       <userContext.Provider value={{ user, setUser }}>
-        <NavBar />
-        <Switch>
-          <Route path="/logged" component={Token} />
-          <Route path="/compras" component={Compras} />
-          <Route path="/login" component={LoginScreen} />
-          <Route path="/newaccount" component={NewAccount} />
-          <Route path="/admin-productos" component={AdminHome} />
-          <Route path="/product" component={ProductDetail} />
-          <Route path="/" component={Home} />
-        </Switch>
+        <isLoadingContext.Provider value={{ isLoading, setIsLoading }}>
+          <NavBar />
+          <Switch>
+            <Route path="/logged" component={Token} />
+            <Route path="/compras" component={Compras} />
+            <Route path="/login" component={LoginScreen} />
+            <Route path="/newaccount" component={NewAccount} />
+            <Route path="/admin-productos" component={AdminHome} />
+            <Route path="/product" component={ProductDetail} />
+            <Route path="/" component={Home} />
+          </Switch>
+        </isLoadingContext.Provider>
       </userContext.Provider>
     </HashRouter>
   );

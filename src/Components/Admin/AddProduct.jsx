@@ -16,7 +16,7 @@ export const AddProduct = () => {
   const [quantity, setQuantity] = useState(0);
   const [categories, setCategories] = useState([]);
   const [showProductForm, setShowProductForm] = useState(false);
-  const [productErrors, setProductErrors] = useState("");
+  const [productErrors, setProductErrors] = useState();
   const [productId, setProductId] = useState("");
   const [image, setImage] = useState("");
 
@@ -189,8 +189,10 @@ export const AddProduct = () => {
                   quantity,
                   image
                 );
-                if (result.status === 500) setProductErrors(result.data);
-                else {
+                if (result.status === 500) {
+                  console.log(result.status);
+                  setProductErrors(result.data);
+                } else {
                   resetState();
                   setProductId(result.data._id);
                 }

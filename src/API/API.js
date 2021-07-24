@@ -133,7 +133,6 @@ export const deleteProduct = async (id) => {
     headers: params,
   });
   const data = await response.json();
-  console.log(data);
 };
 
 // EDIT PRODUCT PRICE STOCK
@@ -161,7 +160,9 @@ export const updateProduct = async (
 // ADD IMAGES TO PRODUCT
 export const addImagesToProduct = async (id, image) => {
   const formData = new FormData();
-  formData.append("image", image);
+  for (let img of image) {
+    formData.append("image", img);
+  }
   try {
     const response = await fetch(url + "/product/image/" + id, {
       method: "PUT",

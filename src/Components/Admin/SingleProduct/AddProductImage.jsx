@@ -1,16 +1,16 @@
 import { Form, FormGroup, Input, Label, Button } from "reactstrap";
 import { useEffect, useState } from "react";
 import { addImagesToProduct } from "../../../API/API";
-
 // ADD PRODUCTS IMAGE
 
 export const AddProductImage = (props) => {
   const [images] = useState(props.product.images);
   const [imagesToAdd, setImagesToAdd] = useState([]);
-  const [imagex, setImage] = useState();
+  const [imagex, setImage] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const imageHandler = (e) => {
-    setImage(e.target.files[0]);
+    setImage((old) => [...old, e.target.files[0]]);
   };
 
   useEffect(() => {
@@ -23,30 +23,37 @@ export const AddProductImage = (props) => {
 
   return (
     <Form>
-      {imagesToAdd.map((elem) => {
+      {imagesToAdd.map(() => {
         return (
-          <FormGroup key={elem}>
+          <FormGroup className="mt-1">
             <Label>Product picture</Label>
             <div>
-              <Input type="file" name="image" onChange={imageHandler} />
+              <Input
+                type="file"
+                multiple
+                name="image"
+                onChange={imageHandler}
+              />
+              <hr />
             </div>
           </FormGroup>
         );
       })}
-      <Button
-        onClick={async () => {
-          // UPDATE THE IMGS ARR DISPLAY THE NEW IMAGES!
-          const added = await addImagesToProduct(props.id, imagex);
-          let product = props.product;
-          product.images = added;
-          console.log(product.images);
-          if (added) {
-            props.setProduct(product);
-          }
-        }}
-      >
-        add
-      </Button>
+      {isLoading ? (
+        <div className="spinner-grow" role="status"></div>
+      ) : (
+        <Button
+          onClick={async () => {
+            setIsLoading(true);
+            const updatedProduct = await addImagesToProduct(props.id, imagex);
+            props.setProduct(updatedProduct);
+            setIsLoading(false);
+            props.hideForm();
+          }}
+        >
+          add
+        </Button>
+      )}
     </Form>
   );
 };

@@ -47,7 +47,7 @@ export const ProductCard = (props) => {
             <CardImg
               top
               width="auto"
-              src={images.length ? images[0] : null}
+              src={images.length ? images[0].url : null}
               alt="Product image"
               style={{ height: "150px" }}
             />

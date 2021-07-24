@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import {
   productDetail,
   deleteProduct,
@@ -20,6 +20,7 @@ export const SingleProduct = () => {
   const [showImageForm, setShowImageForm] = useState(false);
   const [newInfoForm, setNewInfoForm] = useState(false);
   const [productDeleted, setProductDeleted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   // TOGGLE ADD IMAGE FORM
   const toggleForm = () => {
@@ -46,6 +47,8 @@ export const SingleProduct = () => {
       })();
     }
   }, [productId]);
+
+  useEffect(() => {}, [product]);
 
   return product.details ? (
     <div className="container mt-5 bg-light">
@@ -81,7 +84,7 @@ export const SingleProduct = () => {
             {product.details.map((elem, index) => {
               const { price, color, size, quantity } = elem;
               return (
-                <Col xs={6} className="text-center" key={uniqid()}>
+                <Col xs={6} className="text-center" key={uniqid}>
                   <ProductInfoUpdate
                     price={price}
                     color={color}
@@ -100,24 +103,33 @@ export const SingleProduct = () => {
         <Col xs={6} className="mx-auto text-center">
           <Row>
             {product.images.map((image, index) => {
-              console.log(product.images);
               return (
-                <Col xs={6} className="mx-auto">
+                <Col xs={6} className="mx-auto" key={index}>
                   <img
                     key={uniqid()}
                     className="w-100 h-75 p-2"
                     src={image.url}
                     alt=""
                   />
-                  <Button
-                    className="bg-danger"
-                    // ON DELETE UPDATE IMAGES
-                    onClick={() => {
-                      const deleted = deleteProductImage(index, productId);
-                    }}
-                  >
-                    Delete
-                  </Button>
+                  {isLoading ? (
+                    <div className="spinner-grow" role="status"></div>
+                  ) : (
+                    <Button
+                      className="bg-danger"
+                      // ON DELETE UPDATE IMAGES
+                      onClick={async () => {
+                        setIsLoading(true);
+                        const updatedProduct = await deleteProductImage(
+                          index,
+                          productId
+                        );
+                        setProduct(updatedProduct);
+                        setIsLoading(false);
+                      }}
+                    >
+                      Delete
+                    </Button>
+                  )}
                 </Col>
               );
             })}
@@ -132,6 +144,7 @@ export const SingleProduct = () => {
               product={product}
               setProduct={setProduct}
               id={productId}
+              hideForm={toggleForm}
             />
           ) : null}
         </Col>
