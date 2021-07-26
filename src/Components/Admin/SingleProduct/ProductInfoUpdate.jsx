@@ -44,7 +44,6 @@ export const ProductInfoUpdate = (props) => {
             props.color,
             props.description
           );
-          // TODO UPDATE THE DOM
           if (edit) {
             setPrice(price);
             setEditProduct(!editProduct);

@@ -17,6 +17,9 @@ const Home = () => {
     (async () => {
       setProducts(await getProducts());
     })();
+    return () => {
+      setProducts();
+    };
   }, []);
 
   return user ? (

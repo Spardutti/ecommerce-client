@@ -34,7 +34,6 @@ export const NewInfoForm = (props) => {
     setQuantity(0);
   };
   return (
-    //TODO WORKING HERE
     <Form>
       <FormGroup>
         <Label>Size</Label>
@@ -96,7 +95,6 @@ export const NewInfoForm = (props) => {
                 props.setNewInfoForm(!props.newInfoForm);
               }
             } else alert("please fill all fields");
-            // TODO UPDATE THE DOM
           }}
         >
           Add new info

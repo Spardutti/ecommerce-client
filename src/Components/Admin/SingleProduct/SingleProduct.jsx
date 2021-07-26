@@ -3,8 +3,9 @@ import {
   productDetail,
   deleteProduct,
   deleteProductImage,
+  updateDescription,
 } from "../../../API/API";
-import { Col, Row, Button } from "reactstrap";
+import { Col, Row, Button, Input } from "reactstrap";
 import { ProductInfoUpdate } from "./ProductInfoUpdate";
 import uniqid from "uniqid";
 import { AddProductImage } from "./AddProductImage";
@@ -21,15 +22,25 @@ export const SingleProduct = () => {
   const [newInfoForm, setNewInfoForm] = useState(false);
   const [productDeleted, setProductDeleted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [descriptionForm, setShowDescription] = useState(false);
+  const [description, setDescription] = useState("");
 
   // TOGGLE ADD IMAGE FORM
   const toggleForm = () => {
     setShowImageForm(!showImageForm);
   };
 
+  const descriptionHandler = (e) => {
+    setDescription(e.target.value);
+  };
   // TOGGLE ADD NEW INFO FORM
   const toggleInfoForm = () => {
     setNewInfoForm(!newInfoForm);
+  };
+
+  // TOGGLE DESCRIPTION FORM
+  const toggleDescription = () => {
+    setShowDescription(!descriptionForm);
   };
 
   // GET THE ID FROM URL
@@ -48,6 +59,11 @@ export const SingleProduct = () => {
     }
   }, [productId]);
 
+  // GET THE DESCRIPTION
+  useEffect(() => {
+    setDescription(product.description);
+  }, [product]);
+
   useEffect(() => {}, [product]);
 
   return product.details ? (
@@ -55,7 +71,29 @@ export const SingleProduct = () => {
       <Row>
         <Col xs={6} className=" bg-light ">
           <h1 className="text-center">{product.name}</h1>
-          <p className="text-center">{product.description}</p>
+          {descriptionForm ? (
+            <div className="text-center">
+              <Input
+                value={description}
+                placeholder={description}
+                onChange={descriptionHandler}
+              />
+              <Button
+                className="bg-primary mt-2"
+                onClick={() => {
+                  updateDescription(productId, description);
+                  toggleDescription();
+                }}
+              >
+                update
+              </Button>
+            </div>
+          ) : (
+            <div className="text-center">
+              <p>{description}</p>
+              <i onClick={toggleDescription} className="far fa-edit"></i>
+            </div>
+          )}
           <hr />
           <div className="d-flex justify-content-around">
             <Button className="bg-primary mb-1" onClick={toggleInfoForm}>
@@ -116,7 +154,6 @@ export const SingleProduct = () => {
                   ) : (
                     <Button
                       className="bg-danger"
-                      // ON DELETE UPDATE IMAGES
                       onClick={async () => {
                         setIsLoading(true);
                         const updatedProduct = await deleteProductImage(
@@ -135,7 +172,7 @@ export const SingleProduct = () => {
             })}
           </Row>
           {product.images.length === 5 ? null : (
-            <Button className="bg-primary" onClick={toggleForm}>
+            <Button className="bg-primary mb-2" onClick={toggleForm}>
               {showImageForm ? "hide" : "Add product image"}
             </Button>
           )}
@@ -152,7 +189,6 @@ export const SingleProduct = () => {
       {productDeleted ? <Redirect to="/#/admin-productos" /> : null}
     </div>
   ) : (
-    // TODO EDIT IMAGE SIZE TO AVOID HEIGHT PROBLEMS
     <p>loading</p>
   );
 };

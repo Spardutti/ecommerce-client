@@ -43,6 +43,7 @@ export const AddProductImage = (props) => {
         <div className="spinner-grow" role="status"></div>
       ) : (
         <Button
+          className="bg-primary mb-2"
           onClick={async () => {
             setIsLoading(true);
             const updatedProduct = await addImagesToProduct(props.id, imagex);

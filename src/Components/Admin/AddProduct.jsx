@@ -19,6 +19,7 @@ export const AddProduct = () => {
   const [productErrors, setProductErrors] = useState();
   const [productId, setProductId] = useState("");
   const [image, setImage] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const nameHandler = (e) => {
     setProductName(e.target.value);
@@ -177,29 +178,34 @@ export const AddProduct = () => {
                   );
                 })
               : null}
-            <Button
-              className="bg-primary"
-              onClick={async () => {
-                const result = await addNewProduct(
-                  productName,
-                  categoryId,
-                  productPrice,
-                  color,
-                  size,
-                  quantity,
-                  image
-                );
-                if (result.status === 500) {
-                  console.log(result.status);
-                  setProductErrors(result.data);
-                } else {
-                  resetState();
-                  setProductId(result.data._id);
-                }
-              }}
-            >
-              Add product
-            </Button>
+            {loading ? (
+              <div className="spinner-grow" role="status"></div>
+            ) : (
+              <Button
+                className="bg-primary"
+                onClick={async () => {
+                  setLoading(true);
+                  const result = await addNewProduct(
+                    productName,
+                    categoryId,
+                    productPrice,
+                    color,
+                    size,
+                    quantity,
+                    image
+                  );
+                  setLoading(false);
+                  if (result.status === 500) {
+                    setProductErrors(result.data);
+                  } else {
+                    resetState();
+                    setProductId(result.data._id);
+                  }
+                }}
+              >
+                Add product
+              </Button>
+            )}
           </FormGroup>
         </Form>
         {productId ? <Redirect to={"/product?" + productId} /> : null}

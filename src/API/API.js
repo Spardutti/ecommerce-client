@@ -9,6 +9,7 @@ const params = {
   "Content-Type": "application/json",
 };
 
+/**************************************************** USER  ***************************************************************/
 // CHECK FOR LOCAL TOKEN
 export const checkForToken = () => {
   token = localStorage.getItem("token");
@@ -72,6 +73,7 @@ export const newUser = async (email, username, password, confirm) => {
   return { response, data };
 };
 
+/********************************************************* PRODUCTS ****************************************/
 // GET PRODUCTS
 export const getProducts = async () => {
   try {
@@ -128,11 +130,21 @@ export const productDetail = async (productId) => {
 
 // DELETE PRODUCT WITH ALL INFO AND IMAGES
 export const deleteProduct = async (id) => {
-  const response = await fetch(url + "/product/" + id, {
+  await fetch(url + "/product/" + id, {
     method: "DELETE",
     headers: params,
   });
-  const data = await response.json();
+};
+
+// UPDATE DESCRIPTION
+export const updateDescription = async (id, description) => {
+  await fetch(url + "/product/description/" + id, {
+    method: "PUT",
+    headers: params,
+    body: JSON.stringify({
+      description,
+    }),
+  });
 };
 
 // EDIT PRODUCT PRICE STOCK
@@ -207,6 +219,8 @@ export const deleteProductInfo = async (id, index) => {
   }
 };
 
+/******************************************************************* CATEGORIES  *******************************************************************/
+
 // GET ALL CATEGORIES
 export const getCategories = async () => {
   try {
@@ -216,4 +230,17 @@ export const getCategories = async () => {
   } catch (err) {
     return err;
   }
+};
+
+// GET PRODUCT BY CATEGORY
+export const getProductByCat = async (category) => {
+  try {
+    const response = await fetch(url + "/category/product", {
+      method: "POST",
+      headers: params,
+      body: JSON.stringify({ category }),
+    });
+    const data = await response.json();
+    return data;
+  } catch (err) {}
 };

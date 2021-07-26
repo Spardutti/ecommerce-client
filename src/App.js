@@ -10,6 +10,7 @@ import { LoginScreen } from "./Components/LoginScreen";
 import { NewAccount } from "./Components/NewAccount";
 import { AdminHome } from "./Components/Admin/AdminHome";
 import { ProductDetail } from "./Components/ProductDetail";
+import { AdminCategory } from "./Components/Admin/AdminCategory";
 
 function App() {
   const [user, setUser] = useState();
@@ -34,6 +35,7 @@ function App() {
             <Route path="/login" component={LoginScreen} />
             <Route path="/newaccount" component={NewAccount} />
             <Route path="/admin-productos" component={AdminHome} />
+            <Route path="/admin-categorias" component={AdminCategory} />
             <Route path="/product" component={ProductDetail} />
             <Route path="/" component={Home} />
           </Switch>
