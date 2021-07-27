@@ -2,7 +2,6 @@ import { useContext, useEffect, useState } from "react";
 import { getProducts } from "../API/API";
 import { ProductCard } from "./ProductCard";
 import uniqid from "uniqid";
-import "../Styles/home-title.css";
 import { Row, Col } from "reactstrap";
 import { userContext } from "../Context/Contexts";
 import { Redirect } from "react-router";

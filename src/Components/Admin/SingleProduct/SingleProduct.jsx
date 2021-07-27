@@ -24,6 +24,8 @@ export const SingleProduct = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [descriptionForm, setShowDescription] = useState(false);
   const [description, setDescription] = useState("");
+  const [countDown, setCountDown] = useState(5);
+  const [countDownOver, setCountDownOver] = useState(false);
 
   // TOGGLE ADD IMAGE FORM
   const toggleForm = () => {
@@ -64,131 +66,150 @@ export const SingleProduct = () => {
     setDescription(product.description);
   }, [product]);
 
-  useEffect(() => {}, [product]);
+  useEffect(() => {
+    if (countDown === 0) {
+      setCountDown(0);
+      setCountDownOver(true);
+    }
 
-  return product.details ? (
-    <div className="container mt-5 bg-light">
-      <Row>
-        <Col xs={6} className=" bg-light ">
-          <h1 className="text-center">{product.name}</h1>
-          {descriptionForm ? (
-            <div className="text-center">
-              <Input
-                value={description}
-                placeholder={description}
-                onChange={descriptionHandler}
-              />
+    if (countDown > 0) {
+      setTimeout(() => {
+        setCountDown(countDown - 1);
+      }, 1000);
+    }
+  }, [countDown]);
+
+  return productId ? (
+    product.details ? (
+      <div className="container mt-5 bg-light">
+        <Row>
+          <Col xs={6} className=" bg-light ">
+            <h1 className="text-center">{product.name}</h1>
+            {descriptionForm ? (
+              <div className="text-center">
+                <Input
+                  value={description}
+                  placeholder={description}
+                  onChange={descriptionHandler}
+                />
+                <Button
+                  className="bg-primary mt-2"
+                  onClick={() => {
+                    updateDescription(productId, description);
+                    toggleDescription();
+                  }}
+                >
+                  update
+                </Button>
+              </div>
+            ) : (
+              <div className="text-center">
+                <p>{description}</p>
+                <i onClick={toggleDescription} className="far fa-edit"></i>
+              </div>
+            )}
+            <hr />
+            <div className="d-flex justify-content-around">
+              <Button className="bg-primary mb-1" onClick={toggleInfoForm}>
+                {newInfoForm ? "Hide" : "Add new info"}
+              </Button>
               <Button
-                className="bg-primary mt-2"
-                onClick={() => {
-                  updateDescription(productId, description);
-                  toggleDescription();
+                className="bg-danger mb-1"
+                onClick={async () => {
+                  await deleteProduct(productId);
+                  setProductDeleted(true);
                 }}
               >
-                update
+                Delete product
               </Button>
             </div>
-          ) : (
-            <div className="text-center">
-              <p>{description}</p>
-              <i onClick={toggleDescription} className="far fa-edit"></i>
-            </div>
-          )}
-          <hr />
-          <div className="d-flex justify-content-around">
-            <Button className="bg-primary mb-1" onClick={toggleInfoForm}>
-              {newInfoForm ? "Hide" : "Add new info"}
-            </Button>
-            <Button
-              className="bg-danger mb-1"
-              onClick={async () => {
-                await deleteProduct(productId);
-                setProductDeleted(true);
-              }}
-            >
-              Delete product
-            </Button>
-          </div>
-          {newInfoForm ? (
-            <NewInfoForm
-              newInfoForm={newInfoForm}
-              setNewInfoForm={setNewInfoForm}
-              id={productId}
-              setProduct={setProduct}
-              product={product}
-            />
-          ) : null}
-          <Row>
-            {product.details.map((elem, index) => {
-              const { price, color, size, quantity } = elem;
-              return (
-                <Col xs={6} className="text-center" key={uniqid}>
-                  <ProductInfoUpdate
-                    price={price}
-                    color={color}
-                    size={size}
-                    quantity={quantity}
-                    id={productId}
-                    index={index}
-                    setProduct={setProduct}
-                    product={product}
-                  />
-                </Col>
-              );
-            })}
-          </Row>
-        </Col>
-        <Col xs={6} className="mx-auto text-center">
-          <Row>
-            {product.images.map((image, index) => {
-              return (
-                <Col xs={6} className="mx-auto" key={index}>
-                  <img
-                    key={uniqid()}
-                    className="w-100 h-75 p-2"
-                    src={image.url}
-                    alt=""
-                  />
-                  {isLoading ? (
-                    <div className="spinner-grow" role="status"></div>
-                  ) : (
-                    <Button
-                      className="bg-danger"
-                      onClick={async () => {
-                        setIsLoading(true);
-                        const updatedProduct = await deleteProductImage(
-                          index,
-                          productId
-                        );
-                        setProduct(updatedProduct);
-                        setIsLoading(false);
-                      }}
-                    >
-                      Delete
-                    </Button>
-                  )}
-                </Col>
-              );
-            })}
-          </Row>
-          {product.images.length === 5 ? null : (
-            <Button className="bg-primary mb-2" onClick={toggleForm}>
-              {showImageForm ? "hide" : "Add product image"}
-            </Button>
-          )}
-          {showImageForm ? (
-            <AddProductImage
-              product={product}
-              setProduct={setProduct}
-              id={productId}
-              hideForm={toggleForm}
-            />
-          ) : null}
-        </Col>
-      </Row>
-      {productDeleted ? <Redirect to="/#/admin-productos" /> : null}
-    </div>
+            {newInfoForm ? (
+              <NewInfoForm
+                newInfoForm={newInfoForm}
+                setNewInfoForm={setNewInfoForm}
+                id={productId}
+                setProduct={setProduct}
+                product={product}
+              />
+            ) : null}
+            <Row>
+              {product.details.map((elem, index) => {
+                const { price, color, size, quantity } = elem;
+                return (
+                  <Col xs={6} className="text-center" key={uniqid}>
+                    <ProductInfoUpdate
+                      price={price}
+                      color={color}
+                      size={size}
+                      quantity={quantity}
+                      id={productId}
+                      index={index}
+                      setProduct={setProduct}
+                      product={product}
+                    />
+                  </Col>
+                );
+              })}
+            </Row>
+          </Col>
+          <Col xs={6} className="mx-auto text-center">
+            <Row>
+              {product.images.map((image, index) => {
+                return (
+                  <Col xs={6} className="mx-auto" key={index}>
+                    <img
+                      key={uniqid()}
+                      className="w-100 h-75 p-2"
+                      src={image.url}
+                      alt=""
+                    />
+                    {isLoading ? (
+                      <div className="spinner-grow" role="status"></div>
+                    ) : (
+                      <Button
+                        className="bg-danger"
+                        onClick={async () => {
+                          setIsLoading(true);
+                          const updatedProduct = await deleteProductImage(
+                            index,
+                            productId
+                          );
+                          setProduct(updatedProduct);
+                          setIsLoading(false);
+                        }}
+                      >
+                        Delete
+                      </Button>
+                    )}
+                  </Col>
+                );
+              })}
+            </Row>
+            {product.images.length === 5 ? null : (
+              <Button className="bg-primary mb-2" onClick={toggleForm}>
+                {showImageForm ? "hide" : "Add product image"}
+              </Button>
+            )}
+            {showImageForm ? (
+              <AddProductImage
+                product={product}
+                setProduct={setProduct}
+                id={productId}
+                hideForm={toggleForm}
+              />
+            ) : null}
+          </Col>
+        </Row>
+        {productDeleted ? <Redirect to="/#/admin-productos" /> : null}
+      </div>
+    ) : (
+      <p>loading</p>
+    )
   ) : (
-    <p>loading</p>
+    <div className="text-center mt-5">
+      <h5>Product not found</h5>
+      <p>Redirecting in: {countDown}</p>
+      {countDownOver ? <Redirect to="/#/admin-productos" /> : null}
+    </div>
   );
 };

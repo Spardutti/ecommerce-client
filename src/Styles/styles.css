@@ -1,0 +1,46 @@
+.home-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+  background-color: rgb(170, 170, 164);
+}
+
+.cursorPointer {
+  cursor: pointer;
+}
+
+.search {
+  position: relative;
+  display: flex;
+  width: 360px;
+}
+
+.searchIcon {
+  position: absolute;
+  right: 0px;
+  background-color: rgb(192, 192, 192);
+  width: 30px;
+  height: 100%;
+  line-height: 40px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.searchIcon:hover {
+  transform: scale(1.3);
+}
+
+.suggestion {
+  width: 360px;
+  position: relative;
+  left: 0px;
+  bottom: 0px;
+  background-color: rgb(235, 235, 235);
+  border-bottom: 1px solid gray;
+}
+.suggestion:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+  background-color: gray;
+}

@@ -46,7 +46,9 @@ export const AdminCategory = () => {
             return (
               <BreadcrumbItem
                 onClick={() => getProducts(cat._id, index)}
-                className={active === index ? "active" : "text-primary"}
+                className={
+                  active === index ? "active" : "text-primary cursorPointer"
+                }
                 id={index}
                 key={cat._id}
               >
@@ -64,7 +66,7 @@ export const AdminCategory = () => {
         <Row>
           {products.map((pro) => {
             return (
-              <Col xs={3} key={pro.name}>
+              <Col xs={3} key={pro.name} className="mx-auto">
                 <ProductCard
                   name={pro.name}
                   images={pro.images}

@@ -1,4 +1,4 @@
-import { getCategories, getProducts } from "../../API/API";
+import { getProducts } from "../../API/API";
 import { useState, useEffect, useContext } from "react";
 import { ProductCard } from "../ProductCard";
 import uniqid from "uniqid";
@@ -7,6 +7,7 @@ import { userContext } from "../../Context/Contexts";
 import { Redirect } from "react-router-dom";
 import { AddProduct } from "./AddProduct";
 import { AddCategory } from "./AddCategory";
+import { SearchProduct } from "../SearchProduct";
 
 /* DISPLAY THE ADMIN PRODUDCT PAGE WITH ALL THE PRODUCTS */
 
@@ -37,12 +38,15 @@ export const AdminHome = () => {
           </Col>
         </Row>
         <Row>
+          <div className="text-center">
+            <SearchProduct products={products} />
+          </div>
           {products
             ? products.map((product) => {
                 const { name, _id, images, description, color, size } = product;
                 const price = product.details[0].price;
                 return (
-                  <Col md={3} className="mt-2" key={uniqid()}>
+                  <Col md={3} className="mt-2 mx-auto" key={uniqid()}>
                     <ProductCard
                       key={uniqid()}
                       id={_id}

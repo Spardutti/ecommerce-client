@@ -1,13 +1,14 @@
 import { Form, FormGroup, Label, Input, Button } from "reactstrap";
-import { getCategories } from "../../API/API";
+import { getCategories, newCategory } from "../../API/API";
 import { useState, useEffect } from "react";
 
 /* ADDS A NEW PRODUCT CATEGORY */
 
 export const AddCategory = () => {
-  const [productCategory, setCategoryName] = useState("");
+  const [categoryName, setCategoryName] = useState("");
   const [categories, setCategories] = useState([]);
   const [showCategoryForm, setShowCategoryForm] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const nameHandler = (e) => {
     setCategoryName(e.target.value);
@@ -37,13 +38,27 @@ export const AddCategory = () => {
           <Label>Category name</Label>
           <Input
             name="productCategory"
-            value={productCategory}
+            value={categoryName}
             placeholder="enter category name"
             onChange={nameHandler}
           />
         </FormGroup>
         <FormGroup className="text-center mt-3">
-          <Button onClick={() => {}}>Add category</Button>
+          {loading ? (
+            <div className="spinner-grow"></div>
+          ) : (
+            <Button
+              className="bg-primary"
+              onClick={async () => {
+                setLoading(true);
+                await newCategory(categoryName);
+                setLoading(false);
+                setShowCategoryForm(false);
+              }}
+            >
+              Add category
+            </Button>
+          )}
         </FormGroup>
       </Form>
     </div>

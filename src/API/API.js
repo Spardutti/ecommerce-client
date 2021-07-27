@@ -244,3 +244,18 @@ export const getProductByCat = async (category) => {
     return data;
   } catch (err) {}
 };
+
+// NEW CATEGORY
+export const newCategory = async (name) => {
+  try {
+    const response = await fetch(url + "/category/new", {
+      method: "POST",
+      headers: params,
+      body: JSON.stringify({
+        name,
+      }),
+    });
+    const data = await response.json();
+    return data;
+  } catch (err) {}
+};
