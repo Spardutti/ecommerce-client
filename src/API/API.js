@@ -93,7 +93,8 @@ export const addNewProduct = async (
   color,
   size,
   quantity,
-  image
+  image,
+  description
 ) => {
   const formData = new FormData();
   formData.append("name", name);
@@ -103,6 +104,7 @@ export const addNewProduct = async (
   formData.append("size", size);
   formData.append("quantity", quantity);
   formData.append("image", image);
+  formData.append("description", description);
   try {
     const response = await fetch(url + "/product/new", {
       method: "POST",

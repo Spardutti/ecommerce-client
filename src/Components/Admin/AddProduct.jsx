@@ -19,6 +19,7 @@ export const AddProduct = () => {
   const [productErrors, setProductErrors] = useState();
   const [productId, setProductId] = useState("");
   const [image, setImage] = useState("");
+  const [description, setDescription] = useState("");
   const [loading, setLoading] = useState(false);
 
   const nameHandler = (e) => {
@@ -51,6 +52,10 @@ export const AddProduct = () => {
     setImage(e.target.files[0]);
   };
 
+  const descriptionHandler = (e) => {
+    setDescription(e.target.value);
+  };
+
   const productForm = () => {
     setShowProductForm(!showProductForm);
     resetState();
@@ -63,6 +68,7 @@ export const AddProduct = () => {
     setColor("");
     setQuantity(0);
     setSize("");
+    setDescription("");
   };
 
   // GET ALL CATEGORIES
@@ -116,6 +122,16 @@ export const AddProduct = () => {
               value={productName}
               placeholder="enter product name"
               onChange={nameHandler}
+            />
+          </FormGroup>
+          <FormGroup>
+            <Label>Product description</Label>
+            <Input
+              name="description"
+              autoComplete="off"
+              value={description}
+              onChange={descriptionHandler}
+              placeholder="brief description"
             />
           </FormGroup>
           <FormGroup>
@@ -192,7 +208,8 @@ export const AddProduct = () => {
                     color,
                     size,
                     quantity,
-                    image
+                    image,
+                    description
                   );
                   setLoading(false);
                   if (result.status === 500) {
