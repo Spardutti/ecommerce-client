@@ -3,6 +3,8 @@ import { Button, Breadcrumb, BreadcrumbItem, Col, Row } from "reactstrap";
 import { getCategories, getProductByCat } from "../../API/API";
 import { ProductCard } from "../../Components/ProductCard";
 
+// DISPLAY ALL THE CATEGORIES ON A BAR
+
 export const AdminCategory = () => {
   const [categories, setCategories] = useState();
   const [active, setActive] = useState(0);
@@ -36,7 +38,7 @@ export const AdminCategory = () => {
   }, [categories]);
 
   return (
-    <div className="container text-center">
+    <div className="container text-center ">
       <p className="mt-2">
         Select a category to find all the products of that category
       </p>

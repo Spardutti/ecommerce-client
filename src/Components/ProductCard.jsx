@@ -1,17 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import {
-  Row,
-  Col,
-  Card,
-  CardImg,
-  CardText,
-  CardBody,
-  CardTitle,
-  CardSubtitle,
-  Button,
-} from "reactstrap";
-import uniqid from "uniqid";
+import { Card, CardImg, CardBody, CardTitle, CardSubtitle } from "reactstrap";
+
+// DISPLAY THE PRODUCTS CARDS
 
 export const ProductCard = (props) => {
   const [colors, setColors] = useState([]);

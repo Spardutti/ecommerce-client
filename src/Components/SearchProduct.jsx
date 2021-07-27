@@ -2,6 +2,8 @@ import { Input } from "reactstrap";
 import { useState, useEffect } from "react";
 import { Redirect } from "react-router";
 
+// SEARCH PRODUCTS ON INPUT
+
 export const SearchProduct = (props) => {
   const { products } = props;
   const [productName, setProductName] = useState("");
@@ -11,6 +13,7 @@ export const SearchProduct = (props) => {
 
   const nameHandler = (e) => {
     let matches = [];
+    // VALIDATES THE INPUT WITH POSSIBLE SUGGESTIONS
     if (e.target.value.length) {
       matches = products.filter((elem) => {
         const regex = new RegExp(`${e.target.value}`, "gi");
