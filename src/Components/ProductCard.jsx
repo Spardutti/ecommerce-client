@@ -1,13 +1,13 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { Card, CardImg, CardBody, CardTitle, CardSubtitle } from "reactstrap";
 
-// DISPLAY THE PRODUCTS CARDS
+// DISPLAY THE PRODUCTS CARDS WITH TITLE; PRICE AND IMAGE
 
 export const ProductCard = (props) => {
-  const [colors, setColors] = useState([]);
-  const [sizes, setSizes] = useState([]);
-  const { id, name, price, images, description, size, color } = props;
+  const [, setColors] = useState([]);
+  const [, setSizes] = useState([]);
+  const { id, name, price, images, size, color } = props;
 
   useEffect(() => {
     // FIND ALL THE UNIQUE COLORS AND SIZES

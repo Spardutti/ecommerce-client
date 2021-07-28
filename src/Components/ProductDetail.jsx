@@ -7,20 +7,19 @@ import { SingleProduct } from "./Admin/SingleProduct/SingleProduct";
 export const ProductDetail = () => {
   const [productId, setProductId] = useState("");
   const [product, setProduct] = useState({});
-  const [editForm, setEditForm] = useState(false);
+  const [sizes, setSizes] = useState([]);
+  const [colors, setColors] = useState([]);
+  const [selectedSize, setSelectedSize] = useState();
+  const [selectedColor, setSelectedColor] = useState();
 
   const { user } = useContext(userContext);
-
-  // TOGGLE EDIT FORM
-  const toggleForm = () => {
-    setEditForm(!editForm);
-  };
 
   // GET THE ID FROM URL
   useEffect(() => {
     const url = window.location.href;
     const id = url.split("?")[1];
     setProductId(id);
+    return () => setProductId("");
   }, []);
 
   // FETCH THE PRODUCT
@@ -32,32 +31,126 @@ export const ProductDetail = () => {
     }
   }, [productId]);
 
+  // GET THE UNIQUE SIZES
+  useEffect(() => {
+    if (product.details) {
+      const { details } = product;
+      let availableSizes = {};
+      details.forEach((elem) => {
+        if (!availableSizes[elem.size]) {
+          availableSizes[elem.size] = 1;
+        }
+      });
+      for (let key in availableSizes) {
+        setSizes((old) => [...old, key]);
+      }
+    }
+  }, [product]);
+
+  // FIND THE COLORS OF THE SELECTED SIZE
+  const showColorsBySize = (size) => {
+    const { details } = product;
+    let colorsBySize = {};
+    let colors = [];
+    details.forEach((elem) => {
+      if (!colorsBySize[elem.color] && elem.size === size) {
+        colorsBySize[elem.color] = 1;
+      }
+    });
+    for (let key in colorsBySize) {
+      colors.push(key);
+    }
+    setColors(colors);
+  };
+
+  // SELECT SIZE
+  const selectSize = (elem) => {
+    setSelectedSize(elem);
+    showColorsBySize(elem);
+  };
+
+  // SELECT COLOR
+  const selectColor = (color) => {
+    setSelectedColor(color);
+  };
+
   return user ? (
     user.admin ? (
       <SingleProduct />
-    ) : product ? (
-      <div className="container mt-5">
+    ) : product.details ? (
+      <div className="container bg-light mt-5">
         <Row>
-          <Col xs={6} className=" bg-light">
-            <h1 className="text-center">{product.name}</h1>
+          <Col xs={6} className=" text-center">
+            <h1>{product.name}</h1>
             <p>{product.description}</p>
             <hr />
             <Row>
-              {product.details.map((elem) => {
+              <p>Available sizes</p>
+              <div className="size-container">
+                {sizes.map((size, index) => {
+                  return (
+                    <div
+                      id={size}
+                      key={index}
+                      onClick={() => {
+                        selectSize(size);
+                      }}
+                      className={selectedSize === size ? "selected" : null}
+                    >
+                      {size}
+                    </div>
+                  );
+                })}
+              </div>
+              {selectedSize ? (
+                <div className="color-container mt-4">
+                  <div>
+                    <p>Select a color</p>
+                  </div>
+                  <div>
+                    {colors.map((color, index) => {
+                      return (
+                        <div
+                          onClick={() => selectColor(color)}
+                          key={index}
+                          className={
+                            selectedColor === color ? "selected" : "color"
+                          }
+                          style={{
+                            backgroundColor: color,
+                            width: "30px",
+                            height: "30px",
+                          }}
+                        ></div>
+                      );
+                    })}
+                  </div>
+                </div>
+              ) : (
+                <p> Select a size to see the available colors</p>
+              )}
+              {selectedColor && selectSize && (
+                <div>
+                  <Button
+                    className="bg-primary my-4"
+                    onClick={() => console.log(selectedColor, selectedSize)}
+                  >
+                    Add to cart
+                  </Button>
+                </div>
+              )}
+            </Row>
+          </Col>
+          <Col xs={6}>
+            <Row>
+              {product.images.map((image, index) => {
                 return (
-                  <Col xs={6} className="text-center">
-                    <p>Size: {elem.size}</p>
-                    <p>color: {elem.color}</p>
-                    <p>price: {elem.price}</p>
-                    <p>stock: {elem.quantity}</p>
-                    <Button className="bg-primary mb-2">Buy</Button>
+                  <Col xs={6} className="mx-auto" key={index}>
+                    <img className="w-100 h-75 p-2" src={image.url} alt="" />
                   </Col>
                 );
               })}
             </Row>
-          </Col>
-          <Col xs={6} className="mx-auto">
-            <img className="w-100 h-100 p-2" src={""} alt="" />
           </Col>
         </Row>
       </div>

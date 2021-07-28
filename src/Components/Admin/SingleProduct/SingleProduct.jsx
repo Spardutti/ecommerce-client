@@ -136,7 +136,7 @@ export const SingleProduct = () => {
               {product.details.map((elem, index) => {
                 const { price, color, size, quantity } = elem;
                 return (
-                  <Col xs={6} className="text-center" key={uniqid}>
+                  <Col xs={6} className="text-center" key={uniqid()}>
                     <ProductInfoUpdate
                       price={price}
                       color={color}
@@ -156,13 +156,8 @@ export const SingleProduct = () => {
             <Row>
               {product.images.map((image, index) => {
                 return (
-                  <Col xs={6} className="mx-auto" key={index}>
-                    <img
-                      key={uniqid()}
-                      className="w-100 h-75 p-2"
-                      src={image.url}
-                      alt=""
-                    />
+                  <Col xs={6} className="mx-auto" key={uniqid()}>
+                    <img className="w-100 h-75 p-2 " src={image.url} alt="" />
                     {isLoading ? (
                       <div className="spinner-grow" role="status"></div>
                     ) : (
