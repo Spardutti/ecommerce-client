@@ -22,7 +22,7 @@ function App() {
       if (token) setUser(await userData());
       else setUser(null);
     })();
-  }, []);
+  }, [user]);
 
   return (
     <HashRouter>
@@ -36,7 +36,12 @@ function App() {
             <Route path="/newaccount" component={NewAccount} />
             <Route path="/admin-productos" component={AdminHome} />
             <Route path="/admin-categorias" component={AdminCategory} />
-            <Route path="/product" component={ProductDetail} />
+            {user && (
+              <Route
+                path="/product"
+                render={(props) => <ProductDetail id={user._id} {...props} />}
+              />
+            )}
             <Route path="/" component={Home} />
           </Switch>
         </isLoadingContext.Provider>

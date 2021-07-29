@@ -1,16 +1,17 @@
 import { useState, useEffect, useContext } from "react";
-import { productDetail } from "../API/API";
+import { productDetail, addToCart } from "../API/API";
 import { Col, Row, Button } from "reactstrap";
 import { userContext } from "../Context/Contexts";
 import { SingleProduct } from "./Admin/SingleProduct/SingleProduct";
 
-export const ProductDetail = () => {
+export const ProductDetail = (props) => {
   const [productId, setProductId] = useState("");
   const [product, setProduct] = useState({});
   const [sizes, setSizes] = useState([]);
   const [colors, setColors] = useState([]);
   const [selectedSize, setSelectedSize] = useState();
   const [selectedColor, setSelectedColor] = useState();
+  const [loading, setLoading] = useState(false);
 
   const { user } = useContext(userContext);
 
@@ -74,6 +75,11 @@ export const ProductDetail = () => {
     setSelectedColor(color);
   };
 
+  const resetState = () => {
+    setSelectedColor("");
+    setSelectedSize("");
+  };
+
   return user ? (
     user.admin ? (
       <SingleProduct />
@@ -129,15 +135,31 @@ export const ProductDetail = () => {
               ) : (
                 <p> Select a size to see the available colors</p>
               )}
-              {selectedColor && selectSize && (
-                <div>
-                  <Button
-                    className="bg-primary my-4"
-                    onClick={() => console.log(selectedColor, selectedSize)}
-                  >
-                    Add to cart
-                  </Button>
-                </div>
+              {loading ? (
+                <div className="spinner-grow mx-auto"></div>
+              ) : (
+                selectedColor &&
+                selectSize && (
+                  <div>
+                    <Button
+                      className="bg-primary my-4"
+                      onClick={async () => {
+                        setLoading(true);
+                        await addToCart(
+                          props.id,
+                          productId,
+                          selectedSize,
+                          selectedColor,
+                          1
+                        );
+                        setLoading(false);
+                        resetState();
+                      }}
+                    >
+                      Add to cart
+                    </Button>
+                  </div>
+                )
               )}
             </Row>
           </Col>

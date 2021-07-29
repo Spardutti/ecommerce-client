@@ -9,7 +9,7 @@
 .cursorPointer {
   cursor: pointer;
 }
-
+/* SEARCH BAR */
 .search {
   position: relative;
   display: flex;
@@ -46,6 +46,7 @@
   background-color: gray;
 }
 
+/* PRODUCT DETAIL SIZE && COLOR */
 .size-container {
   display: flex;
   justify-content: center;
@@ -83,4 +84,35 @@
 
 .color:hover {
   transform: scale(1.3);
+}
+
+/* NAV BAR CART */
+
+.cart i {
+  position: relative;
+}
+
+.cart p {
+  position: absolute;
+  top: 1px;
+  right: 0;
+  font-size: 13px;
+  font-weight: bold;
+  border-radius: 50%;
+  background-color: rgba(248, 7, 7, 0.8);
+  padding: 0px 4px;
+}
+
+.arrow i {
+  position: absolute;
+  bottom: 0px;
+  margin: auto;
+  left: 0;
+  right: 0;
+  text-align: center;
+}
+
+/* NAV BAR CART DROP DOWN ITEMS */
+.drop-container {
+  opacity: 0.5;
 }

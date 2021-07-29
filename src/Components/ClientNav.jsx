@@ -14,6 +14,7 @@ import {
   DropdownMenu,
   DropdownItem,
 } from "reactstrap";
+import { DropDownItems } from "./DropDownItems";
 
 export const ClientNav = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -36,7 +37,7 @@ export const ClientNav = () => {
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>
             <NavItem>
-              <NavLink href="/#/">Home</NavLink>
+              <NavLink href="/#/">Products</NavLink>
             </NavItem>
             <NavItem>
               <NavLink href="/#/compras/">Compras</NavLink>
@@ -45,14 +46,22 @@ export const ClientNav = () => {
               <NavLink href="/#/categorias">Categorias</NavLink>
             </NavItem>
             <UncontrolledDropdown nav inNavbar>
-              <DropdownToggle nav caret>
-                Cart
+              <DropdownToggle nav>
+                <div className="cart">
+                  <i className="fas fa-shopping-cart"></i>
+                  {user && user.cart.length ? (
+                    <div className="arrow">
+                      <p>{user.cart.length}</p>
+                      <i className="fas fa-sort-down"></i>
+                    </div>
+                  ) : null}
+                </div>
               </DropdownToggle>
-              <DropdownMenu right>
-                <DropdownItem>Option 1</DropdownItem>
-                <DropdownItem>Option 2</DropdownItem>
-                <DropdownItem divider />
-                <DropdownItem>Comprar</DropdownItem>
+              <DropdownMenu right className="drop-container">
+                {user &&
+                  user.cart.map((product, index) => {
+                    return <DropDownItems key={index} />;
+                  })}
               </DropdownMenu>
             </UncontrolledDropdown>
             {user ? (

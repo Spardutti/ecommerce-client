@@ -221,6 +221,22 @@ export const deleteProductInfo = async (id, index) => {
   }
 };
 
+// ADD PRODUC TO USER CART
+export const addToCart = async (id, productId, size, color, quantity) => {
+  const response = await fetch(url + "/product/cart/" + id, {
+    method: "PUT",
+    headers: params,
+    body: JSON.stringify({
+      id: productId,
+      size,
+      color,
+      quantity,
+    }),
+  });
+  const data = await response.json();
+  console.log(data);
+};
+
 /******************************************************************* CATEGORIES  *******************************************************************/
 
 // GET ALL CATEGORIES
