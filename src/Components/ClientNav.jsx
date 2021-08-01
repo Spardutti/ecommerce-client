@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { userContext } from "../Context/Contexts";
 import { logout } from "../API/API";
 import {
@@ -18,10 +18,25 @@ import { DropDownItems } from "./DropDownItems";
 
 export const ClientNav = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [cartItems, setCartItems] = useState([]);
 
   const toggle = () => setIsOpen(!isOpen);
 
   const { user, setUser } = useContext(userContext);
+
+  useEffect(() => {
+    if (user) {
+      let cart = user.cart;
+      let products = [];
+      // CREATE A NEW ENTRY FOR EACH DETAIL THE PRODUCT HAVE
+      for (let item of cart) {
+        for (let detail of item.details) {
+          products.push({ name: item.name, detail, images: item.images[0] });
+        }
+      }
+      setCartItems(products);
+    }
+  }, [user]);
 
   return (
     <div className="px-2 container">
@@ -49,18 +64,23 @@ export const ClientNav = () => {
               <DropdownToggle nav>
                 <div className="cart">
                   <i className="fas fa-shopping-cart"></i>
-                  {user && user.cart.length ? (
+                  {cartItems && cartItems.length ? (
                     <div className="arrow">
-                      <p>{user.cart.length}</p>
+                      <p>{cartItems.length}</p>
                       <i className="fas fa-sort-down"></i>
                     </div>
                   ) : null}
                 </div>
               </DropdownToggle>
-              <DropdownMenu right className="drop-container">
+              <DropdownMenu right>
                 {user &&
-                  user.cart.map((product, index) => {
-                    return <DropDownItems key={index} />;
+                  cartItems.map((product, index) => {
+                    return (
+                      <DropdownItem key={index}>
+                        <DropDownItems product={product} />
+                        <hr />
+                      </DropdownItem>
+                    );
                   })}
               </DropdownMenu>
             </UncontrolledDropdown>

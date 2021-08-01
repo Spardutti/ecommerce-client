@@ -22,7 +22,7 @@ function App() {
       if (token) setUser(await userData());
       else setUser(null);
     })();
-  }, [user]);
+  }, []);
 
   return (
     <HashRouter>

@@ -114,5 +114,9 @@
 
 /* NAV BAR CART DROP DOWN ITEMS */
 .drop-container {
-  opacity: 0.5;
+  width: 200px;
+}
+
+.drop-container img {
+  width: 100%;
 }
