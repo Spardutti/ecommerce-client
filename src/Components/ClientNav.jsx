@@ -12,7 +12,7 @@ import {
   UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
-  DropdownItem,
+  Button,
 } from "reactstrap";
 import { DropDownItems } from "./DropDownItems";
 
@@ -27,11 +27,17 @@ export const ClientNav = () => {
   useEffect(() => {
     if (user) {
       let cart = user.cart;
+      console.log(cart);
       let products = [];
       // CREATE A NEW ENTRY FOR EACH DETAIL THE PRODUCT HAVE
       for (let item of cart) {
         for (let detail of item.details) {
-          products.push({ name: item.name, detail, images: item.images[0] });
+          products.push({
+            name: item.name,
+            detail,
+            images: item.images[0],
+            id: item._id,
+          });
         }
       }
       setCartItems(products);
@@ -75,13 +81,13 @@ export const ClientNav = () => {
               <DropdownMenu right>
                 {user &&
                   cartItems.map((product, index) => {
-                    return (
-                      <DropdownItem key={index}>
-                        <DropDownItems product={product} />
-                        <hr />
-                      </DropdownItem>
-                    );
+                    return <DropDownItems product={product} index={index} />;
                   })}
+                <div className="text-center mt-2">
+                  <Button className="bg-primary" href="/#/">
+                    Go to cart
+                  </Button>
+                </div>
               </DropdownMenu>
             </UncontrolledDropdown>
             {user ? (

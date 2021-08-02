@@ -145,6 +145,7 @@ export const ProductDetail = (props) => {
                       className="bg-primary my-4"
                       onClick={async () => {
                         setLoading(true);
+                        //TODO UPDATE LOCAL USER TO AVOID REFRESH
                         await addToCart(
                           props.id,
                           productId,

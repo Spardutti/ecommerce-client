@@ -116,6 +116,7 @@ export const SingleProduct = () => {
               <Button
                 className="bg-danger mb-1"
                 onClick={async () => {
+                  // TODO REMOVE FROM ALL USERS CART
                   await deleteProduct(productId);
                   setProductDeleted(true);
                 }}

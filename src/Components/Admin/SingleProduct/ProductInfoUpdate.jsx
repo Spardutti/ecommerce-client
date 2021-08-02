@@ -69,6 +69,7 @@ export const ProductInfoUpdate = (props) => {
         <Button
           className="bg-danger mb-1"
           onClick={async () => {
+            // TODO REMOVE INFO FROM ALL USERS TOO
             const deleted = await deleteProductInfo(props.id, props.index);
             if (deleted) {
               let product = deleted;

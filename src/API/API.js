@@ -204,7 +204,7 @@ export const deleteProductImage = async (index, id) => {
   }
 };
 
-// DELETE PRODUCT INFO
+// DELETE PRODUCT DETAIL
 export const deleteProductInfo = async (id, index) => {
   try {
     const response = await fetch(url + "/product/details/" + id, {
