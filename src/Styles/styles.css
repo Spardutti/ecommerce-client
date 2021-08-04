@@ -97,7 +97,7 @@
 
 /* NAV BAR CART */
 
-.cart i {
+.cart {
   position: relative;
 }
 
@@ -112,24 +112,15 @@
   padding: 0px 4px;
 }
 
-.arrow i {
-  position: absolute;
-  bottom: 0px;
-  margin: auto;
-  left: 0;
-  right: 0;
-  text-align: center;
+/* CART PAGE */
+.cart-img {
+  height: 150px;
+  float: right;
 }
 
-/* NAV BAR CART DROP DOWN ITEMS */
-.drop-container {
-  width: 200px;
-}
-
-.drop-container img {
-  width: 100%;
-}
-
-.small-font {
-  font-size: 14px;
+.cart-card {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+  font-size: 10px;
 }

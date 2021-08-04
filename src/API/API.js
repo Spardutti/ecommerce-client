@@ -234,7 +234,7 @@ export const addToCart = async (id, productId, size, color, quantity) => {
     }),
   });
   const data = await response.json();
-  console.log(data);
+  return data;
 };
 
 /******************************************************************* CATEGORIES  *******************************************************************/

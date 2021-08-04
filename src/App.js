@@ -11,6 +11,7 @@ import { NewAccount } from "./Components/NewAccount";
 import { AdminHome } from "./Components/Admin/AdminHome";
 import { ProductDetail } from "./Components/ProductDetail";
 import { AdminCategory } from "./Components/Admin/AdminCategory";
+import { Cart } from "./Components/Cart";
 
 function App() {
   const [user, setUser] = useState();
@@ -36,6 +37,7 @@ function App() {
             <Route path="/newaccount" component={NewAccount} />
             <Route path="/admin-productos" component={AdminHome} />
             <Route path="/admin-categorias" component={AdminCategory} />
+            <Route path="/cart" component={Cart} />
             {user && (
               <Route
                 path="/product"

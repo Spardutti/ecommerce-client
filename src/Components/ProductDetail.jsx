@@ -3,6 +3,9 @@ import { productDetail, addToCart } from "../API/API";
 import { Col, Row, Button } from "reactstrap";
 import { userContext } from "../Context/Contexts";
 import { SingleProduct } from "./Admin/SingleProduct/SingleProduct";
+import { ColorSquares } from "./Styled/ColorSquares";
+
+// SHOWS THE PRODUCT PAGE WITH ALL THE INFO
 
 export const ProductDetail = (props) => {
   const [productId, setProductId] = useState("");
@@ -13,7 +16,7 @@ export const ProductDetail = (props) => {
   const [selectedColor, setSelectedColor] = useState();
   const [loading, setLoading] = useState(false);
 
-  const { user } = useContext(userContext);
+  const { user, setUser } = useContext(userContext);
 
   // GET THE ID FROM URL
   useEffect(() => {
@@ -70,11 +73,6 @@ export const ProductDetail = (props) => {
     showColorsBySize(elem);
   };
 
-  // SELECT COLOR
-  const selectColor = (color) => {
-    setSelectedColor(color);
-  };
-
   const resetState = () => {
     setSelectedColor("");
     setSelectedSize("");
@@ -116,18 +114,16 @@ export const ProductDetail = (props) => {
                   <div>
                     {colors.map((color, index) => {
                       return (
-                        <div
-                          onClick={() => selectColor(color)}
+                        <ColorSquares
+                          color={color}
+                          height={"30px"}
+                          widht={"30px"}
                           key={index}
+                          onClick={() => setSelectedColor(color)}
                           className={
                             selectedColor === color ? "selected" : "color"
                           }
-                          style={{
-                            backgroundColor: color,
-                            width: "30px",
-                            height: "30px",
-                          }}
-                        ></div>
+                        ></ColorSquares>
                       );
                     })}
                   </div>
@@ -145,14 +141,14 @@ export const ProductDetail = (props) => {
                       className="bg-primary my-4"
                       onClick={async () => {
                         setLoading(true);
-                        //TODO UPDATE LOCAL USER TO AVOID REFRESH
-                        await addToCart(
+                        const newCart = await addToCart(
                           props.id,
                           productId,
                           selectedSize,
                           selectedColor,
                           1
                         );
+                        setUser(newCart);
                         setLoading(false);
                         resetState();
                       }}

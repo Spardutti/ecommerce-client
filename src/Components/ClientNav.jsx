@@ -9,12 +9,9 @@ import {
   Nav,
   NavItem,
   NavLink,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  Button,
 } from "reactstrap";
-import { DropDownItems } from "./DropDownItems";
+
+// DISPLAY THE CLIENT NAV BAR
 
 export const ClientNav = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -27,7 +24,6 @@ export const ClientNav = () => {
   useEffect(() => {
     if (user) {
       let cart = user.cart;
-      console.log(cart);
       let products = [];
       // CREATE A NEW ENTRY FOR EACH DETAIL THE PRODUCT HAVE
       for (let item of cart) {
@@ -66,30 +62,16 @@ export const ClientNav = () => {
             <NavItem>
               <NavLink href="/#/categorias">Categorias</NavLink>
             </NavItem>
-            <UncontrolledDropdown nav inNavbar>
-              <DropdownToggle nav>
-                <div className="cart">
-                  <i className="fas fa-shopping-cart"></i>
-                  {cartItems && cartItems.length ? (
-                    <div className="arrow">
-                      <p>{cartItems.length}</p>
-                      <i className="fas fa-sort-down"></i>
-                    </div>
-                  ) : null}
-                </div>
-              </DropdownToggle>
-              <DropdownMenu right>
-                {user &&
-                  cartItems.map((product, index) => {
-                    return <DropDownItems product={product} index={index} />;
-                  })}
-                <div className="text-center mt-2">
-                  <Button className="bg-primary" href="/#/">
-                    Go to cart
-                  </Button>
-                </div>
-              </DropdownMenu>
-            </UncontrolledDropdown>
+            <NavItem>
+              <NavLink className="cart" href="/#/cart">
+                <i className="fas fa-shopping-cart"></i>
+                {cartItems && cartItems.length ? (
+                  <div className="arrow">
+                    <p>{cartItems.length}</p>
+                  </div>
+                ) : null}
+              </NavLink>
+            </NavItem>
             {user ? (
               <NavItem>
                 <NavLink
