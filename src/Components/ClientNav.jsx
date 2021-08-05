@@ -23,7 +23,7 @@ export const ClientNav = () => {
 
   useEffect(() => {
     if (user) {
-      let cart = user.cart;
+      /*let cart = user.cart;
       let products = [];
       // CREATE A NEW ENTRY FOR EACH DETAIL THE PRODUCT HAVE
       for (let item of cart) {
@@ -36,7 +36,8 @@ export const ClientNav = () => {
           });
         }
       }
-      setCartItems(products);
+      */
+      setCartItems(user.cart);
     }
   }, [user]);
 

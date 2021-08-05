@@ -117,7 +117,7 @@ export const ProductDetail = (props) => {
                         <ColorSquares
                           color={color}
                           height={"30px"}
-                          widht={"30px"}
+                          width={"30px"}
                           key={index}
                           onClick={() => setSelectedColor(color)}
                           className={

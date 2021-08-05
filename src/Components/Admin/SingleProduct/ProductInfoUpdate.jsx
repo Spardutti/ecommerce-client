@@ -7,16 +7,12 @@ import { updateProduct, deleteProductInfo } from "../../../API/API";
 
 export const ProductInfoUpdate = (props) => {
   const [editProduct, setEditProduct] = useState(false);
-  const [price, setPrice] = useState(props.price);
   const [quantity, setQuantity] = useState(props.quantity);
-
-  const priceHandler = (e) => {
-    setPrice(e.target.value);
-  };
 
   const quantityHandler = (e) => {
     setQuantity(e.target.value);
   };
+
   return editProduct ? (
     <Form>
       <FormGroup>
@@ -29,10 +25,7 @@ export const ProductInfoUpdate = (props) => {
         <Label>Quantity to add to stock</Label>
         <Input value={quantity} onChange={quantityHandler} type="number" />
       </FormGroup>
-      <FormGroup>
-        <Label>Price</Label>
-        <Input value={price} onChange={priceHandler} type="number" />{" "}
-      </FormGroup>
+
       <Button
         className="bg-primary my-1"
         onClick={() => {
@@ -40,12 +33,10 @@ export const ProductInfoUpdate = (props) => {
             props.id,
             props.size,
             quantity,
-            price,
             props.color,
             props.description
           );
           if (edit) {
-            setPrice(price);
             setEditProduct(!editProduct);
           }
         }}
@@ -58,7 +49,6 @@ export const ProductInfoUpdate = (props) => {
       <p>Size: {props.size}</p>
       <p>Color: {props.color}</p>
       <p>Stock: {quantity}</p>
-      <p>Price: {price}</p>
       <div className="d-flex justify-content-around">
         <Button
           className="bg-primary mb-1"
@@ -69,9 +59,10 @@ export const ProductInfoUpdate = (props) => {
         <Button
           className="bg-danger mb-1"
           onClick={async () => {
-            // TODO REMOVE INFO FROM ALL USERS TOO
             const deleted = await deleteProductInfo(props.id, props.index);
-            if (deleted) {
+            if (deleted.status === 500) {
+              alert(deleted.msg);
+            } else {
               let product = deleted;
               props.setProduct(product);
             }

@@ -6,17 +6,12 @@ import { updateProduct } from "../../../API/API";
 SIZE, PRICE AND STOCK */
 
 export const NewInfoForm = (props) => {
-  const [price, setPrice] = useState(0);
   const [size, setSize] = useState("");
   const [color, setColor] = useState("");
   const [quantity, setQuantity] = useState(0);
 
   const quantityHandler = (e) => {
     setQuantity(e.target.value);
-  };
-
-  const priceHandler = (e) => {
-    setPrice(e.target.value);
   };
 
   const sizeHandler = (e) => {
@@ -29,7 +24,6 @@ export const NewInfoForm = (props) => {
 
   const resetValues = () => {
     setColor("");
-    setPrice(0);
     setSize("");
     setQuantity(0);
   };
@@ -64,29 +58,13 @@ export const NewInfoForm = (props) => {
           onFocus={() => setQuantity("")}
         />
       </FormGroup>
-      <FormGroup>
-        <Label>Price</Label>
-        <Input
-          autoComplete="off"
-          value={price}
-          onChange={priceHandler}
-          type="number"
-          placeholder="Enter product price"
-          onFocus={() => setPrice("")}
-        />{" "}
-      </FormGroup>
+
       <div className="text-center">
         <Button
           className="bg-primary my-1"
           onClick={async () => {
-            if (size && quantity && price && color) {
-              const edit = await updateProduct(
-                props.id,
-                size,
-                quantity,
-                price,
-                color
-              );
+            if (size && quantity && color) {
+              const edit = await updateProduct(props.id, size, quantity, color);
               if (edit) {
                 let product = props.product;
                 product.details.push(edit.data);

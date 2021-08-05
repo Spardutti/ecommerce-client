@@ -28,7 +28,7 @@ const Home = () => {
       <Row className="container mx-auto">
         {products
           ? products.map((product) => {
-              const { name, _id, details, description, images, size, color } =
+              const { name, _id, description, images, size, color, price } =
                 product;
               return (
                 <Col md={3} className="mt-5" key={_id}>
@@ -36,7 +36,7 @@ const Home = () => {
                     key={uniqid()}
                     id={_id}
                     name={name}
-                    price={details[0].price}
+                    price={price}
                     images={images}
                     description={description}
                     size={size}

@@ -43,8 +43,8 @@ export const AdminHome = () => {
           </div>
           {products
             ? products.map((product) => {
-                const { name, _id, images, description, color, size } = product;
-                const price = product.details[0].price;
+                const { name, _id, images, description, color, size, price } =
+                  product;
                 return (
                   <Col md={3} className="mt-2 mx-auto" key={uniqid()}>
                     <ProductCard

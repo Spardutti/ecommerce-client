@@ -1,7 +1,7 @@
 import Home from "./Components/Home";
 import { NavBar } from "./Components/Navbar";
 import { useState, useEffect } from "react";
-import { userContext, isLoadingContext } from "./Context/Contexts";
+import { userContext } from "./Context/Contexts";
 import { userData, checkForToken } from "./API/API";
 import { HashRouter, Switch, Route } from "react-router-dom";
 import { Token } from "./Components/Token";
@@ -15,7 +15,6 @@ import { Cart } from "./Components/Cart";
 
 function App() {
   const [user, setUser] = useState();
-  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -28,25 +27,23 @@ function App() {
   return (
     <HashRouter>
       <userContext.Provider value={{ user, setUser }}>
-        <isLoadingContext.Provider value={{ isLoading, setIsLoading }}>
-          <NavBar />
-          <Switch>
-            <Route path="/logged" component={Token} />
-            <Route path="/compras" component={Compras} />
-            <Route path="/login" component={LoginScreen} />
-            <Route path="/newaccount" component={NewAccount} />
-            <Route path="/admin-productos" component={AdminHome} />
-            <Route path="/admin-categorias" component={AdminCategory} />
-            <Route path="/cart" component={Cart} />
-            {user && (
-              <Route
-                path="/product"
-                render={(props) => <ProductDetail id={user._id} {...props} />}
-              />
-            )}
-            <Route path="/" component={Home} />
-          </Switch>
-        </isLoadingContext.Provider>
+        <NavBar />
+        <Switch>
+          <Route path="/logged" component={Token} />
+          <Route path="/compras" component={Compras} />
+          <Route path="/login" component={LoginScreen} />
+          <Route path="/newaccount" component={NewAccount} />
+          <Route path="/admin-productos" component={AdminHome} />
+          <Route path="/admin-categorias" component={AdminCategory} />
+          <Route path="/cart" component={Cart} />
+          {user && (
+            <Route
+              path="/product"
+              render={(props) => <ProductDetail id={user._id} {...props} />}
+            />
+          )}
+          <Route path="/" component={Home} />
+        </Switch>
       </userContext.Provider>
     </HashRouter>
   );

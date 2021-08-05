@@ -50,6 +50,7 @@ export const SingleProduct = () => {
     const url = window.location.href;
     const id = url.split("?")[1];
     setProductId(id);
+    return () => setProductId("");
   }, []);
 
   // FETCH THE PRODUCT
@@ -108,6 +109,9 @@ export const SingleProduct = () => {
                 <i onClick={toggleDescription} className="far fa-edit"></i>
               </div>
             )}
+            <div className="text-center">
+              <p> Price: ${product.price}</p>
+            </div>
             <hr />
             <div className="d-flex justify-content-around">
               <Button className="bg-primary mb-1" onClick={toggleInfoForm}>
@@ -135,11 +139,11 @@ export const SingleProduct = () => {
             ) : null}
             <Row>
               {product.details.map((elem, index) => {
-                const { price, color, size, quantity } = elem;
+                const { color, size, quantity } = elem;
                 return (
                   <Col xs={6} className="text-center" key={uniqid()}>
                     <ProductInfoUpdate
-                      price={price}
+                      price={product.price}
                       color={color}
                       size={size}
                       quantity={quantity}

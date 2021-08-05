@@ -11,13 +11,7 @@ export const Cart = () => {
     user && setCartItems(user.cart);
   }, [user]);
 
-  const calculateItemPrice = (price, productDetail) => {
-    let qty = 0;
-    productDetail.forEach((detail) => {
-      qty += detail.quantity;
-    });
-    return price * qty;
-  };
+  // TODO WE NEED A STATE TO TRACK PRICES MAYBE A LOOP AND ADD TO STATE.
   useEffect(() => {}, [cartItems]);
   return (
     <div className="container">
@@ -25,37 +19,30 @@ export const Cart = () => {
         {cartItems &&
           cartItems.map((product) => {
             return (
-              <Col xs={4} style={{ fontSize: "12px" }}>
+              <Col xs={6} md={4}>
                 <h5 className="text-center">{product.name}</h5>
-                <img src={product.images[0].url} className="cart-img" alt="" />
-                {product.details.map((detail) => {
-                  return (
-                    <div className="">
-                      <Row>
-                        <Col className="cart-card">
-                          <p>Size: {detail.size}</p>
-                          <ColorSquares
-                            color={detail.color}
-                            height={"15px"}
-                            width={"15px"}
-                          ></ColorSquares>
-                        </Col>
-                      </Row>
-                      <Row className="mb-2">
-                        <Col className="cart-card">
-                          <i className="fas fa-minus"></i>
-                          <input value={detail.quantity} />
-                          <i className="fas fa-plus"></i>
-                        </Col>
-                      </Row>
-                    </div>
-                  );
-                })}
+                <img src={product.image} className="cart-img" alt="" />
+                <div className="">
+                  <Row>
+                    <Col className="cart-card">
+                      <p>Size: {product.size}</p>
+                      <ColorSquares
+                        color={product.color}
+                        height={"15px"}
+                        width={"15px"}
+                      ></ColorSquares>
+                    </Col>
+                  </Row>
+                  <Row className="mb-2">
+                    <Col className="cart-card">
+                      <i className="fas fa-minus"></i>
+                      <input value={product.quantity} />
+                      <i className="fas fa-plus"></i>
+                    </Col>
+                  </Row>
+                </div>
                 <p className="text-center">
-                  {calculateItemPrice(
-                    product.details[0].price,
-                    product.details
-                  )}
+                  {product.price * product.quantity}
                 </p>
               </Col>
             );

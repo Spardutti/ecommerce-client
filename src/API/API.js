@@ -150,19 +150,12 @@ export const updateDescription = async (id, description) => {
 };
 
 // EDIT PRODUCT PRICE STOCK
-export const updateProduct = async (
-  id,
-  size,
-  quantity,
-  price,
-  color,
-  description
-) => {
+export const updateProduct = async (id, size, quantity, color, description) => {
   try {
     const response = await fetch(url + "/product/update/" + id, {
       method: "PUT",
       headers: params,
-      body: JSON.stringify({ size, quantity, color, price, description }),
+      body: JSON.stringify({ size, quantity, color, description }),
     });
     const data = await response.json();
     return { status: response.status, data };
