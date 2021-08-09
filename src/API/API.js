@@ -230,6 +230,23 @@ export const addToCart = async (id, productId, size, color, quantity) => {
   return data;
 };
 
+// UPDATE USER CART
+export const updateUserCart = async (id, cart) => {
+  try {
+    const response = await fetch(url + "/user/product/cart/" + id, {
+      method: "PUT",
+      headers: params,
+      body: JSON.stringify({
+        cart,
+      }),
+    });
+    const data = await response.json();
+    return data;
+  } catch (err) {
+    return err;
+  }
+};
+
 /******************************************************************* CATEGORIES  *******************************************************************/
 
 // GET ALL CATEGORIES

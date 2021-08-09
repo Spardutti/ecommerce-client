@@ -23,20 +23,6 @@ export const ClientNav = () => {
 
   useEffect(() => {
     if (user) {
-      /*let cart = user.cart;
-      let products = [];
-      // CREATE A NEW ENTRY FOR EACH DETAIL THE PRODUCT HAVE
-      for (let item of cart) {
-        for (let detail of item.details) {
-          products.push({
-            name: item.name,
-            detail,
-            images: item.images[0],
-            id: item._id,
-          });
-        }
-      }
-      */
       setCartItems(user.cart);
     }
   }, [user]);

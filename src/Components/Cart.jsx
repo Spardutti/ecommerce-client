@@ -1,53 +1,49 @@
-import { ColorSquares } from "./Styled/ColorSquares";
 import { Col, Row } from "reactstrap";
 import { useState, useEffect, useContext } from "react";
 import { userContext } from "../Context/Contexts";
+import { CartItem } from "./CartItem";
 
+// DISPLAY THE CART PAGE
 export const Cart = () => {
-  const { user } = useContext(userContext);
   const [cartItems, setCartItems] = useState([]);
+  const [total, setTotal] = useState(0);
+
+  const { user, setUser } = useContext(userContext);
 
   useEffect(() => {
     user && setCartItems(user.cart);
   }, [user]);
 
-  // TODO WE NEED A STATE TO TRACK PRICES MAYBE A LOOP AND ADD TO STATE.
-  useEffect(() => {}, [cartItems]);
+  useEffect(() => {
+    let sum = 0;
+    cartItems &&
+      cartItems.forEach((item) => {
+        sum += item.price * item.quantity;
+      });
+    setTotal(sum);
+  }, [cartItems]);
+
   return (
     <div className="container">
       <Row>
         {cartItems &&
-          cartItems.map((product) => {
+          cartItems.map((product, index) => {
             return (
-              <Col xs={6} md={4}>
-                <h5 className="text-center">{product.name}</h5>
-                <img src={product.image} className="cart-img" alt="" />
-                <div className="">
-                  <Row>
-                    <Col className="cart-card">
-                      <p>Size: {product.size}</p>
-                      <ColorSquares
-                        color={product.color}
-                        height={"15px"}
-                        width={"15px"}
-                      ></ColorSquares>
-                    </Col>
-                  </Row>
-                  <Row className="mb-2">
-                    <Col className="cart-card">
-                      <i className="fas fa-minus"></i>
-                      <input value={product.quantity} />
-                      <i className="fas fa-plus"></i>
-                    </Col>
-                  </Row>
-                </div>
-                <p className="text-center">
-                  {product.price * product.quantity}
-                </p>
-              </Col>
+              <CartItem
+                product={product}
+                key={index}
+                cartItems={cartItems}
+                setCartItems={setCartItems}
+                index={index}
+                id={user._id}
+                setUser={setUser}
+              />
             );
           })}
       </Row>
+      <div className="text-center bg-dark text-light w-75 mx-auto">
+        <p className="mt-3">Total: ${total.toLocaleString()}</p>
+      </div>
     </div>
   );
 };

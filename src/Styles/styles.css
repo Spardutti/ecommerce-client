@@ -118,9 +118,22 @@
   float: right;
 }
 
+.cart-container {
+  position: relative;
+  box-shadow: 0px 0px 10px 0px black;
+  box-sizing: border-box;
+  margin: 25px auto;
+  border-radius: 10px;
+  padding-bottom: 25px;
+}
 .cart-card {
   display: flex;
   flex-wrap: nowrap;
   justify-content: space-around;
-  font-size: 10px;
+}
+
+.cart-button-del {
+  position: absolute;
+  margin: auto;
+  width: 90%;
 }
