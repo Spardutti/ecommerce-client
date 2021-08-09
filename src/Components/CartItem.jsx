@@ -6,7 +6,7 @@ import { updateUserCart } from "../API/API";
 // DISPLAY EACH ITEM IN THE CART
 
 export const CartItem = (props) => {
-  const { product } = props;
+  const { product, index, cartItems, id, setUser, setCartItems } = props;
   const [quantity, setQuantity] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -18,10 +18,10 @@ export const CartItem = (props) => {
   const increment = async () => {
     setLoading(true);
     setQuantity(quantity + 1);
-    let cart = [...props.cartItems];
-    cart[props.index].quantity += 1;
-    props.setCartItems(cart);
-    await updateUserCart(props.id, cart);
+    let cart = [...cartItems];
+    cart[index].quantity += 1;
+    setCartItems(cart);
+    await updateUserCart(id, cart);
 
     setLoading(false);
   };
@@ -33,21 +33,21 @@ export const CartItem = (props) => {
       return;
     }
     setQuantity(quantity - 1);
-    let cart = [...props.cartItems];
-    cart[props.index].quantity -= 1;
-    props.setCartItems(cart);
-    await updateUserCart(props.id, cart);
+    let cart = [...cartItems];
+    cart[index].quantity -= 1;
+    setCartItems(cart);
+    await updateUserCart(id, cart);
     setLoading(false);
   };
 
   // REMOVE ITEM FROM CART
   const removeItem = async () => {
     setLoading(true);
-    let cart = [...props.cartItems];
-    cart.splice(props.index, 1);
-    props.setCartItems(cart);
-    const updatedUser = await updateUserCart(props.id, cart);
-    props.setUser(updatedUser);
+    let cart = [...cartItems];
+    cart.splice(index, 1);
+    setCartItems(cart);
+    const updatedUser = await updateUserCart(id, cart);
+    setUser(updatedUser);
     setLoading(false);
   };
 

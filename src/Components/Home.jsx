@@ -31,7 +31,7 @@ const Home = () => {
               const { name, _id, description, images, size, color, price } =
                 product;
               return (
-                <Col md={3} className="mt-5" key={_id}>
+                <Col md={3} className="mt-5 mx-auto" key={_id}>
                   <ProductCard
                     key={uniqid()}
                     id={_id}
