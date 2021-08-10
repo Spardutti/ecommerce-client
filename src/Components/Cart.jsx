@@ -2,6 +2,7 @@ import { Col, Row } from "reactstrap";
 import { useState, useEffect, useContext } from "react";
 import { userContext } from "../Context/Contexts";
 import { CartItem } from "./CartItem";
+import { checkout } from "../API/API";
 
 // DISPLAY THE CART PAGE
 export const Cart = () => {
@@ -41,9 +42,23 @@ export const Cart = () => {
             );
           })}
       </Row>
-      <div className="text-center bg-dark text-light w-75 mx-auto">
-        <p className="mt-3">Total: ${total.toLocaleString()}</p>
-      </div>
+      {cartItems && cartItems.length ? (
+        <div className="text-center">
+          <button
+            className="btn btn-primary"
+            onClick={() => checkout(user._id)}
+          >
+            Checkout
+          </button>
+          <div className="text-center bg-dark text-light w-75 mx-auto">
+            <p className="mt-3">Total: ${total.toLocaleString()}</p>
+          </div>
+        </div>
+      ) : (
+        <div className="text-center bg-dark text-light w-75 mx-auto">
+          <p className="mt-3">Cart is empty</p>
+        </div>
+      )}
     </div>
   );
 };

@@ -247,6 +247,20 @@ export const updateUserCart = async (id, cart) => {
   }
 };
 
+// CHECK STOCK BEFORE CHECKOUT
+export const checkout = async (id) => {
+  try {
+    const response = await fetch(url + "/stock/" + id, {
+      method: "POST",
+      headers: params,
+    });
+    const data = await response.json();
+    console.log(data);
+  } catch (err) {
+    return err;
+  }
+};
+
 /******************************************************************* CATEGORIES  *******************************************************************/
 
 // GET ALL CATEGORIES
