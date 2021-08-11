@@ -248,18 +248,21 @@ export const updateUserCart = async (id, cart) => {
 };
 
 // CHECK STOCK BEFORE CHECKOUT
-export const checkout = async (id) => {
+export const checkStock = async (id) => {
   try {
-    const response = await fetch(url + "/stock/" + id, {
+    const response = await fetch(url + "/checkout/" + id, {
       method: "POST",
       headers: params,
     });
     const data = await response.json();
     console.log(data);
+    return { data, status: response.status };
   } catch (err) {
     return err;
   }
 };
+
+// REDIRECT TO CHECKOUT PAGE
 
 /******************************************************************* CATEGORIES  *******************************************************************/
 

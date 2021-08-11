@@ -2,7 +2,8 @@ import { Col, Row } from "reactstrap";
 import { useState, useEffect, useContext } from "react";
 import { userContext } from "../Context/Contexts";
 import { CartItem } from "./CartItem";
-import { checkout } from "../API/API";
+import { checkStock } from "../API/API";
+import { Redirect } from "react-router";
 
 // DISPLAY THE CART PAGE
 export const Cart = () => {
@@ -23,6 +24,13 @@ export const Cart = () => {
       });
     setTotal(sum);
   }, [cartItems]);
+
+  const checkoutButton = async (id) => {
+    const response = await checkStock(id);
+    if (response.status === 200) {
+      window.location.replace(response.data);
+    }
+  };
 
   return (
     <div className="container">
@@ -46,7 +54,7 @@ export const Cart = () => {
         <div className="text-center">
           <button
             className="btn btn-primary"
-            onClick={() => checkout(user._id)}
+            onClick={() => checkoutButton(user._id)}
           >
             Checkout
           </button>
