@@ -247,7 +247,7 @@ export const updateUserCart = async (id, cart) => {
   }
 };
 
-// CHECK STOCK BEFORE CHECKOUT
+// CHECK STOCK BEFORE CHECKOUT AND REDIRECT
 export const checkStock = async (id) => {
   try {
     const response = await fetch(url + "/checkout/" + id, {
@@ -255,14 +255,41 @@ export const checkStock = async (id) => {
       headers: params,
     });
     const data = await response.json();
-    console.log(data);
     return { data, status: response.status };
   } catch (err) {
     return err;
   }
 };
 
-// REDIRECT TO CHECKOUT PAGE
+// UPDATE USER PURCHASES ARRAY
+export const updatePurchases = async (userId, purchase) => {
+  try {
+    const response = await fetch(url + "/user/purchases/" + userId, {
+      method: "PUT",
+      headers: params,
+      body: JSON.stringify({
+        purchase,
+      }),
+    });
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    return error;
+  }
+};
+
+/****************************************************************** CHECKOUT    *******************************************************************/
+
+//SUCCESS TEST
+export const success = async () => {
+  try {
+    const resposne = await fetch(url + "/success");
+    const data = await resposne.json();
+    console.log(data);
+  } catch (err) {
+    return err;
+  }
+};
 
 /******************************************************************* CATEGORIES  *******************************************************************/
 

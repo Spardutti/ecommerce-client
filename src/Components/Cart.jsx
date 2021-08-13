@@ -2,13 +2,13 @@ import { Col, Row } from "reactstrap";
 import { useState, useEffect, useContext } from "react";
 import { userContext } from "../Context/Contexts";
 import { CartItem } from "./CartItem";
-import { checkStock } from "../API/API";
-import { Redirect } from "react-router";
+import { checkStock, updatePurchases } from "../API/API";
 
 // DISPLAY THE CART PAGE
 export const Cart = () => {
   const [cartItems, setCartItems] = useState([]);
   const [total, setTotal] = useState(0);
+  const [loading, setLoading] = useState(false);
 
   const { user, setUser } = useContext(userContext);
 
@@ -25,11 +25,24 @@ export const Cart = () => {
     setTotal(sum);
   }, [cartItems]);
 
-  const checkoutButton = async (id) => {
-    const response = await checkStock(id);
+  const checkoutButton = async (userId) => {
+    setLoading(true);
+    const response = await checkStock(userId);
     if (response.status === 200) {
-      window.location.replace(response.data);
+      const { date_created, id, items, payer } = response.data;
+      console.log(response.data);
+      const purchase = {
+        date: date_created,
+        id: id,
+        items: items,
+        payer: payer,
+        status: null,
+      };
+      await updatePurchases(userId, purchase);
+      window.location.replace(response.data.init_point);
+      setLoading(false);
     }
+    setLoading(false);
   };
 
   return (
@@ -52,12 +65,16 @@ export const Cart = () => {
       </Row>
       {cartItems && cartItems.length ? (
         <div className="text-center">
-          <button
-            className="btn btn-primary"
-            onClick={() => checkoutButton(user._id)}
-          >
-            Checkout
-          </button>
+          {loading ? (
+            <div className="spinner-grow"></div>
+          ) : (
+            <button
+              className="btn btn-primary"
+              onClick={() => checkoutButton(user._id)}
+            >
+              Checkout
+            </button>
+          )}
           <div className="text-center bg-dark text-light w-75 mx-auto">
             <p className="mt-3">Total: ${total.toLocaleString()}</p>
           </div>
