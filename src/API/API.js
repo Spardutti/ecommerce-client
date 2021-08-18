@@ -291,6 +291,22 @@ export const success = async () => {
   }
 };
 
+export const updateSuccessPurchase = async (id, index) => {
+  try {
+    const response = await fetch(url + "/user/success/" + id, {
+      method: "PUT",
+      headers: params,
+      body: JSON.stringify({
+        index,
+      }),
+    });
+    const data = await response.json();
+    return data;
+  } catch (err) {
+    return err;
+  }
+};
+
 /******************************************************************* CATEGORIES  *******************************************************************/
 
 // GET ALL CATEGORIES

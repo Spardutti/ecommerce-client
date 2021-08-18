@@ -44,7 +44,7 @@ export const ClientNav = () => {
               <NavLink href="/#/">Products</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="/#/compras/">Compras</NavLink>
+              <NavLink href="/#/transactions/">Compras</NavLink>
             </NavItem>
             <NavItem>
               <NavLink href="/#/categorias">Categorias</NavLink>
