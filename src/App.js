@@ -5,7 +5,6 @@ import { userContext } from "./Context/Contexts";
 import { userData, checkForToken } from "./API/API";
 import { HashRouter, Switch, Route } from "react-router-dom";
 import { Token } from "./Components/Token";
-import { Compras } from "./Components/Compras";
 import { LoginScreen } from "./Components/LoginScreen";
 import { NewAccount } from "./Components/NewAccount";
 import { AdminHome } from "./Components/Admin/AdminHome";
@@ -14,6 +13,7 @@ import { AdminCategory } from "./Components/Admin/AdminCategory";
 import { Cart } from "./Components/Cart";
 import { PurchaseSuccess } from "./Components/Transactions/PurchaseSuccess";
 import { TransactionList } from "./Components/Transactions/TransactionList";
+import { TransactionDetail } from "./Components/Transactions/TransactionDetail";
 
 function App() {
   const [user, setUser] = useState();
@@ -39,6 +39,7 @@ function App() {
           <Route path="/cart" component={Cart} />
           <Route path="/purchasesuccess" component={PurchaseSuccess} />
           <Route path="/transactions" component={TransactionList} />
+          <Route path="/transactiondetail" component={TransactionDetail} />
           {user && (
             <Route
               path="/product"

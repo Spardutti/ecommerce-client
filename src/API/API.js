@@ -247,20 +247,6 @@ export const updateUserCart = async (id, cart) => {
   }
 };
 
-// CHECK STOCK BEFORE CHECKOUT AND REDIRECT
-export const checkStock = async (id) => {
-  try {
-    const response = await fetch(url + "/checkout/" + id, {
-      method: "POST",
-      headers: params,
-    });
-    const data = await response.json();
-    return { data, status: response.status };
-  } catch (err) {
-    return err;
-  }
-};
-
 // UPDATE USER PURCHASES ARRAY
 export const updatePurchases = async (userId, purchase) => {
   try {
@@ -278,7 +264,38 @@ export const updatePurchases = async (userId, purchase) => {
   }
 };
 
+// GET PURCHASE DETAIL
+export const purchaseDetail = async (userId, index) => {
+  try {
+    const response = await fetch(url + "/purchase/detail/" + userId, {
+      method: "POST",
+      headers: params,
+      body: JSON.stringify({
+        index,
+      }),
+    });
+    const data = await response.json();
+    return data;
+  } catch (err) {
+    return err;
+  }
+};
+
 /****************************************************************** CHECKOUT    *******************************************************************/
+
+// CHECK STOCK BEFORE CHECKOUT AND REDIRECT
+export const checkStock = async (id) => {
+  try {
+    const response = await fetch(url + "/checkout/" + id, {
+      method: "POST",
+      headers: params,
+    });
+    const data = await response.json();
+    return { data, status: response.status };
+  } catch (err) {
+    return err;
+  }
+};
 
 //SUCCESS TEST
 export const success = async () => {

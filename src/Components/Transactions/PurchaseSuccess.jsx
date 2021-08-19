@@ -6,12 +6,14 @@ import { Redirect } from "react-router";
 export const PurchaseSuccess = () => {
   const { user, setUser } = useContext(userContext);
   const [success, setSuccess] = useState(false);
+  const [index, setIndex] = useState("");
 
   // COMPARES THE COLLECTIONID PARAM TO THE LAST ITEM ADD TO THE CART.
   // IF THEY MATCH. UPDATE THE STATUS TO APPROVED.
   const compareCollectionsId = async () => {
     let purchases = user.purchases;
     let url = window.location.href;
+    setIndex(purchases.length - 1);
     if (url.split("?")[1]) {
       const params = url.split("?")[1].split("&");
       const preferenceId = params[7].split("=")[1];
@@ -29,5 +31,5 @@ export const PurchaseSuccess = () => {
     user && compareCollectionsId();
   }, [user]);
 
-  return success ? <Redirect to="/transactions" /> : null;
+  return success ? <Redirect to={"/transactiondetail?" + index} /> : null;
 };

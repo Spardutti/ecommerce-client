@@ -30,7 +30,6 @@ export const Cart = () => {
     const response = await checkStock(userId);
     if (response.status === 200) {
       const { date_created, id, items, payer } = response.data;
-      console.log(response.data);
       const purchase = {
         date: date_created,
         id: id,
