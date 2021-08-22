@@ -1,10 +1,12 @@
 import { useState, useEffect, useContext } from "react";
+import { Redirect } from "react-router";
 import { purchaseDetail } from "../../API/API";
 import { userContext } from "../../Context/Contexts";
+import { GoBackArrow } from "../Styled/GoBackArrow";
 
-// GET THE SPECIFIED TRANSACTION
+// GET THE SPECIFIED TRANSACTION DETAILS
 export const TransactionDetail = () => {
-  const { user, setUser } = useContext(userContext);
+  const { user } = useContext(userContext);
   const [detail, setDetail] = useState();
 
   const getDetail = async () => {
@@ -19,10 +21,12 @@ export const TransactionDetail = () => {
     user && getDetail();
   }, [user]);
 
-  return detail ? (
+  return !user ? (
+    <Redirect to="/" />
+  ) : detail ? (
     <div className="container">
       <h3>Transaction ID: {detail.id}</h3>
-      <p>Date of transaction: {detail.date.split("T")[0]}</p>
+      <p>Date of transaction: {detail.date} </p>
       <p>Status: {detail.status}</p>
       <h5>Items purchased</h5>
       <table className="table text-center">
@@ -33,9 +37,9 @@ export const TransactionDetail = () => {
             <th>quantity</th>
           </tr>
         </thead>
-        {detail.items.map((elem) => {
+        {detail.items.map((elem, index) => {
           return (
-            <tbody>
+            <tbody key={index}>
               <tr>
                 <td>{elem.title}</td>
                 <td>{elem.unit_price.toLocaleString()}</td>
@@ -45,6 +49,7 @@ export const TransactionDetail = () => {
           );
         })}
       </table>
+      <GoBackArrow route={"/transactions"} />
     </div>
   ) : (
     <div className="spinner-grow"></div>

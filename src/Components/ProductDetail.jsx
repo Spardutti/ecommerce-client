@@ -4,6 +4,8 @@ import { Col, Row, Button } from "reactstrap";
 import { userContext } from "../Context/Contexts";
 import { SingleProduct } from "./Admin/SingleProduct/SingleProduct";
 import { ColorSquares } from "./Styled/ColorSquares";
+import { GoBackArrow } from "./Styled/GoBackArrow";
+import { Redirect } from "react-router";
 
 // SHOWS THE PRODUCT PAGE WITH ALL THE INFO
 
@@ -15,6 +17,7 @@ export const ProductDetail = (props) => {
   const [selectedSize, setSelectedSize] = useState();
   const [selectedColor, setSelectedColor] = useState();
   const [loading, setLoading] = useState(false);
+  const [addedToCart, setAddedToCart] = useState(false);
 
   const { user, setUser } = useContext(userContext);
 
@@ -76,6 +79,14 @@ export const ProductDetail = (props) => {
   const resetState = () => {
     setSelectedColor("");
     setSelectedSize("");
+    setAddedToCart(false);
+  };
+
+  const productAdded = () => {
+    setAddedToCart(true);
+    setTimeout(() => {
+      resetState();
+    }, 2000);
   };
 
   return user ? (
@@ -83,6 +94,8 @@ export const ProductDetail = (props) => {
       <SingleProduct />
     ) : product.details ? (
       <div className="container bg-light mt-5">
+        <GoBackArrow route={"/products"} />
+
         <Row>
           <Col xs={6} className=" text-center">
             <h1>{product.name}</h1>
@@ -137,24 +150,28 @@ export const ProductDetail = (props) => {
                 selectedColor &&
                 selectSize && (
                   <div>
-                    <Button
-                      className="bg-primary my-4"
-                      onClick={async () => {
-                        setLoading(true);
-                        const newCart = await addToCart(
-                          props.id,
-                          productId,
-                          selectedSize,
-                          selectedColor,
-                          1
-                        );
-                        setUser(newCart);
-                        setLoading(false);
-                        resetState();
-                      }}
-                    >
-                      Add to cart
-                    </Button>
+                    {addedToCart ? (
+                      <p className="mt-2">Product added to cart</p>
+                    ) : (
+                      <Button
+                        className="bg-primary my-4"
+                        onClick={async () => {
+                          setLoading(true);
+                          const newCart = await addToCart(
+                            props.id,
+                            productId,
+                            selectedSize,
+                            selectedColor,
+                            1
+                          );
+                          setUser(newCart);
+                          setLoading(false);
+                          productAdded();
+                        }}
+                      >
+                        Add to cart
+                      </Button>
+                    )}
                   </div>
                 )
               )}
@@ -174,7 +191,11 @@ export const ProductDetail = (props) => {
         </Row>
       </div>
     ) : (
-      <p>loading</p>
+      <div className="d-flex justify-content-center mt-5">
+        <div className="spinner-grow mx-auto"></div>
+      </div>
     )
-  ) : null;
+  ) : (
+    <Redirect to="/" />
+  );
 };

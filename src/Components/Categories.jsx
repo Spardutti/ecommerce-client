@@ -1,24 +1,26 @@
 import { useState, useEffect, useContext } from "react";
 import { Redirect } from "react-router";
-import { Button, Breadcrumb, BreadcrumbItem, Col, Row } from "reactstrap";
-import { getCategories, getProductByCat } from "../../API/API";
-import { ProductCard } from "../../Components/ProductCard";
-import { userContext } from "../../Context/Contexts";
+import { Breadcrumb, BreadcrumbItem, Col, Row } from "reactstrap";
+import { getCategories, getProductByCat } from "../API/API";
+import { ProductCard } from "./ProductCard";
+import { userContext } from "../Context/Contexts";
+import { GoBackArrow } from "./Styled/GoBackArrow";
 
 // DISPLAY ALL THE CATEGORIES ON A BAR
 
-export const AdminCategory = () => {
+export const Categories = () => {
   const [categories, setCategories] = useState();
   const [active, setActive] = useState(0);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
-  const { user, setUser } = useContext(userContext);
+  const { user } = useContext(userContext);
 
   // GET ALL CATEGORIES ON LOAD
   useEffect(() => {
     (async () => {
       setCategories(await getCategories());
     })();
+    return () => setCategories();
   }, []);
 
   // GET SPECIFIC CATEOGRY ITEMS ON CLICK
@@ -27,6 +29,7 @@ export const AdminCategory = () => {
     setProducts(await getProductByCat(name));
     setLoading(false);
     setActive(index);
+    return () => setProducts([]);
   };
 
   // GET THE FIRST CATEGORY
@@ -37,6 +40,7 @@ export const AdminCategory = () => {
         setProducts(await getProductByCat(categories[0]._id));
         setLoading(false);
       })();
+      return () => setProducts([]);
     }
   }, [categories]);
 
@@ -70,22 +74,28 @@ export const AdminCategory = () => {
       {loading ? (
         <div className="spinner-grow"></div>
       ) : products ? (
-        <Row>
-          {products.map((pro) => {
-            return (
-              <Col xs={3} key={pro.name} className="mx-auto">
-                <ProductCard
-                  name={pro.name}
-                  images={pro.images}
-                  price={pro.details[0].price}
-                />
-              </Col>
-            );
-          })}
-        </Row>
+        !products.length ? (
+          <p> No Products found</p>
+        ) : (
+          <Row>
+            {products.map((pro) => {
+              return (
+                <Col xs={3} key={pro.name} className="mx-auto">
+                  <ProductCard
+                    name={pro.name}
+                    images={pro.images}
+                    price={pro.price}
+                    id={pro._id}
+                  />
+                </Col>
+              );
+            })}
+          </Row>
+        )
       ) : (
         <div className="spinner-grow"></div>
       )}
+      <GoBackArrow route="/" />
     </div>
   );
 };

@@ -1,5 +1,5 @@
 import { Input } from "reactstrap";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Redirect } from "react-router";
 
 // SEARCH PRODUCTS ON INPUT

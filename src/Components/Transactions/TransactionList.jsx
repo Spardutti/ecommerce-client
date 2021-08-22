@@ -1,22 +1,30 @@
 import { useState, useEffect, useContext } from "react";
 import { userContext } from "../../Context/Contexts";
 import { Table } from "reactstrap";
-import { Redirect } from "react-router";
+import { Link, Redirect } from "react-router-dom";
+import { GoBackArrow } from "../Styled/GoBackArrow";
+
+// DISPLAY THE LIST OF ALL TRANSACTIONS
 
 export const TransactionList = () => {
-  const { user, setUser } = useContext(userContext);
+  const { user } = useContext(userContext);
   const [purchases, setPurchases] = useState([]);
-  const [purchaseDetail, setPurchaseDetail] = useState("");
 
   useEffect(() => {
-    //TODO REVERSE
-    user && setPurchases(user.purchases);
-  }, [user]);
+    if (user) {
+      let sorted = user.purchases.sort((a, b) =>
+        a.date > b.date ? -1 : b.date > a.date ? 1 : 0
+      );
+      setPurchases(sorted);
+    }
+  }, [user, purchases]);
 
-  return purchases ? (
-    <div>
+  return !user ? (
+    <Redirect to="/" />
+  ) : purchases ? (
+    <div className="container">
       <h3 className="text-center mt-3"> Transaction List</h3>
-      <Table className="w-75 mx-auto">
+      <Table className=" mx-auto">
         <thead>
           <tr>
             <th>ID</th>
@@ -35,21 +43,29 @@ export const TransactionList = () => {
                   width="25%"
                   id={index}
                   className="cursorPointer"
-                  onClick={(e) => setPurchaseDetail(e.target.id)}
                 >
-                  Id: {elem.id.split("-")[1]}
+                  <Link to={"/transactiondetail/?" + index}>
+                    Id: {elem.id.split("-")[1]}
+                  </Link>
                 </th>
-                <td width="25%">{date.split("T")[0]}</td>
-                <td width="25%">{items[0].title}</td>
+                <td width="25%">{date}</td>
+                {items.length > 1 ? (
+                  <td width="25%" className="multiple-items">
+                    {items.map((elem) => {
+                      return elem.title + " ";
+                    })}
+                  </td>
+                ) : (
+                  <td width="25%">{items[0].title}</td>
+                )}
                 <td width="25%">Status: {status}</td>
               </tr>
             </tbody>
           );
         })}
       </Table>
-      {purchaseDetail ? (
-        <Redirect to={"/transactiondetail?" + purchaseDetail} />
-      ) : null}
+
+      <GoBackArrow route={"/"} />
     </div>
   ) : null;
 };

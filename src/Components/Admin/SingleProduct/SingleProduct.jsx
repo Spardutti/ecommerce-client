@@ -110,7 +110,7 @@ export const SingleProduct = () => {
               </div>
             )}
             <div className="text-center">
-              <p> Price: ${product.price.toLocaleDateString()}</p>
+              <p> Price: ${product.price.toLocaleString()}</p>
             </div>
             <hr />
             <div className="d-flex justify-content-around">

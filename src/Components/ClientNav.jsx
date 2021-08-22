@@ -27,53 +27,60 @@ export const ClientNav = () => {
     }
   }, [user]);
 
+  const logOut = async () => {
+    await logout();
+    setUser(null);
+    setCartItems(null);
+  };
+
   return (
     <div className="px-2 container">
       <Navbar color="light" light expand="md">
         {user ? (
-          <NavbarBrand href="/">{user.username}</NavbarBrand>
+          <div>
+            <NavbarBrand href="/">{user.username}</NavbarBrand>
+            <NavbarToggler onClick={toggle} />
+            <Collapse isOpen={isOpen} navbar>
+              <Nav className="mr-auto" navbar>
+                <NavItem>
+                  <NavLink href="/#/">Products</NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink href="/#/transactions/">Transactions</NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink href="/#/categories">Categories</NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink className="cart" href="/#/cart">
+                    <i className="fas fa-shopping-cart"></i>
+                    {cartItems && cartItems.length ? (
+                      <div className="arrow">
+                        <p>{cartItems.length}</p>
+                      </div>
+                    ) : null}
+                  </NavLink>
+                </NavItem>
+                {user ? (
+                  <NavItem>
+                    <NavLink
+                      href="#"
+                      onClick={() => {
+                        logOut();
+                      }}
+                    >
+                      Log out
+                    </NavLink>
+                  </NavItem>
+                ) : null}
+              </Nav>
+            </Collapse>
+          </div>
         ) : (
           <a href="/#/login" className="btn btn-primary">
             Log in
           </a>
         )}
-        <NavbarToggler onClick={toggle} />
-        <Collapse isOpen={isOpen} navbar>
-          <Nav className="mr-auto" navbar>
-            <NavItem>
-              <NavLink href="/#/">Products</NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink href="/#/transactions/">Compras</NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink href="/#/categorias">Categorias</NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink className="cart" href="/#/cart">
-                <i className="fas fa-shopping-cart"></i>
-                {cartItems && cartItems.length ? (
-                  <div className="arrow">
-                    <p>{cartItems.length}</p>
-                  </div>
-                ) : null}
-              </NavLink>
-            </NavItem>
-            {user ? (
-              <NavItem>
-                <NavLink
-                  href="#"
-                  onClick={() => {
-                    logout();
-                    setUser(null);
-                  }}
-                >
-                  Salir
-                </NavLink>
-              </NavItem>
-            ) : null}
-          </Nav>
-        </Collapse>
       </Navbar>
       <div className="home-title">
         <h1>Lorem</h1>

@@ -1,8 +1,10 @@
-import { Col, Row } from "reactstrap";
+import { Row } from "reactstrap";
 import { useState, useEffect, useContext } from "react";
 import { userContext } from "../Context/Contexts";
 import { CartItem } from "./CartItem";
 import { checkStock, updatePurchases } from "../API/API";
+import { GoBackArrow } from "./Styled/GoBackArrow";
+import { Redirect } from "react-router";
 
 // DISPLAY THE CART PAGE
 export const Cart = () => {
@@ -31,7 +33,7 @@ export const Cart = () => {
     if (response.status === 200) {
       const { date_created, id, items, payer } = response.data;
       const purchase = {
-        date: date_created,
+        date: new Date(date_created).toLocaleDateString(),
         id: id,
         items: items,
         payer: payer,
@@ -44,8 +46,9 @@ export const Cart = () => {
     setLoading(false);
   };
 
-  return (
+  return user ? (
     <div className="container">
+      <GoBackArrow route={"/"} />
       <Row>
         {cartItems &&
           cartItems.map((product, index) => {
@@ -84,5 +87,7 @@ export const Cart = () => {
         </div>
       )}
     </div>
+  ) : (
+    <Redirect to="/" />
   );
 };

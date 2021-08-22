@@ -137,3 +137,22 @@
   margin: auto;
   width: 90%;
 }
+
+/**************************************************************** TRANSACTION LIST */
+.multiple-items {
+  overflow-x: hidden;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/**************************************************** NO SELECT */
+a,
+div,
+p,
+h1,
+button {
+  user-select: none;
+}

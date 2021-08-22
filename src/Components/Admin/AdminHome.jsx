@@ -65,6 +65,6 @@ export const AdminHome = () => {
       </Col>
     )
   ) : (
-    <p>loading</p>
+    <Redirect to="/" />
   );
 };

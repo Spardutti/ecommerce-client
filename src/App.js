@@ -14,6 +14,7 @@ import { Cart } from "./Components/Cart";
 import { PurchaseSuccess } from "./Components/Transactions/PurchaseSuccess";
 import { TransactionList } from "./Components/Transactions/TransactionList";
 import { TransactionDetail } from "./Components/Transactions/TransactionDetail";
+import { Categories } from "./Components/Categories";
 
 function App() {
   const [user, setUser] = useState();
@@ -40,6 +41,7 @@ function App() {
           <Route path="/purchasesuccess" component={PurchaseSuccess} />
           <Route path="/transactions" component={TransactionList} />
           <Route path="/transactiondetail" component={TransactionDetail} />
+          <Route path="/categories" component={Categories} />
           {user && (
             <Route
               path="/product"

@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import { userContext } from "../../Context/Contexts";
 import { logout } from "../../API/API";
 import {
@@ -21,6 +21,11 @@ export const AdminNav = () => {
 
   const { user, setUser } = useContext(userContext);
 
+  const logOut = async () => {
+    await logout();
+    setUser(null);
+  };
+
   return (
     <div className="px-2 container">
       <Navbar color="light" light expand="md">
@@ -29,24 +34,18 @@ export const AdminNav = () => {
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>
             <NavItem>
-              <NavLink href="/#/admin-ventas">Ventas</NavLink>
+              <NavLink href="/#/admin-transactions">Transactions</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="/#/admin-categorias">Categorias</NavLink>
+              <NavLink href="/#/admin-categorias">Categories</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="/#/admin-productos">Productos</NavLink>
+              <NavLink href="/#/admin-productos">Products</NavLink>
             </NavItem>
             {user ? (
               <NavItem>
-                <NavLink
-                  href="#"
-                  onClick={() => {
-                    logout();
-                    setUser(null);
-                  }}
-                >
-                  Salir
+                <NavLink href="#" onClick={logOut}>
+                  Log out
                 </NavLink>
               </NavItem>
             ) : null}
