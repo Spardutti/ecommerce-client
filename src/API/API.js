@@ -324,6 +324,35 @@ export const updateSuccessPurchase = async (id, index) => {
   }
 };
 
+/******************************************************************* TRANSACTIONS ***************************/
+
+// NEW TRANSACTION
+export const newTransaction = async (
+  userId,
+  transaction_id,
+  status,
+  products,
+  date
+) => {
+  try {
+    const response = await fetch(url + "/transaction/new", {
+      method: "POST",
+      headers: params,
+      body: JSON.stringify({
+        userId,
+        transaction_id,
+        status,
+        products,
+        date,
+      }),
+    });
+    const data = await response.json();
+    console.log(data);
+  } catch (err) {
+    return err;
+  }
+};
+
 /******************************************************************* CATEGORIES  *******************************************************************/
 
 // GET ALL CATEGORIES

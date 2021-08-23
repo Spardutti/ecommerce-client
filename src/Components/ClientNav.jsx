@@ -35,9 +35,9 @@ export const ClientNav = () => {
 
   return (
     <div className="px-2 container">
-      <Navbar color="light" light expand="md">
-        {user ? (
-          <div>
+      {user ? (
+        <div>
+          <Navbar color="light" light expand="md">
             <NavbarBrand href="/">{user.username}</NavbarBrand>
             <NavbarToggler onClick={toggle} />
             <Collapse isOpen={isOpen} navbar>
@@ -75,13 +75,15 @@ export const ClientNav = () => {
                 ) : null}
               </Nav>
             </Collapse>
-          </div>
-        ) : (
+          </Navbar>
+        </div>
+      ) : (
+        <Navbar>
           <a href="/#/login" className="btn btn-primary">
             Log in
           </a>
-        )}
-      </Navbar>
+        </Navbar>
+      )}
       <div className="home-title">
         <h1>Lorem</h1>
       </div>
