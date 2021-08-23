@@ -331,7 +331,7 @@ export const newTransaction = async (
   userId,
   transaction_id,
   status,
-  products,
+  items,
   date
 ) => {
   try {
@@ -342,12 +342,39 @@ export const newTransaction = async (
         userId,
         transaction_id,
         status,
-        products,
+        items,
         date,
       }),
     });
     const data = await response.json();
     console.log(data);
+  } catch (err) {
+    return err;
+  }
+};
+
+// GET  SPECIFIC TRANSACTION
+export const getTransaction = async (transaction_id) => {
+  try {
+    const response = await fetch(url + "/transaction/" + transaction_id);
+    const data = await response.json();
+    return data;
+  } catch (err) {
+    return err;
+  }
+};
+
+//UPDATE TRANSACTION STATUS
+export const updateTransactionStatus = async (id, status) => {
+  try {
+    await fetch(url + "/transaction/update", {
+      method: "PUT",
+      headers: params,
+      body: JSON.stringify({
+        id,
+        status,
+      }),
+    });
   } catch (err) {
     return err;
   }

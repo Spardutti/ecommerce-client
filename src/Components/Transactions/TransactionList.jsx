@@ -4,7 +4,8 @@ import { Table } from "reactstrap";
 import { Link, Redirect } from "react-router-dom";
 import { GoBackArrow } from "../Styled/GoBackArrow";
 
-// DISPLAY THE LIST OF ALL TRANSACTIONS
+// DISPLAY THE CURRENT USER TRANSACTIONS
+// TODO
 
 export const TransactionList = () => {
   const { user } = useContext(userContext);

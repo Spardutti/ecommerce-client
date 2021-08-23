@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import { Redirect } from "react-router";
-import { purchaseDetail } from "../../API/API";
+import { purchaseDetail, getTransaction } from "../../API/API";
 import { userContext } from "../../Context/Contexts";
 import { GoBackArrow } from "../Styled/GoBackArrow";
 
@@ -11,22 +11,21 @@ export const TransactionDetail = () => {
 
   const getDetail = async () => {
     let url = window.location.href;
-    let index = url.split("?")[1];
-    if (user) {
-      setDetail(await purchaseDetail(user._id, index));
+    let id = url.split("?")[1];
+    const transaction = await getTransaction(id);
+    if (transaction) {
+      setDetail(transaction);
     }
   };
 
   useEffect(() => {
-    user && getDetail();
+    getDetail();
   }, [user]);
 
-  return !user ? (
-    <Redirect to="/" />
-  ) : detail ? (
+  return !user ? null : detail ? (
     <div className="container">
       <h3>Transaction ID: {detail.id}</h3>
-      <p>Date of transaction: {detail.date} </p>
+      <p>Date of transaction: {new Date(detail.date).toLocaleDateString()} </p>
       <p>Status: {detail.status}</p>
       <h5>Items purchased</h5>
       <table className="table text-center">
@@ -37,7 +36,7 @@ export const TransactionDetail = () => {
             <th>quantity</th>
           </tr>
         </thead>
-        {detail.items.map((elem, index) => {
+        {detail.product.map((elem, index) => {
           return (
             <tbody key={index}>
               <tr>

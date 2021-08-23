@@ -2,7 +2,7 @@ import { Row } from "reactstrap";
 import { useState, useEffect, useContext } from "react";
 import { userContext } from "../Context/Contexts";
 import { CartItem } from "./CartItem";
-import { checkStock, updatePurchases } from "../API/API";
+import { checkStock, updatePurchases, newTransaction } from "../API/API";
 import { GoBackArrow } from "./Styled/GoBackArrow";
 import { Redirect } from "react-router";
 
@@ -31,16 +31,9 @@ export const Cart = () => {
     setLoading(true);
     const response = await checkStock(userId);
     if (response.status === 200) {
-      const { date_created, id, items, payer } = response.data;
-      const purchase = {
-        date: new Date(date_created).toLocaleDateString(),
-        id: id,
-        items: items,
-        payer: payer,
-        status: null,
-      };
-      await updatePurchases(userId, purchase);
-      window.location.replace(response.data.init_point);
+      const { date_created, id, items, payer, init_point } = response.data;
+      await newTransaction(user._id, id, "pending", items, date_created);
+      window.location.replace(init_point);
       setLoading(false);
     }
     setLoading(false);
