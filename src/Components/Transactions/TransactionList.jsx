@@ -3,6 +3,7 @@ import { userContext } from "../../Context/Contexts";
 import { Table } from "reactstrap";
 import { Link, Redirect } from "react-router-dom";
 import { GoBackArrow } from "../Styled/GoBackArrow";
+import { userTransactions } from "../../API/API";
 
 // DISPLAY THE CURRENT USER TRANSACTIONS
 // TODO
@@ -11,19 +12,19 @@ export const TransactionList = () => {
   const { user } = useContext(userContext);
   const [purchases, setPurchases] = useState([]);
 
+  const getUserTransactions = async () => {
+    const transactions = await userTransactions(user._id);
+    setPurchases(transactions);
+  };
+
   useEffect(() => {
     if (user) {
-      let sorted = user.purchases.sort((a, b) =>
-        a.date > b.date ? -1 : b.date > a.date ? 1 : 0
-      );
-      setPurchases(sorted);
+      getUserTransactions();
     }
-  }, [user, purchases]);
+  }, [user]);
 
-  return !user ? (
-    <Redirect to="/" />
-  ) : purchases ? (
-    <div className="container">
+  return !user ? null : purchases ? (
+    <div className="container text-center">
       <h3 className="text-center mt-3"> Transaction List</h3>
       <Table className=" mx-auto">
         <thead>
@@ -35,7 +36,7 @@ export const TransactionList = () => {
           </tr>
         </thead>
         {purchases.map((elem, index) => {
-          const { date, items, status } = elem;
+          const { date, product, status, transaction_id } = elem;
           return (
             <tbody key={index}>
               <tr>
@@ -45,19 +46,19 @@ export const TransactionList = () => {
                   id={index}
                   className="cursorPointer"
                 >
-                  <Link to={"/transactiondetail/?" + index}>
-                    Id: {elem.id.split("-")[1]}
+                  <Link to={"/transactiondetail/?" + transaction_id}>
+                    Id: {transaction_id}
                   </Link>
                 </th>
-                <td width="25%">{date}</td>
-                {items.length > 1 ? (
+                <td width="25%">{new Date(date).toLocaleDateString()}</td>
+                {product.length > 1 ? (
                   <td width="25%" className="multiple-items">
-                    {items.map((elem) => {
+                    {product.map((elem) => {
                       return elem.title + " ";
                     })}
                   </td>
                 ) : (
-                  <td width="25%">{items[0].title}</td>
+                  <td width="25%">{product[0].title}</td>
                 )}
                 <td width="25%">Status: {status}</td>
               </tr>
@@ -65,8 +66,11 @@ export const TransactionList = () => {
           );
         })}
       </Table>
-
       <GoBackArrow route={"/"} />
     </div>
-  ) : null;
+  ) : (
+    <div className="mt-5 text-center">
+      <p className="spinner-grow">hola</p>
+    </div>
+  );
 };

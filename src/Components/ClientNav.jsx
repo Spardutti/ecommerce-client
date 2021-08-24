@@ -34,14 +34,16 @@ export const ClientNav = () => {
   };
 
   return (
-    <div className="px-2 container">
+    <div className="px-lg-2 container">
       {user ? (
         <div>
-          <Navbar color="light" light expand="md">
-            <NavbarBrand href="/">{user.username}</NavbarBrand>
+          <Navbar color="light" light expand="lg">
+            <NavbarBrand className="px-1" href="/">
+              Logo
+            </NavbarBrand>
             <NavbarToggler onClick={toggle} />
             <Collapse isOpen={isOpen} navbar>
-              <Nav className="mr-auto" navbar>
+              <Nav className="d-flex w-100" navbar>
                 <NavItem>
                   <NavLink href="/#/">Products</NavLink>
                 </NavItem>
@@ -61,6 +63,7 @@ export const ClientNav = () => {
                     ) : null}
                   </NavLink>
                 </NavItem>
+                {user ? <NavItem></NavItem> : null}
                 {user ? (
                   <NavItem>
                     <NavLink
@@ -75,6 +78,7 @@ export const ClientNav = () => {
                 ) : null}
               </Nav>
             </Collapse>
+            <h5 className="mx-5 pt-2">Hello, {user.username}</h5>
           </Navbar>
         </div>
       ) : (

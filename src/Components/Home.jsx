@@ -5,6 +5,7 @@ import uniqid from "uniqid";
 import { Row, Col } from "reactstrap";
 import { userContext } from "../Context/Contexts";
 import { Redirect } from "react-router";
+import { SearchProduct } from "./SearchProduct";
 
 const Home = () => {
   const [products, setProducts] = useState([]);
@@ -25,28 +26,31 @@ const Home = () => {
     user.admin ? (
       <Redirect to="/admin-productos" />
     ) : (
-      <Row className="container mx-auto">
-        {products
-          ? products.map((product) => {
-              const { name, _id, description, images, size, color, price } =
-                product;
-              return (
-                <Col md={3} className="mt-5 mx-auto" key={_id}>
-                  <ProductCard
-                    key={uniqid()}
-                    id={_id}
-                    name={name}
-                    price={price}
-                    images={images}
-                    description={description}
-                    size={size}
-                    color={color}
-                  />
-                </Col>
-              );
-            })
-          : null}
-      </Row>
+      <div>
+        <SearchProduct products={products} />
+        <Row className="container mx-auto">
+          {products
+            ? products.map((product) => {
+                const { name, _id, description, images, size, color, price } =
+                  product;
+                return (
+                  <Col md={3} className="mt-5 mx-auto" key={_id}>
+                    <ProductCard
+                      key={uniqid()}
+                      id={_id}
+                      name={name}
+                      price={price}
+                      images={images}
+                      description={description}
+                      size={size}
+                      color={color}
+                    />
+                  </Col>
+                );
+              })
+            : null}
+        </Row>
+      </div>
     )
   ) : null;
 };

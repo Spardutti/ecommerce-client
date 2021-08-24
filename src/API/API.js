@@ -364,6 +364,17 @@ export const getTransaction = async (transaction_id) => {
   }
 };
 
+// GET USER TRANSACTIONS
+export const userTransactions = async (userId) => {
+  try {
+    const response = await fetch(url + "/transactions/user/" + userId);
+    const data = await response.json();
+    return data;
+  } catch (err) {
+    return err;
+  }
+};
+
 //UPDATE TRANSACTION STATUS
 export const updateTransactionStatus = async (id, status) => {
   try {

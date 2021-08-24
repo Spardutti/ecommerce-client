@@ -28,6 +28,7 @@ export const SearchProduct = (props) => {
     setProductName(product.name);
     setProductId(product._id);
     setSuggestions([]);
+    setRedirect(true);
   };
 
   return (
@@ -37,7 +38,7 @@ export const SearchProduct = (props) => {
         <Input onChange={nameHandler} value={productName} />
         <i
           onClick={() => setRedirect(true)}
-          className="fas fa-search searchIcon"
+          className="fas fa-search searchIcon text-center"
         ></i>
       </div>
       {suggestions &&
@@ -45,7 +46,7 @@ export const SearchProduct = (props) => {
           return (
             <div
               key={index}
-              className="suggestion mx-auto"
+              className="suggestion mx-auto p-1"
               onClick={() => suggestionHandler(suggestion)}
             >
               {suggestion.name}
