@@ -25,8 +25,8 @@ export const PurchaseSuccess = () => {
   };
 
   useEffect(() => {
-    compareCollectionsId();
-  }, []);
+    user && compareCollectionsId();
+  }, [user]);
 
   return success ? (
     <Redirect to={"/transactiondetail?" + preferenceId} />

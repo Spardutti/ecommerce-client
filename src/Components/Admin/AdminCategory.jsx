@@ -77,7 +77,7 @@ export const AdminCategory = () => {
                 <ProductCard
                   name={pro.name}
                   images={pro.images}
-                  price={pro.details[0].price}
+                  price={pro.price.toLocaleString()}
                 />
               </Col>
             );

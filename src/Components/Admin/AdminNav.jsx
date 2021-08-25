@@ -24,6 +24,7 @@ export const AdminNav = () => {
   const logOut = async () => {
     await logout();
     setUser(null);
+    window.location.replace("/");
   };
 
   return (

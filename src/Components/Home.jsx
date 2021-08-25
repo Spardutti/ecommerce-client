@@ -6,6 +6,7 @@ import { Row, Col } from "reactstrap";
 import { userContext } from "../Context/Contexts";
 import { Redirect } from "react-router";
 import { SearchProduct } from "./SearchProduct";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   const [products, setProducts] = useState([]);
@@ -52,7 +53,14 @@ const Home = () => {
         </Row>
       </div>
     )
-  ) : null;
+  ) : (
+    <h5 className="text-center mt-5">
+      Please{" "}
+      <Link to="/login" className="text-primary">
+        Log in
+      </Link>
+    </h5>
+  );
 };
 
 export default Home;

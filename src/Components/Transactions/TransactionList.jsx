@@ -6,7 +6,6 @@ import { GoBackArrow } from "../Styled/GoBackArrow";
 import { userTransactions } from "../../API/API";
 
 // DISPLAY THE CURRENT USER TRANSACTIONS
-// TODO
 
 export const TransactionList = () => {
   const { user } = useContext(userContext);

@@ -302,7 +302,6 @@ export const success = async () => {
   try {
     const resposne = await fetch(url + "/success");
     const data = await resposne.json();
-    console.log(data);
   } catch (err) {
     return err;
   }
@@ -347,7 +346,6 @@ export const newTransaction = async (
       }),
     });
     const data = await response.json();
-    console.log(data);
   } catch (err) {
     return err;
   }
@@ -386,6 +384,20 @@ export const updateTransactionStatus = async (id, status) => {
         status,
       }),
     });
+  } catch (err) {
+    return err;
+  }
+};
+
+// GET ALL TRANSACTIONS
+export const allTransactions = async () => {
+  try {
+    const response = await fetch(url + "/transactions/all", {
+      method: "GET",
+      headers: params,
+    });
+    const data = await response.json();
+    return data;
   } catch (err) {
     return err;
   }

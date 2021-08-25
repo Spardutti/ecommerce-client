@@ -33,7 +33,9 @@ export const ProductDetail = (props) => {
   useEffect(() => {
     if (productId) {
       (async () => {
-        setProduct(await productDetail(productId));
+        const token = "Bearer " + localStorage.getItem("token");
+
+        setProduct(await productDetail(productId, token));
       })();
     }
   }, [productId]);

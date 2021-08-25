@@ -15,6 +15,7 @@ import { PurchaseSuccess } from "./Components/Transactions/PurchaseSuccess";
 import { TransactionList } from "./Components/Transactions/TransactionList";
 import { TransactionDetail } from "./Components/Transactions/TransactionDetail";
 import { Categories } from "./Components/Categories";
+import { AdminTransactions } from "./Components/Admin/AdminTransactions";
 
 function App() {
   const [user, setUser] = useState();
@@ -22,7 +23,7 @@ function App() {
   useEffect(() => {
     (async () => {
       const token = checkForToken();
-      if (token) setUser(await userData());
+      if (token) setUser(await userData(token));
       else setUser(null);
     })();
   }, []);
@@ -42,6 +43,7 @@ function App() {
           <Route path="/transactions" component={TransactionList} />
           <Route path="/transactiondetail" component={TransactionDetail} />
           <Route path="/categories" component={Categories} />
+          <Route path="/admin-transactions" component={AdminTransactions} />
           {user && (
             <Route
               path="/product"
