@@ -16,6 +16,7 @@ import { TransactionList } from "./Components/Transactions/TransactionList";
 import { TransactionDetail } from "./Components/Transactions/TransactionDetail";
 import { Categories } from "./Components/Categories";
 import { AdminTransactions } from "./Components/Admin/AdminTransactions";
+import { PurchaseFailure } from "./Components/Transactions/PurchaseFailure";
 
 function App() {
   const [user, setUser] = useState();
@@ -44,6 +45,7 @@ function App() {
           <Route path="/transactiondetail" component={TransactionDetail} />
           <Route path="/categories" component={Categories} />
           <Route path="/admin-transactions" component={AdminTransactions} />
+          <Route path="/purchasefailure" component={PurchaseFailure} />
           {user && (
             <Route
               path="/product"

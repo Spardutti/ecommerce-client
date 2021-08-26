@@ -37,7 +37,7 @@ export const TransactionDetail = () => {
       <h3>Transaction ID: {detail.transaction_id}</h3>
       <p>Date of transaction: {new Date(detail.date).toLocaleDateString()} </p>
       <p>Status: {detail.status}</p>
-      <h5>Items purchased</h5>
+      <h5 className="text-center">Items purchased</h5>
       <table className="table text-center">
         <thead>
           <tr>
