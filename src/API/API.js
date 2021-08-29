@@ -1,7 +1,8 @@
 import jwt from "jsonwebtoken";
 import { NavbarText } from "reactstrap";
 
-const url = "http://localhost:5000";
+//const url = "http://localhost:5000"; // DEVELOPMENT
+const url = "https://ecommercedemosite.herokuapp.com"; // LIVE
 let token;
 let decodedToken;
 const params = {

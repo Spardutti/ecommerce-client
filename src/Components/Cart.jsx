@@ -31,7 +31,7 @@ export const Cart = () => {
     setLoading(true);
     const response = await checkStock(userId);
     if (response.status === 200) {
-      const { date_created, id, items, payer, init_point } = response.data;
+      const { date_created, id, items, init_point } = response.data;
       await newTransaction(user._id, id, "pending", items, date_created);
       window.location.replace(init_point);
       setLoading(false);

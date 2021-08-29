@@ -29,6 +29,7 @@ const Home = () => {
     ) : (
       <div>
         <SearchProduct products={products} />
+
         <Row className="container mx-auto">
           {products
             ? products.map((product) => {
