@@ -45,7 +45,11 @@ export const TransactionList = () => {
                   id={index}
                   className="cursorPointer"
                 >
-                  <Link to={"/transactiondetail/?" + transaction_id}>
+                  <Link
+                    to={
+                      "/ecommerce-client/transactiondetail/?" + transaction_id
+                    }
+                  >
                     Id: {transaction_id}
                   </Link>
                 </th>
@@ -65,7 +69,7 @@ export const TransactionList = () => {
           );
         })}
       </Table>
-      <GoBackArrow route={"/"} />
+      <GoBackArrow route={"/ecommerce-client/"} />
     </div>
   ) : (
     <div className="mt-5 text-center">

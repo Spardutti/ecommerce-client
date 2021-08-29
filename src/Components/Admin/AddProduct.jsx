@@ -225,7 +225,9 @@ export const AddProduct = () => {
             )}
           </FormGroup>
         </Form>
-        {productId ? <Redirect to={"/product?" + productId} /> : null}
+        {productId ? (
+          <Redirect to={"/ecommerce-client/product?" + productId} />
+        ) : null}
       </div>
     )
   ) : (

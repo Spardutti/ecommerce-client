@@ -29,6 +29,6 @@ export const PurchaseSuccess = () => {
   }, [user]);
 
   return success ? (
-    <Redirect to={"/transactiondetail?" + preferenceId} />
+    <Redirect to={"/ecommerce-client/transactiondetail?" + preferenceId} />
   ) : null;
 };

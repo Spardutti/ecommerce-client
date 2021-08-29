@@ -24,7 +24,7 @@ export const ProductCard = (props) => {
   return (
     <div>
       <Link
-        to={"/product?" + id}
+        to={"/ecommerce-client/product?" + id}
         id={id}
         style={{ textDecoration: "none" }}
         className="text-dark"

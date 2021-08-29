@@ -59,7 +59,7 @@ export const TransactionDetail = () => {
         })}
       </table>
       <h5 className="text-center">Total: {total.toLocaleString()}</h5>
-      <GoBackArrow route={"/transactions"} />
+      <GoBackArrow route={"/ecommerce-client/transactions"} />
     </div>
   ) : (
     <div className="mt-5 text-center">

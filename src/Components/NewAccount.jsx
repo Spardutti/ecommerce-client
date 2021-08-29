@@ -124,7 +124,7 @@ export const NewAccount = () => {
           </FormGroup>
         </div>
       )}
-      {redirect ? <Redirect to="/login" /> : null}
+      {redirect ? <Redirect to="/ecommerce-client/login" /> : null}
     </Form>
   );
 };

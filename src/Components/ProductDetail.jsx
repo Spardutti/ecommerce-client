@@ -96,7 +96,7 @@ export const ProductDetail = (props) => {
       <SingleProduct />
     ) : product.details ? (
       <div className="container bg-light mt-5">
-        <GoBackArrow route={"/products"} />
+        <GoBackArrow route={"/ecommerce-client/products"} />
 
         <Row>
           <Col xs={6} className=" text-center">
@@ -198,6 +198,6 @@ export const ProductDetail = (props) => {
       </div>
     )
   ) : (
-    <Redirect to="/" />
+    <Redirect to="/ecommerce-client/" />
   );
 };

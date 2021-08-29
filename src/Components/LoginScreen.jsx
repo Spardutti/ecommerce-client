@@ -73,7 +73,7 @@ export const LoginScreen = () => {
           </div>
           {/* CHANGE URL ON */}
           <a
-            href="http://localhost:5000/user/google/login"
+            href="https://ecommercedemosite.herokuapp.com/user/google/login"
             className="btn-text"
           >
             <b>Log in with google</b>
@@ -82,11 +82,11 @@ export const LoginScreen = () => {
       </FormGroup>
       <hr />
       <FormGroup className="text-center">
-        <Link to="/newaccount" className="btn bg-success">
+        <Link to="/ecommerce-client/newaccount" className="btn bg-success">
           Crear cuenta
         </Link>
       </FormGroup>
-      {logged ? <Redirect to="/" /> : null}
+      {logged ? <Redirect to="/ecommerce-client/" /> : null}
     </Form>
   );
 };

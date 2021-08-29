@@ -37,7 +37,7 @@ function App() {
         <NavBar />
         <Switch>
           <Route path="/logged" component={Token} />
-          <Route path="/login" component={LoginScreen} />
+          <Route path="/ecommerce-clien/login" component={LoginScreen} />
           <Route path="/newaccount" component={NewAccount} />
           <Route path="/admin-productos" component={AdminHome} />
           <Route path="/admin-categorias" component={AdminCategory} />
