@@ -24,24 +24,32 @@ export const AdminNav = () => {
   const logOut = async () => {
     await logout();
     setUser(null);
-    window.location.replace("/");
+    window.location.replace("/ecommerce-client/");
   };
 
   return (
     <div className="px-2 container">
       <Navbar color="light" light expand="md">
-        <NavbarBrand href="/#/admin-productos">{user.username}</NavbarBrand>
+        <NavbarBrand href="/ecommerce-client/#/admin-productos">
+          {user.username}
+        </NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>
             <NavItem>
-              <NavLink href="/#/admin-transactions">Transactions</NavLink>
+              <NavLink href="/ecommerce-client/#/admin-transactions">
+                Transactions
+              </NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="/#/admin-categorias">Categories</NavLink>
+              <NavLink href="/ecommerce-client/#/admin-categorias">
+                Categories
+              </NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="/#/admin-productos">Products</NavLink>
+              <NavLink href="/ecommerce-client/#/admin-productos">
+                Products
+              </NavLink>
             </NavItem>
             {user ? (
               <NavItem>
