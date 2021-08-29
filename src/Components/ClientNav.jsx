@@ -45,20 +45,16 @@ export const ClientNav = () => {
             <Collapse isOpen={isOpen} navbar>
               <Nav className="d-flex w-100" navbar>
                 <NavItem>
-                  <NavLink href="/#/ecommerce-client/">Products</NavLink>
+                  <NavLink href="/#/">Products</NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink href="/#/ecommerce-client/transactions/">
-                    Transactions
-                  </NavLink>
+                  <NavLink href="/#/transactions/">Transactions</NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink href="/#/ecommerce-client/categories">
-                    Categories
-                  </NavLink>
+                  <NavLink href="/#/categories">Categories</NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink className="cart" href="/#/ecommerce-client/cart">
+                  <NavLink className="cart" href="/#/cart">
                     <i className="fas fa-shopping-cart"></i>
                     {cartItems && cartItems.length ? (
                       <div className="arrow">
@@ -87,7 +83,7 @@ export const ClientNav = () => {
         </div>
       ) : (
         <Navbar>
-          <a href="/#/ecommerce-client/login" className="btn btn-primary">
+          <a href="/#/login" className="btn btn-primary">
             Log in
           </a>
         </Navbar>

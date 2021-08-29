@@ -71,11 +71,11 @@ function App() {
           />
           {user && (
             <Route
-              path="/product"
+              path="/ecommerce-client/product"
               render={(props) => <ProductDetail id={user._id} {...props} />}
             />
           )}
-          <Route path="/" component={Home} />
+          <Route path="/ecommerce-client/" component={Home} />
         </Switch>
       </userContext.Provider>
     </HashRouter>
