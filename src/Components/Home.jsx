@@ -25,11 +25,10 @@ const Home = () => {
 
   return user ? (
     user.admin ? (
-      <Redirect to="/ecommerce-clien/admin-productos" />
+      <Redirect to="/admin-productos" />
     ) : (
       <div>
         <SearchProduct products={products} />
-
         <Row className="container mx-auto">
           {products
             ? products.map((product) => {
@@ -57,7 +56,7 @@ const Home = () => {
   ) : (
     <h5 className="text-center mt-5">
       Please{" "}
-      <Link to="/ecommerce-clien/login" className="text-primary">
+      <Link to="/login" className="text-primary">
         Log in
       </Link>
     </h5>

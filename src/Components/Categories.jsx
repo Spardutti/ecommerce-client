@@ -95,7 +95,7 @@ export const Categories = () => {
       ) : (
         <div className="spinner-grow"></div>
       )}
-      <GoBackArrow route="/ecommerce-client/" />
+      <GoBackArrow route="/" />
     </div>
   );
 };

@@ -82,11 +82,11 @@ export const LoginScreen = () => {
       </FormGroup>
       <hr />
       <FormGroup className="text-center">
-        <Link to="/ecommerce-client/newaccount" className="btn bg-success">
+        <Link to="/newaccount" className="btn bg-success">
           Crear cuenta
         </Link>
       </FormGroup>
-      {logged ? <Redirect to="/ecommerce-client/" /> : null}
+      {logged ? <Redirect to="/" /> : null}
     </Form>
   );
 };

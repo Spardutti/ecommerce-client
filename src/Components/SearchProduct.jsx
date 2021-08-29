@@ -33,7 +33,7 @@ export const SearchProduct = (props) => {
 
   return (
     <div>
-      {redirect && <Redirect to={"/ecommerce-client/product/?" + productId} />}
+      {redirect && <Redirect to={"/product/?" + productId} />}
       <div className=" mx-auto search mt-5">
         <Input onChange={nameHandler} value={productName} />
         <i

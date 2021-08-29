@@ -12,5 +12,5 @@ export const Token = (props) => {
     window.history.pushState({}, "", url.split("?")[0]);
     localStorage.setItem("token", localToken);
   }, []);
-  return <div>{token ? <Redirect to="/ecommerce-client/" /> : null}</div>;
+  return <div>{token ? <Redirect to="/" /> : null}</div>;
 };

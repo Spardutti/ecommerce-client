@@ -35,19 +35,13 @@ export const AdminNav = () => {
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>
             <NavItem>
-              <NavLink href="/#/ecommerce-client/admin-transactions">
-                Transactions
-              </NavLink>
+              <NavLink href="/#/admin-transactions">Transactions</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="/#/ecommerce-client/admin-categorias">
-                Categories
-              </NavLink>
+              <NavLink href="/#/admin-categorias">Categories</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="/#/ecommerce-client/admin-productos">
-                Products
-              </NavLink>
+              <NavLink href="/#/admin-productos">Products</NavLink>
             </NavItem>
             {user ? (
               <NavItem>

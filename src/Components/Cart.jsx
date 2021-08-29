@@ -41,7 +41,7 @@ export const Cart = () => {
 
   return user ? (
     <div className="container">
-      <GoBackArrow route={"/ecommerce-client/"} />
+      <GoBackArrow route={"/"} />
       <Row>
         {cartItems &&
           cartItems.map((product, index) => {

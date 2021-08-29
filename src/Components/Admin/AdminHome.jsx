@@ -65,6 +65,6 @@ export const AdminHome = () => {
       </Col>
     )
   ) : (
-    <Redirect to="/ecommerce-client/" />
+    <Redirect to="/" />
   );
 };

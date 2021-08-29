@@ -209,9 +209,7 @@ export const SingleProduct = () => {
     <div className="text-center mt-5">
       <h5>Product not found</h5>
       <p>Redirecting in: {countDown}</p>
-      {countDownOver ? (
-        <Redirect to="/#/ecommerce-client/admin-productos" />
-      ) : null}
+      {countDownOver ? <Redirect to="/#/admin-productos" /> : null}
     </div>
   );
 };
