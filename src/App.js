@@ -36,18 +36,39 @@ function App() {
       <userContext.Provider value={{ user, setUser }}>
         <NavBar />
         <Switch>
-          <Route path="/logged" component={Token} />
+          <Route path="/ecommerce-client/logged" component={Token} />
           <Route path="/ecommerce-clien/login" component={LoginScreen} />
-          <Route path="/newaccount" component={NewAccount} />
-          <Route path="/admin-productos" component={AdminHome} />
-          <Route path="/admin-categorias" component={AdminCategory} />
-          <Route path="/cart" component={Cart} />
-          <Route path="/purchasesuccess" component={PurchaseSuccess} />
-          <Route path="/transactions" component={TransactionList} />
-          <Route path="/transactiondetail" component={TransactionDetail} />
-          <Route path="/categories" component={Categories} />
-          <Route path="/admin-transactions" component={AdminTransactions} />
-          <Route path="/purchasefailure" component={PurchaseFailure} />
+          <Route path="/ecommerce-client/newaccount" component={NewAccount} />
+          <Route
+            path="/ecommerce-client/admin-productos"
+            component={AdminHome}
+          />
+          <Route
+            path="/ecommerce-client/admin-categorias"
+            component={AdminCategory}
+          />
+          <Route path="/ecommerce-client/cart" component={Cart} />
+          <Route
+            path="/ecommerce-client/purchasesuccess"
+            component={PurchaseSuccess}
+          />
+          <Route
+            path="/ecommerce-client/transactions"
+            component={TransactionList}
+          />
+          <Route
+            path="/ecommerce-client/transactiondetail"
+            component={TransactionDetail}
+          />
+          <Route path="/ecommerce-client/categories" component={Categories} />
+          <Route
+            path="/ecommerce-client/admin-transactions"
+            component={AdminTransactions}
+          />
+          <Route
+            path="/ecommerce-client/purchasefailure"
+            component={PurchaseFailure}
+          />
           {user && (
             <Route
               path="/product"
