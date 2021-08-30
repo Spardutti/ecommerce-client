@@ -8,6 +8,7 @@ import { GoBackArrow } from "./Styled/GoBackArrow";
 import { Redirect } from "react-router";
 
 // SHOWS THE PRODUCT PAGE WITH ALL THE INFO
+//TODO ADD SLIDESHOW
 
 export const ProductDetail = (props) => {
   const [productId, setProductId] = useState("");

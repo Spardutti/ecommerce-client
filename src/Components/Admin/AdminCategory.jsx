@@ -73,7 +73,7 @@ export const AdminCategory = () => {
         <Row>
           {products.map((pro) => {
             return (
-              <Col xs={12} md={6} key={pro.name} className="mx-auto">
+              <Col sm={12} md={6} lg={3} key={pro.name} className="mx-auto">
                 <ProductCard
                   name={pro.name}
                   images={pro.images}
