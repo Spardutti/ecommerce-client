@@ -23,6 +23,7 @@ export const PurchaseFailure = (props) => {
   };
 
   useEffect(() => {
+    console.log("here");
     user && compareCollectionsId();
   }, [user]);
 

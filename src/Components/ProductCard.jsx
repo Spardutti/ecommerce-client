@@ -33,7 +33,7 @@ export const ProductCard = (props) => {
           <CardBody>
             <CardTitle tag="h5">{name}</CardTitle>
             <CardSubtitle tag="h6" className="mb-2 text-muted">
-              $ {price}
+              $ {price.toLocaleString()}
             </CardSubtitle>
             <CardImg
               top

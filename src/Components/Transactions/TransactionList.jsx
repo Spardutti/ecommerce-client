@@ -25,7 +25,7 @@ export const TransactionList = () => {
   return !user ? null : purchases ? (
     <div className="container text-center">
       <h3 className="text-center mt-3"> Transaction List</h3>
-      <Table className=" mx-auto">
+      <Table responsive bordered className="mx-auto">
         <thead>
           <tr>
             <th>ID</th>
