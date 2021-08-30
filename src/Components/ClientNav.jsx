@@ -38,7 +38,7 @@ export const ClientNav = () => {
       {user ? (
         <div>
           <Navbar color="light" light expand="lg">
-            <NavbarBrand className="px-1" href="/">
+            <NavbarBrand className="px-1" href="/ecommerce-client/">
               Logo
             </NavbarBrand>
             <NavbarToggler onClick={toggle} />
@@ -58,7 +58,7 @@ export const ClientNav = () => {
                   </NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink className="cart" href="/#/cart">
+                  <NavLink className="cart" href="/ecommerce-client/#/cart">
                     <i className="fas fa-shopping-cart"></i>
                     {cartItems && cartItems.length ? (
                       <div className="arrow">

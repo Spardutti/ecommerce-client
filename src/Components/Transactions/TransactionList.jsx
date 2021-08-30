@@ -69,7 +69,7 @@ export const TransactionList = () => {
     </div>
   ) : (
     <div className="mt-5 text-center">
-      <p className="spinner-grow">hola</p>
+      <p className="spinner-grow"></p>
     </div>
   );
 };
