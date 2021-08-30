@@ -1,12 +1,7 @@
 import jwt from "jsonwebtoken";
 
-<<<<<<< HEAD
 //const url = "http://localhost:5000"; // DEVELOPMENT
 const url = "https://ecommercedemosite.herokuapp.com"; // LIVE
-=======
-const url = "http://localhost:5000"; // DEVELOPMENT
-//const url = "https://ecommercedemosite.herokuapp.com/"; // LIVE
->>>>>>> development
 let token;
 let decodedToken;
 const params = {
