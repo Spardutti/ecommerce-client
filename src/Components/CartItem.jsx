@@ -52,7 +52,7 @@ export const CartItem = (props) => {
   };
 
   return (
-    <Col xs={5} md={3} className=" cart-container">
+    <Col xs={12} md={6} className="cart-container">
       <h5 className="text-center">{product.name}</h5>
       <img src={product.image} className="cart-img" alt="" />
       <div className="">
@@ -63,6 +63,7 @@ export const CartItem = (props) => {
               color={product.color}
               height={"15px"}
               width={"15px"}
+              className="mt-1"
             ></ColorSquares>
           </Col>
         </Row>

@@ -80,7 +80,7 @@ export const Categories = () => {
           <Row>
             {products.map((pro) => {
               return (
-                <Col xs={3} key={pro.name} className="mx-auto">
+                <Col xs={12} md={6} key={pro.name} className="mx-auto">
                   <ProductCard
                     name={pro.name}
                     images={pro.images}

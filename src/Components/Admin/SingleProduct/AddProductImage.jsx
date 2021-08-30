@@ -23,9 +23,9 @@ export const AddProductImage = (props) => {
 
   return (
     <Form>
-      {imagesToAdd.map(() => {
+      {imagesToAdd.map((ele, index) => {
         return (
-          <FormGroup className="mt-1">
+          <FormGroup className="mt-1" key={index}>
             <Label>Product picture</Label>
             <div>
               <Input
