@@ -34,7 +34,7 @@ export const SearchProduct = (props) => {
   return (
     <div>
       {redirect && <Redirect to={"/product/?" + productId} />}
-      <div className=" mx-auto search mt-5">
+      <div className=" mx-auto w-75 search my-3">
         <Input onChange={nameHandler} value={productName} />
         <i
           onClick={() => setRedirect(true)}

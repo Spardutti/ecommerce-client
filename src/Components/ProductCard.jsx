@@ -22,7 +22,7 @@ export const ProductCard = (props) => {
   }, []);
 
   return (
-    <div>
+    <div className="pb-2">
       <Link
         to={"/product?" + id}
         id={id}

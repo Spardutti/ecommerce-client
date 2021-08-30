@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { allTransactions } from "../../API/API";
 import { Table } from "reactstrap";
 
+//TODO ADD TRANSACTION DETAIL
+
 export const AdminTransactions = (props) => {
   const [transactions, setTransactions] = useState([]);
 
@@ -18,14 +20,14 @@ export const AdminTransactions = (props) => {
   return (
     <div className="container text-center">
       <h3 className="text-center my-5">Transaction List</h3>
-      <Table>
+      <Table responsive size="sm" bordered>
         <thead>
           <tr>
-            <th width="25%">ID</th>
-            <th width="25%">User</th>
-            <th width="25%">Date</th>
-            <th width="25%">Products</th>
-            <th width="25%">Status</th>
+            <th>ID</th>
+            <th>User</th>
+            <th>Date</th>
+            <th>Products</th>
+            <th>Status</th>
           </tr>
         </thead>
         {transactions.length &&
@@ -38,7 +40,7 @@ export const AdminTransactions = (props) => {
                   <td>{user.username}</td>
                   <td>{new Date(date).toLocaleDateString()}</td>
                   {product.length > 1 ? (
-                    <td width="25%" className="multiple-items">
+                    <td className="multiple-items">
                       {product.map((elem) => {
                         return elem.title + " ";
                       })}

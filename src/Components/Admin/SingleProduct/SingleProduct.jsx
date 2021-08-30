@@ -82,9 +82,9 @@ export const SingleProduct = () => {
 
   return productId ? (
     product.details ? (
-      <div className="container mt-5 bg-light">
+      <div className="container mt-5  pb-2">
         <Row>
-          <Col xs={6} className=" bg-light ">
+          <Col xs={12} md={6} className=" bg-light ">
             <h1 className="text-center">{product.name}</h1>
             {descriptionForm ? (
               <div className="text-center">
@@ -141,7 +141,7 @@ export const SingleProduct = () => {
               {product.details.map((elem, index) => {
                 const { color, size, quantity } = elem;
                 return (
-                  <Col xs={6} className="text-center" key={uniqid()}>
+                  <Col xs={12} md={6} className="text-center" key={uniqid()}>
                     <ProductInfoUpdate
                       price={product.price}
                       color={color}
@@ -161,7 +161,7 @@ export const SingleProduct = () => {
             <Row>
               {product.images.map((image, index) => {
                 return (
-                  <Col xs={6} className="mx-auto" key={uniqid()}>
+                  <Col xs={12} md={6} className="mx-auto" key={uniqid()}>
                     <img className="w-100 h-75 p-2 " src={image.url} alt="" />
                     {isLoading ? (
                       <div className="spinner-grow" role="status"></div>
@@ -209,7 +209,9 @@ export const SingleProduct = () => {
     <div className="text-center mt-5">
       <h5>Product not found</h5>
       <p>Redirecting in: {countDown}</p>
-      {countDownOver ? <Redirect to="/#/admin-productos" /> : null}
+      {countDownOver ? (
+        <Redirect to="/ecommerce-client/#/admin-productos" />
+      ) : null}
     </div>
   );
 };

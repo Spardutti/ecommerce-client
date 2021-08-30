@@ -144,7 +144,7 @@ export const ProductDetail = (props) => {
                   </div>
                 </div>
               ) : (
-                <p> Select a size to see the available colors</p>
+                <p> Select a size</p>
               )}
               {loading ? (
                 <div className="spinner-grow mx-auto"></div>
@@ -183,8 +183,8 @@ export const ProductDetail = (props) => {
             <Row>
               {product.images.map((image, index) => {
                 return (
-                  <Col xs={6} className="mx-auto" key={index}>
-                    <img className="w-100 h-75 p-2" src={image.url} alt="" />
+                  <Col xs={12} md={6} className="mx-auto" key={index}>
+                    <img className="w-100  p-2" src={image.url} alt="" />
                   </Col>
                 );
               })}
