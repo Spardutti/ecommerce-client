@@ -40,7 +40,7 @@ export const ProductSlideShow = (props) => {
         className="text-center"
         key={index}
       >
-        <img src={image.url} alt={image.name} />
+        <img style={{ maxHeight: "300px" }} src={image.url} alt={image.name} />
         <CarouselCaption captionText="" />
       </CarouselItem>
     );
@@ -54,16 +54,20 @@ export const ProductSlideShow = (props) => {
         onClickHandler={goToIndex}
       />
       {slides}
-      <CarouselControl
-        direction="prev"
-        directionText="previous"
-        onClickHandler={previous}
-      />
-      <CarouselControl
-        direction="next"
-        directionText="next"
-        onClickHandler={next}
-      />
+      {slides.length > 1 ? (
+        <div>
+          <CarouselControl
+            direction="prev"
+            directionText="previous"
+            onClickHandler={previous}
+          />
+          <CarouselControl
+            direction="next"
+            directionText="next"
+            onClickHandler={next}
+          />
+        </div>
+      ) : null}
     </Carousel>
   );
 };
