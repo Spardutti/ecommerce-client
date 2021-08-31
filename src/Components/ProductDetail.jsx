@@ -6,6 +6,8 @@ import { SingleProduct } from "./Admin/SingleProduct/SingleProduct";
 import { ColorSquares } from "./Styled/ColorSquares";
 import { GoBackArrow } from "./Styled/GoBackArrow";
 import { Redirect } from "react-router";
+import { ProductSlideShow } from "./ProductSlideShow";
+import { Link } from "react-router-dom";
 
 // SHOWS THE PRODUCT PAGE WITH ALL THE INFO
 //TODO ADD SLIDESHOW
@@ -87,9 +89,25 @@ export const ProductDetail = (props) => {
 
   const productAdded = () => {
     setAddedToCart(true);
-    setTimeout(() => {
-      resetState();
-    }, 2000);
+  };
+
+  const GoToCart = () => {
+    return (
+      <div>
+        <p>Product added to cart</p>
+        <div>
+          <Link to="/cart" className="bg-success btn btn-primary mb-2 mx-5">
+            Go to cart
+          </Link>
+          <Button
+            className="bg-primary btn btn-primary mb-2 mx-5"
+            onClick={resetState}
+          >
+            add another
+          </Button>
+        </div>
+      </div>
+    );
   };
 
   return user ? (
@@ -97,10 +115,9 @@ export const ProductDetail = (props) => {
       <SingleProduct />
     ) : product.details ? (
       <div className="container bg-light mt-5">
-        <GoBackArrow route={"/products"} />
-
         <Row>
-          <Col xs={6} className=" text-center">
+          <Col xs={12} sm={6} className=" text-center">
+            <GoBackArrow route={"/products"} />
             <h1>{product.name}</h1>
             <p>{product.description}</p>
             <hr />
@@ -154,8 +171,9 @@ export const ProductDetail = (props) => {
                 selectSize && (
                   <div>
                     {addedToCart ? (
-                      <p className="mt-2">Product added to cart</p>
+                      <GoToCart />
                     ) : (
+                      //<p className="mt-2">Product added to cart</p>
                       <Button
                         className="bg-primary my-4"
                         onClick={async () => {
@@ -180,16 +198,8 @@ export const ProductDetail = (props) => {
               )}
             </Row>
           </Col>
-          <Col xs={6}>
-            <Row>
-              {product.images.map((image, index) => {
-                return (
-                  <Col xs={12} md={6} className="mx-auto" key={index}>
-                    <img className="w-100  p-2" src={image.url} alt="" />
-                  </Col>
-                );
-              })}
-            </Row>
+          <Col xs={12} sm={6} className="bg-dark ">
+            <ProductSlideShow images={product.images} />
           </Col>
         </Row>
       </div>
