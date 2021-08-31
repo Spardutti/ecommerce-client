@@ -22,7 +22,7 @@
 .search {
   position: relative;
   display: flex;
-  width: 360px;
+  width: 350px;
 }
 
 .searchIcon {
@@ -99,7 +99,7 @@
 
 .cart {
   position: relative;
-  width: 30px;
+  width: 35px;
 }
 
 .cart p {
@@ -109,7 +109,8 @@
   font-size: 13px;
   font-weight: bold;
   border-radius: 50%;
-  background-color: rgba(248, 7, 7, 0.8);
+  opacity: 0.8;
+  background-color: rgb(255, 0, 0);
   padding: 0px 4px;
 }
 

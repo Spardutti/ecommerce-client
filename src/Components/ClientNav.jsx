@@ -9,6 +9,8 @@ import {
   Nav,
   NavItem,
   NavLink,
+  Col,
+  Row,
 } from "reactstrap";
 
 // DISPLAY THE CLIENT NAV BAR
@@ -36,26 +38,49 @@ export const ClientNav = () => {
   return (
     <div className="px-lg-2 container">
       {user ? (
-        <div>
-          <Navbar color="light" light expand="lg">
-            <NavbarBrand className="px-1" href="/ecommerce-client/">
-              Logo
-            </NavbarBrand>
-            <NavbarToggler onClick={toggle} />
-            <Collapse isOpen={isOpen} navbar>
-              <Nav className="d-flex w-100" navbar>
+        <Row className="bg-light ">
+          <Col xs={6} md={8}>
+            <Navbar light expand="md">
+              <NavbarBrand className="px-1" href="/ecommerce-client/">
+                Logo
+              </NavbarBrand>
+              <NavbarToggler onClick={toggle} />
+              <Collapse isOpen={isOpen} navbar>
+                <Nav navbar>
+                  <NavItem>
+                    <NavLink href="/ecommerce-client/#/">Products</NavLink>
+                  </NavItem>
+                  <NavItem>
+                    <NavLink href="/ecommerce-client/#/transactions/">
+                      Transactions
+                    </NavLink>
+                  </NavItem>
+                  <NavItem>
+                    <NavLink href="/ecommerce-client/#/categories">
+                      Categories
+                    </NavLink>
+                  </NavItem>
+                  {user ? (
+                    <NavItem>
+                      <NavLink
+                        href="#"
+                        onClick={() => {
+                          logOut();
+                        }}
+                      >
+                        Log out
+                      </NavLink>
+                    </NavItem>
+                  ) : null}
+                </Nav>
+              </Collapse>
+            </Navbar>
+          </Col>
+          <Col>
+            <Navbar light expand="xs">
+              <Nav navbar>
                 <NavItem>
-                  <NavLink href="/ecommerce-client/#/">Products</NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink href="/ecommerce-client/#/transactions/">
-                    Transactions
-                  </NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink href="/ecommerce-client/#/categories">
-                    Categories
-                  </NavLink>
+                  <NavLink>Hello, {user.username}</NavLink>
                 </NavItem>
                 <NavItem>
                   <NavLink className="cart" href="/ecommerce-client/#/cart">
@@ -67,24 +92,10 @@ export const ClientNav = () => {
                     ) : null}
                   </NavLink>
                 </NavItem>
-                {user ? <NavItem></NavItem> : null}
-                {user ? (
-                  <NavItem>
-                    <NavLink
-                      href="#"
-                      onClick={() => {
-                        logOut();
-                      }}
-                    >
-                      Log out
-                    </NavLink>
-                  </NavItem>
-                ) : null}
               </Nav>
-            </Collapse>
-            <h5 className="mx-5 pt-2">Hello, {user.username}</h5>
-          </Navbar>
-        </div>
+            </Navbar>
+          </Col>
+        </Row>
       ) : (
         <Navbar>
           <a href="/ecommerce-client/#/login" className="btn btn-primary">
