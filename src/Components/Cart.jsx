@@ -1,4 +1,4 @@
-import { Row } from "reactstrap";
+import { Row, Button } from "reactstrap";
 import { useState, useEffect, useContext } from "react";
 import { userContext } from "../Context/Contexts";
 import { CartItem } from "./CartItem";
@@ -39,26 +39,44 @@ export const Cart = () => {
     setLoading(false);
   };
 
+  const DivTotal = (props) => {
+    return (
+      <div className="total-container">
+        <div className="total">
+          <h4>TOTAL</h4>
+          <p>${total.toLocaleString()}</p>
+        </div>
+        <Button>checkout</Button>
+      </div>
+    );
+  };
+
   return user ? (
     <div className="container">
       <GoBackArrow route={"/"} />
+      <h1 className="text-center">Cart</h1>
+      <hr />
       <Row>
         {cartItems &&
           cartItems.map((product, index) => {
             return (
-              <CartItem
-                product={product}
-                key={index}
-                cartItems={cartItems}
-                setCartItems={setCartItems}
-                index={index}
-                id={user._id}
-                setUser={setUser}
-              />
+              <div key={index}>
+                <CartItem
+                  product={product}
+                  cartItems={cartItems}
+                  setCartItems={setCartItems}
+                  index={index}
+                  id={user._id}
+                  setUser={setUser}
+                />
+                <hr />
+              </div>
             );
           })}
       </Row>
-      {cartItems && cartItems.length ? (
+
+      {
+        <DivTotal /> /*cartItems && cartItems.length ? (
         <div className="text-center">
           {loading ? (
             <div className="spinner-grow"></div>
@@ -78,7 +96,8 @@ export const Cart = () => {
         <div className="text-center bg-dark text-light w-75 mx-auto">
           <p className="mt-3">Cart is empty</p>
         </div>
-      )}
+      )*/
+      }
     </div>
   ) : (
     <Redirect to="/" />

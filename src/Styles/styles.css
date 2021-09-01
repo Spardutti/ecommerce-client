@@ -1,3 +1,6 @@
+@import "cart-items.css";
+@import "cart.css";
+
 ::-webkit-scrollbar {
   width: 0; /* Remove scrollbar space */
   background: transparent; /* Optional: just make scrollbar invisible */
@@ -5,6 +8,10 @@
 /* Optional: show position indicator in red */
 ::-webkit-scrollbar-thumb {
   background: #ff0000;
+}
+
+#root {
+  font-family: Georgia, "Times New Roman", Times, serif;
 }
 
 .home-title {
@@ -112,31 +119,6 @@
   opacity: 0.8;
   background-color: rgb(255, 0, 0);
   padding: 0px 4px;
-}
-
-/* CART PAGE */
-.cart-img {
-  height: 150px;
-  float: right;
-}
-
-.cart-container {
-  position: relative;
-  box-sizing: border-box;
-  margin: 25px auto;
-  border-radius: 10px;
-  padding-bottom: 25px;
-}
-.cart-card {
-  display: flex;
-  flex-wrap: nowrap;
-  justify-content: space-around;
-}
-
-.cart-button-del {
-  position: absolute;
-  margin: auto;
-  width: 90%;
 }
 
 /**************************************************************** TRANSACTION LIST */
