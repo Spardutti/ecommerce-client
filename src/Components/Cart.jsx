@@ -1,16 +1,16 @@
-import { Row, Button } from "reactstrap";
 import { useState, useEffect, useContext } from "react";
 import { userContext } from "../Context/Contexts";
 import { CartItem } from "./CartItem";
-import { checkStock, updatePurchases, newTransaction } from "../API/API";
-import { GoBackArrow } from "./Styled/GoBackArrow";
-import { Redirect } from "react-router";
+import { checkStock, newTransaction, updateUserCart } from "../API/API";
+import { Button, Modal, ModalHeader, ModalBody } from "reactstrap";
+import emptyCart from "../assets/empty-cart.svg";
 
 // DISPLAY THE CART PAGE
-export const Cart = () => {
+export const Cart = (props) => {
   const [cartItems, setCartItems] = useState([]);
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(false);
+  const { modal, toggle } = props;
 
   const { user, setUser } = useContext(userContext);
 
@@ -27,6 +27,8 @@ export const Cart = () => {
     setTotal(sum);
   }, [cartItems]);
 
+  // CHECKOUT
+
   const checkoutButton = async (userId) => {
     setLoading(true);
     const response = await checkStock(userId);
@@ -39,67 +41,91 @@ export const Cart = () => {
     setLoading(false);
   };
 
-  const DivTotal = (props) => {
+  // CLEAR CART
+  const clearCart = async () => {
+    try {
+      const emptyCart = await updateUserCart(user._id, []);
+      setUser(emptyCart);
+    } catch (err) {
+      return err;
+    }
+  };
+
+  // TOTAL AND CHECKOUT BUTTON DIV
+
+  const DivTotal = () => {
     return (
-      <div className="total-container">
+      <div className="total-container text-center">
         <div className="total">
           <h4>TOTAL</h4>
           <p>${total.toLocaleString()}</p>
         </div>
-        <Button>checkout</Button>
+        {loading ? (
+          <div className="spinner-grow"></div>
+        ) : (
+          <Button onClick={() => checkoutButton(user._id)}>checkout</Button>
+        )}
       </div>
     );
   };
 
-  return user ? (
-    <div className="container">
-      <GoBackArrow route={"/"} />
-      <h1 className="text-center">Cart</h1>
-      <hr />
-      <Row>
-        {cartItems &&
-          cartItems.map((product, index) => {
-            return (
-              <div key={index}>
-                <CartItem
-                  product={product}
-                  cartItems={cartItems}
-                  setCartItems={setCartItems}
-                  index={index}
-                  id={user._id}
-                  setUser={setUser}
-                />
-                <hr />
-              </div>
-            );
-          })}
-      </Row>
+  // EMPTY CART DISPLAY
 
-      {
-        <DivTotal /> /*cartItems && cartItems.length ? (
+  const EmptyCart = () => {
+    return (
+      <div className="empty-cart">
         <div className="text-center">
-          {loading ? (
-            <div className="spinner-grow"></div>
-          ) : (
-            <button
-              className="btn btn-primary"
-              onClick={() => checkoutButton(user._id)}
-            >
-              Checkout
-            </button>
-          )}
-          <div className="text-center bg-dark text-light w-75 mx-auto">
-            <p className="mt-3">Total: ${total.toLocaleString()}</p>
+          <img src={emptyCart} alt="" />
+          <p className="text-center">
+            <b>Your cart is empty</b>
+          </p>
+          <p>Check out all of our products</p>
+          <Button
+            className="bg-success w-100"
+            href="/ecommerce-client/#/products"
+            onClick={() => toggle()}
+          >
+            <b>Products</b>
+          </Button>
+        </div>
+      </div>
+    );
+  };
+
+  return (
+    <Modal isOpen={modal} toggle={toggle} className="cart-items-container">
+      <Button color="danger" onClick={toggle}>
+        x
+      </Button>
+      <ModalHeader>Shopping cart</ModalHeader>
+      {user && user.cart.length ? (
+        <div>
+          <div className="clear-cart" onClick={clearCart}>
+            <p>
+              <i className="fas fa-trash text-danger"></i> empty cart
+            </p>
           </div>
+          {cartItems &&
+            cartItems.map((product, index) => {
+              return (
+                <ModalBody key={index}>
+                  <CartItem
+                    product={product}
+                    cartItems={cartItems}
+                    setCartItems={setCartItems}
+                    index={index}
+                    id={user._id}
+                    setUser={setUser}
+                  />
+                  <hr />
+                </ModalBody>
+              );
+            })}
+          <DivTotal />
         </div>
       ) : (
-        <div className="text-center bg-dark text-light w-75 mx-auto">
-          <p className="mt-3">Cart is empty</p>
-        </div>
-      )*/
-      }
-    </div>
-  ) : (
-    <Redirect to="/" />
+        <EmptyCart />
+      )}
+    </Modal>
   );
 };

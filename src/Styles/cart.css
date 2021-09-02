@@ -1,7 +1,5 @@
 .total-container {
-  position: fixed;
   width: 360px;
-  bottom: 0px;
   padding: 20px 10px;
   border-top-right-radius: 10px;
   border-top-left-radius: 10px;
@@ -17,4 +15,42 @@
 .total-container button {
   width: 100%;
   background-color: rgb(33, 190, 143);
+  cursor: pointer;
+}
+.total-container button:hover {
+  background-color: rgb(17, 134, 99);
+}
+
+.cart-items-container {
+  position: absolute;
+  right: 0px;
+  margin: 0px;
+  width: 360px;
+}
+
+.clear-cart {
+  display: flex;
+  justify-content: center;
+  padding-top: 5px;
+  cursor: pointer;
+}
+
+.empty-cart {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 30px;
+}
+.empty-cart img {
+  width: 200px;
+  height: auto;
+  margin-bottom: 20px;
+}
+.empty-cart div {
+  margin-top: 50px;
+}
+
+.empty-cart button {
+  width: 200px;
+  color: red;
 }

@@ -58,7 +58,6 @@ export const CartItem = (props) => {
       </div>
       <div className="title">
         <h4>{product.name}</h4>
-        <p>Lorem ipsum dolor sit amet.</p>
       </div>
       <div className="price">
         <p>$ {product.price.toLocaleString()}</p>
