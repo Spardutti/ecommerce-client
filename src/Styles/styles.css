@@ -1,6 +1,5 @@
-@import "cart-items.css";
 @import "cart.css";
-@import "client-nav.css";
+@import "cart.css";
 
 ::-webkit-scrollbar {
   width: 0; /* Remove scrollbar space */

@@ -2,6 +2,7 @@ import { Col, Row } from "reactstrap";
 import { ColorSquares } from "./Styled/ColorSquares";
 import { useState, useEffect } from "react";
 import { updateUserCart } from "../API/API";
+import "../Styles/cart-items.css";
 
 // DISPLAY EACH ITEM IN THE CART
 

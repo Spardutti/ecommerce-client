@@ -4,6 +4,7 @@ import { CartItem } from "./CartItem";
 import { checkStock, newTransaction, updateUserCart } from "../API/API";
 import { Button, Modal, ModalHeader, ModalBody } from "reactstrap";
 import emptyCart from "../assets/empty-cart.svg";
+import "../Styles/cart.css";
 
 // DISPLAY THE CART PAGE
 export const Cart = (props) => {
