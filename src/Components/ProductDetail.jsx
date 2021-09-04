@@ -198,7 +198,7 @@ export const ProductDetail = (props) => {
               )}
             </Row>
           </Col>
-          <Col xs={12} sm={6} className="bg-dark ">
+          <Col xs={12} sm={6} className=" ">
             <ProductSlideShow images={product.images} />
           </Col>
         </Row>

@@ -14,7 +14,10 @@ export const Header = () => {
   const [dropdown, setDropwdown] = useState(false);
   const [cartTotal, setCartTotal] = useState("");
 
-  const toggleModal = () => setModal(!modal);
+  const toggleModal = () => {
+    setModal(!modal);
+    setDropwdown(false);
+  };
 
   const toggleDropdown = () => setDropwdown(!dropdown);
 
@@ -44,19 +47,25 @@ export const Header = () => {
     setCartItems(null);
   };
 
-  const DropDownMenu = () => {
+  const UserNav = () => {
+    return dropdown ? (
+      <div className="user-nav-show fadeIn ">
+        <p onClick={toggleDropdown}>{user.username}</p>
+        <p onClick={toggleModal}>Cart</p>
+        <p>Transactions</p>
+        <p onClick={logOut}>Log out</p>
+      </div>
+    ) : (
+      <div className="user-nav">
+        <p onClick={toggleDropdown}>Account</p>
+      </div>
+    );
+  };
+
+  const Login = () => {
     return (
-      <div
-        className={
-          dropdown ? "dropdown-content-visible" : "dropdown-content-hidden"
-        }
-      >
-        <div>1</div>
-        <div>2</div>
-        <div>3</div>
-        <div>4</div>
-        <div>5</div>
-        <div>6</div>
+      <div className="user-nav">
+        <p>Log in</p>
       </div>
     );
   };
@@ -66,24 +75,16 @@ export const Header = () => {
       <div className="logo">
         <img src={onlineShopping} alt="logo" />
       </div>
-      <div className="cart">
-        <p onClick={toggleModal}>
-          <i className="fas fa-shopping-cart">
-            {cartItems.length ? <span>{cartItems.length}</span> : null}
+      <div className="cart-user-container">
+        <div className="cart-nav" onClick={toggleModal}>
+          <i className="fas fa-shopping-cart"></i>
+          <i className={cartTotal ? "header-total" : "hidden"}>
+            $ {cartTotal.toLocaleString()}
           </i>
-        </p>
-        <p className={cartTotal ? "header-total" : "hidden"}>
-          $ {cartTotal.toLocaleString()}
-        </p>
+        </div>
+        {user ? <UserNav /> : <Login />}
+        {modal ? <Cart modal={modal} toggle={toggleModal} /> : null}
       </div>
-      <div className="user" onClick={toggleDropdown}>
-        <p>
-          <i className="far fa-user"></i> Account
-          <i className="fas fa-chevron-down"></i>
-          <DropDownMenu />
-        </p>
-      </div>
-      {modal ? <Cart modal={modal} toggle={toggleModal} /> : null}
     </div>
   );
 };

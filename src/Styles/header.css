@@ -4,6 +4,7 @@
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
   display: flex;
+  align-items: center;
 }
 
 .logo {
@@ -18,80 +19,89 @@
   height: 90px;
 }
 
-.cart {
-  height: 50px;
-  display: flex;
-  align-items: center;
-  margin-left: auto;
-  padding-top: 50px;
-}
-
-.user {
-  height: 50px;
-  position: relative;
-  display: inline-block;
-  display: flex;
-  align-items: center;
-  margin-left: 10px;
-  padding-top: 50px;
-}
-
-.user p {
-  box-shadow: 0px 0px 4px 0px black;
-  padding: 12px;
-  margin-right: 10px;
-  border-radius: 12px;
-}
-
-.cart i {
-  background-color: orangered;
-  border-radius: 12px;
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0px;
-  font-size: 25px;
-  padding: 12px;
-  box-shadow: -1px 0px 4px 0px black;
-  position: relative;
-  cursor: pointer;
-}
-
-.cart i span {
-  position: absolute;
-  bottom: -5px;
-  right: -9px;
-  background-color: black;
-  color: white;
-  border-radius: 50%;
-  font-size: 15px;
-  padding: 2px 5px;
-}
-
 .header-total {
   font-size: 20px;
   padding: 9px;
-  box-shadow: 1px 0px 4px 0px black;
   border-radius: 12px;
   border-top-left-radius: 0;
   border-bottom-left-radius: 0px;
-  transition: all 1s;
+  transition: all 0.3s;
   width: auto;
   visibility: visible;
 }
 
 .hidden {
-  width: 0px;
   visibility: hidden;
+  transition: all 0.3s;
+  font-size: 0px;
 }
 
-.dropdown-content-hidden {
-  display: none;
+.cart-user-container {
+  height: 50px;
+  margin-left: auto;
+  display: flex;
+  flex-wrap: nowrap;
+}
+.cart-nav {
+  box-shadow: 1px 0px 4px 0px black;
+  border-radius: 11px 0px 0px 11px;
+  align-self: center;
+  padding: 10px;
+  font-size: 20px;
 }
 
-.dropdown-content-visible {
-  position: absolute;
-  background-color: black;
-  left: 0px;
-  width: 100px;
+.user-nav {
+  box-shadow: 1px 0px 4px 0px black;
+  border-radius: 0px 11px 11px 0px;
+  padding: 10px;
+  font-size: 20px;
+  margin-left: 10px;
+  width: 120px;
+  text-align: center;
+  line-height: 15px;
+  padding-top: 18px;
+  transition: all 0.3;
+}
+
+.user-nav p {
+  cursor: pointer;
+}
+
+.user-nav-show {
+  text-align: center;
+  box-shadow: 1px 0px 4px 0px black;
+  border-radius: 0px 11px 11px 0px;
+  padding: 10px 0px;
+  font-size: 20px;
+  margin-left: 10px;
+  display: flex;
+  flex-direction: column;
+  min-height: 135px;
+  width: 120px;
+  z-index: 1;
+  line-height: 15px;
+  cursor: pointer;
+  padding-top: 18px;
+  overflow: hidden;
+}
+
+.fadeIn {
+  animation: showing 0.3s;
+}
+
+@keyframes showing {
+  from {
+    min-height: 0px;
+  }
+  to {
+    min-height: 135px;
+  }
+}
+
+.user-nav-show p:not(:first-child):hover {
+  transition: all 0.3s;
+  transform: scale(1.2);
+  color: blue;
 }
 
 @media screen and (max-width: 600px) {
