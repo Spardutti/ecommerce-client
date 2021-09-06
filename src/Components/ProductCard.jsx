@@ -1,6 +1,7 @@
 import { useEffect, useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { Card, CardImg, CardBody, CardTitle, CardSubtitle } from "reactstrap";
+import "../Styles/product-card.css";
 
 // DISPLAY THE PRODUCTS CARDS WITH TITLE; PRICE AND IMAGE
 
@@ -22,7 +23,8 @@ export const ProductCard = (props) => {
   }, []);
 
   return (
-    <div className="pb-2">
+    <div className="card-container">{props.name}</div>
+    /*  <div className="pb-2">
       <Link
         to={"/product?" + id}
         id={id}
@@ -45,6 +47,6 @@ export const ProductCard = (props) => {
           </CardBody>
         </Card>
       </Link>
-    </div>
+    </div> */
   );
 };

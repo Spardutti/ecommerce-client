@@ -77,14 +77,14 @@ export const Header = () => {
   const Title = () => {
     return (
       <div className="title-container">
-        <img src={openShop} alt=" by Mike Petrucci on Unsplash" />
+        {/*  <img src={openShop} alt=" by Mike Petrucci on Unsplash" /> */}
         <h1>Your Market Name</h1>
       </div>
     );
   };
 
   return (
-    <div className="container">
+    <div className="">
       <div className=" header-container">
         <div className="logo">
           <Link to="/">
@@ -97,6 +97,9 @@ export const Header = () => {
             <i className={cartTotal ? "header-total" : "hidden"}>
               $ {cartTotal.toLocaleString()}
             </i>
+            {user && user.cart.length ? (
+              <span className="cart-length">{user.cart.length}</span>
+            ) : null}
           </div>
           {user ? <UserNav /> : <Login />}
           {modal ? <Cart modal={modal} toggle={toggleModal} /> : null}

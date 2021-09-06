@@ -7,6 +7,7 @@ import { userContext } from "../Context/Contexts";
 import { Redirect } from "react-router";
 import { SearchProduct } from "./SearchProduct";
 import { Link } from "react-router-dom";
+import "../Styles/home.css";
 
 const Home = () => {
   const [products, setProducts] = useState([]);
@@ -23,7 +24,28 @@ const Home = () => {
     };
   }, []);
 
-  return user ? (
+  return (
+    <div className="home-container container">
+      {products &&
+        products.map((product) => {
+          const { name, _id, description, images, size, color, price } =
+            product;
+          return (
+            <ProductCard
+              id={_id}
+              name={name}
+              description={description}
+              images={images}
+              size={size}
+              color={color}
+              price={price}
+            />
+          );
+        })}
+    </div>
+  );
+
+  /* user ? (
     user.admin ? (
       <Redirect to="/admin-productos" />
     ) : (
@@ -66,7 +88,7 @@ const Home = () => {
         Log in
       </Link>
     </h5>
-  );
+  ); */
 };
 
 export default Home;
