@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import onlineShopping from "../assets/Online_shopping_PNG.png";
 import { Cart } from "./Cart";
 import "../Styles/header.css";
+import openShop from "../assets/open-shop.jpg";
 
 // DISPLAY THE CLIENT NAV BAR
 
@@ -47,6 +48,7 @@ export const Header = () => {
     setCartItems(null);
   };
 
+  // USER DROPDOWN
   const UserNav = () => {
     return dropdown ? (
       <div className="user-nav-show fadeIn ">
@@ -62,29 +64,45 @@ export const Header = () => {
     );
   };
 
+  // LOGIN BUTTON
   const Login = () => {
     return (
       <div className="user-nav">
-        <p>Log in</p>
+        <Link to="/login">Log in</Link>
+      </div>
+    );
+  };
+
+  // TITLE
+  const Title = () => {
+    return (
+      <div className="title-container">
+        <img src={openShop} alt=" by Mike Petrucci on Unsplash" />
+        <h1>Your Market Name</h1>
       </div>
     );
   };
 
   return (
-    <div className="container header-container">
-      <div className="logo">
-        <img src={onlineShopping} alt="logo" />
-      </div>
-      <div className="cart-user-container">
-        <div className="cart-nav" onClick={toggleModal}>
-          <i className="fas fa-shopping-cart"></i>
-          <i className={cartTotal ? "header-total" : "hidden"}>
-            $ {cartTotal.toLocaleString()}
-          </i>
+    <div className="container">
+      <div className=" header-container">
+        <div className="logo">
+          <Link to="/">
+            <img src={onlineShopping} alt="logo" />
+          </Link>
         </div>
-        {user ? <UserNav /> : <Login />}
-        {modal ? <Cart modal={modal} toggle={toggleModal} /> : null}
+        <div className="cart-user-container">
+          <div className="cart-nav" onClick={toggleModal}>
+            <i className="fas fa-shopping-cart"></i>
+            <i className={cartTotal ? "header-total" : "hidden"}>
+              $ {cartTotal.toLocaleString()}
+            </i>
+          </div>
+          {user ? <UserNav /> : <Login />}
+          {modal ? <Cart modal={modal} toggle={toggleModal} /> : null}
+        </div>
       </div>
+      <Title />
     </div>
   );
 };

@@ -1,10 +1,12 @@
 .header-container {
-  height: 100px;
+  height: 120px;
   width: 100%;
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
+  /*border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;*/
   display: flex;
   align-items: center;
+  background-color: blue;
+  padding: 10px;
 }
 
 .logo {
@@ -48,6 +50,7 @@
   align-self: center;
   padding: 10px;
   font-size: 20px;
+  cursor: pointer;
 }
 
 .user-nav {
@@ -102,6 +105,30 @@
   transition: all 0.3s;
   transform: scale(1.2);
   color: blue;
+}
+
+/* TITLE */
+
+.title-container {
+  background-color: green;
+  padding-top: 10px;
+  height: 160px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.title-container h1 {
+  font-style: italic;
+}
+
+.title-container img {
+  position: absolute;
+  left: 10px;
+  top: 30px;
+  width: 100px;
+  height: 100px;
 }
 
 @media screen and (max-width: 600px) {
