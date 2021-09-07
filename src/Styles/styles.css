@@ -10,7 +10,8 @@
   background: #ff0000;
 }
 
-#root {
+body {
+  background-color: wheat;
   font-family: Georgia, "Times New Roman", Times, serif;
 }
 
@@ -24,42 +25,6 @@
 
 .cursorPointer {
   cursor: pointer;
-}
-/* SEARCH BAR */
-.search {
-  position: relative;
-  display: flex;
-  width: 350px;
-}
-
-.searchIcon {
-  position: absolute;
-  right: 0px;
-  background-color: rgb(192, 192, 192);
-  width: 30px;
-  height: 100%;
-  line-height: 40px;
-  cursor: pointer;
-  border-radius: 5px;
-}
-
-.searchIcon:hover {
-  transform: scale(1.3);
-}
-
-.suggestion {
-  width: 360px;
-  position: relative;
-  left: 0px;
-  bottom: 0px;
-  border-bottom: 1px solid gray;
-  border-radius: 5px;
-  box-shadow: 0px 1px 3px 0px black;
-}
-.suggestion:hover {
-  cursor: pointer;
-  transform: scale(1.1);
-  background-color: gray;
 }
 
 /* PRODUCT DETAIL SIZE && COLOR */

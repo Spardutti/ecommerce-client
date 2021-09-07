@@ -10,7 +10,6 @@ import { ProductSlideShow } from "./ProductSlideShow";
 import { Link } from "react-router-dom";
 
 // SHOWS THE PRODUCT PAGE WITH ALL THE INFO
-//TODO ADD SLIDESHOW
 
 export const ProductDetail = (props) => {
   const [productId, setProductId] = useState("");

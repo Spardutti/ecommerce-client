@@ -1,2 +1,8 @@
 .home-container {
+  border-radius: 20px;
+  margin-top: 50px;
+  display: flex;
+  padding: 60px;
+  background-color: white;
+  justify-content: space-around;
 }
