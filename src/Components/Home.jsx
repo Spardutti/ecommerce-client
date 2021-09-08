@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { getProducts } from "../API/API";
 import { ProductCard } from "./ProductCard";
 import { SearchProduct } from "./SearchProduct";
+import { Caetgories, Categories } from "./Categories";
 import "../Styles/home.css";
 
 const Home = () => {
@@ -19,6 +20,7 @@ const Home = () => {
 
   return (
     <div className="text-center">
+      <Categories products={products} setProducts={setProducts} />
       <SearchProduct products={products} setProducts={setProducts} />
       <div className="home-container container">
         {products &&

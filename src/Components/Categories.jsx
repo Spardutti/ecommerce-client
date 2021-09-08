@@ -1,19 +1,12 @@
-import { useState, useEffect, useContext } from "react";
-import { Redirect } from "react-router";
-import { Breadcrumb, BreadcrumbItem, Col, Row } from "reactstrap";
-import { getCategories, getProductByCat } from "../API/API";
-import { ProductCard } from "./ProductCard";
-import { userContext } from "../Context/Contexts";
-import { GoBackArrow } from "./Styled/GoBackArrow";
+import { useState, useEffect } from "react";
+import { getCategories, getProductByCat, getProducts } from "../API/API";
+import "../Styles/categories.css";
 
 // DISPLAY ALL THE CATEGORIES ON A BAR
 
-export const Categories = () => {
+export const Categories = (props) => {
   const [categories, setCategories] = useState();
-  const [active, setActive] = useState(0);
-  const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
-  const { user } = useContext(userContext);
 
   // GET ALL CATEGORIES ON LOAD
   useEffect(() => {
@@ -24,78 +17,41 @@ export const Categories = () => {
   }, []);
 
   // GET SPECIFIC CATEOGRY ITEMS ON CLICK
-  const getProducts = async (name, index) => {
+  const getProductsByCategory = async (id) => {
     setLoading(true);
-    setProducts(await getProductByCat(name));
+    props.setProducts(await getProductByCat(id));
     setLoading(false);
-    setActive(index);
-    return () => setProducts([]);
+    return () => props.setProducts([]);
   };
 
-  // GET THE FIRST CATEGORY
-  useEffect(() => {
-    setLoading(true);
-    if (categories) {
-      (async () => {
-        setProducts(await getProductByCat(categories[0]._id));
-        setLoading(false);
-      })();
-      return () => setProducts([]);
-    }
-  }, [categories]);
+  // GET ALL PRODUCTS
+  const getAllProducts = async () => {
+    props.setProducts(await getProducts());
+  };
 
-  return !user ? (
-    <Redirect to="/" />
+  return loading ? (
+    <div className="spinner-grow mt-5"></div>
   ) : (
-    <div className="container text-center ">
-      <p className="mt-2">
-        Select a category to find all the products of that category
-      </p>
-      {categories ? (
-        <Breadcrumb>
-          {categories.map((cat, index) => {
-            return (
-              <BreadcrumbItem
-                onClick={() => getProducts(cat._id, index)}
-                className={
-                  active === index ? "active" : "text-primary cursorPointer"
-                }
-                id={index}
-                key={cat._id}
-              >
-                {cat.name}
-              </BreadcrumbItem>
-            );
-          })}
-        </Breadcrumb>
-      ) : (
-        <div className="spinner-grow"></div>
-      )}
-      {loading ? (
-        <div className="spinner-grow"></div>
-      ) : products ? (
-        !products.length ? (
-          <p> No Products found</p>
-        ) : (
-          <Row>
-            {products.map((pro) => {
-              return (
-                <Col sm={12} md={6} lg={3} key={pro.name} className="mx-auto">
-                  <ProductCard
-                    name={pro.name}
-                    images={pro.images}
-                    price={pro.price}
-                    id={pro._id}
-                  />
-                </Col>
-              );
-            })}
-          </Row>
-        )
-      ) : (
-        <div className="spinner-grow"></div>
-      )}
-      <GoBackArrow route="/" />
+    <div className="categories-container">
+      <div className="categories-card" onClick={getAllProducts}>
+        <h5>all</h5>
+      </div>
+      {categories &&
+        categories.map((category, index) => {
+          const { name, image, _id } = category;
+          return (
+            <div
+              key={index}
+              className="categories-card"
+              style={{
+                backgroundImage: `url(${image.url})`,
+              }}
+              onClick={() => getProductsByCategory(_id)}
+            >
+              <h5>{name}</h5>
+            </div>
+          );
+        })}
     </div>
   );
 };

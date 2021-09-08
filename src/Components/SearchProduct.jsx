@@ -31,7 +31,7 @@ export const SearchProduct = (props) => {
 
   return (
     <div>
-      <div className={"autocomplete"}>
+      <div className="autocomplete">
         <input
           onChange={nameHandler}
           value={productName}

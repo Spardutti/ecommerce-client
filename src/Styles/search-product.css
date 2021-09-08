@@ -42,7 +42,6 @@
   border-left: none;
   border-right: none;
   z-index: 2;
-  /*position the autocomplete items to be the same width as the container:*/
   top: 100%;
   left: 0;
   right: 0px;

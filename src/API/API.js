@@ -74,7 +74,7 @@ export const newUser = async (email, username, password, confirm) => {
 };
 
 /********************************************************* PRODUCTS ****************************************/
-// GET PRODUCTS
+// GET ALL PRODUCTS
 export const getProducts = async () => {
   try {
     const response = await fetch(url + "/products");

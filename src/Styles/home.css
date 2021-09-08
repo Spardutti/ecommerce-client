@@ -6,3 +6,8 @@
   background-color: white;
   justify-content: space-around;
 }
+
+.search-bar {
+  display: flex;
+  justify-content: center;
+}

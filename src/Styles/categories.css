@@ -1,0 +1,38 @@
+.categories-container {
+  margin: 20px 0px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.categories-card {
+  width: 200px;
+  height: 200px;
+  background-size: cover;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.categories-card h5 {
+  color: black;
+}
+
+@media screen and (max-width: 600px) {
+  .categories-container {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .categories-card {
+    margin-top: 5px;
+    padding: 0px 5px;
+    height: 30px;
+    width: 200px;
+    background-size: 30px 30px;
+    background-repeat: no-repeat;
+    border: 1px solid black;
+  }
+  .categories-card h5 {
+    align-self: flex-end;
+  }
+}
