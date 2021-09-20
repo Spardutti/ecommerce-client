@@ -6,7 +6,6 @@ import "../Styles/categories.css";
 
 export const Categories = (props) => {
   const [categories, setCategories] = useState();
-  const [loading, setLoading] = useState(false);
 
   // GET ALL CATEGORIES ON LOAD
   useEffect(() => {
@@ -17,24 +16,33 @@ export const Categories = (props) => {
   }, []);
 
   // GET SPECIFIC CATEOGRY ITEMS ON CLICK
-  const getProductsByCategory = async (id) => {
-    setLoading(true);
+  const getProductsByCategory = async (id, index) => {
+    props.setLoading(true);
     props.setProducts(await getProductByCat(id));
-    setLoading(false);
+    props.setSelectedCat(index + 1);
+    props.setLoading(false);
     return () => props.setProducts([]);
   };
 
   // GET ALL PRODUCTS
   const getAllProducts = async () => {
     props.setProducts(await getProducts());
+    props.setSelectedCat(0);
   };
 
-  return loading ? (
-    <div className="spinner-grow mt-5"></div>
-  ) : (
+  return (
     <div className="categories-container">
-      <div className="categories-card" onClick={getAllProducts}>
-        <h5>all</h5>
+      <div
+        className={
+          props.selectedCat === 0
+            ? "categories-card selected-cat"
+            : "categories-card"
+        }
+        onClick={(e) => getAllProducts(e)}
+      >
+        <div className="ribbon ribbon-top-left">
+          <span>all</span>
+        </div>
       </div>
       {categories &&
         categories.map((category, index) => {
@@ -42,13 +50,20 @@ export const Categories = (props) => {
           return (
             <div
               key={index}
-              className="categories-card"
+              id={index + 1}
+              className={
+                props.selectedCat === index + 1
+                  ? "categories-card selected-cat"
+                  : "categories-card"
+              }
               style={{
                 backgroundImage: `url(${image.url})`,
               }}
-              onClick={() => getProductsByCategory(_id)}
+              onClick={(e) => getProductsByCategory(_id, index)}
             >
-              <h5>{name}</h5>
+              <div className="ribbon ribbon-top-left">
+                <span>{name}</span>
+              </div>
             </div>
           );
         })}

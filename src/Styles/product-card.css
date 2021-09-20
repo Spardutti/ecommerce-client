@@ -36,3 +36,19 @@
   color: green;
   font-weight: 600;
 }
+
+button a:hover {
+  color: inherit;
+}
+::-webkit-input-placeholder {
+  font-style: italic;
+}
+:-moz-placeholder {
+  font-style: italic;
+}
+::-moz-placeholder {
+  font-style: italic;
+}
+:-ms-input-placeholder {
+  font-style: italic;
+}

@@ -1,6 +1,6 @@
 import { useEffect, useState, useContext } from "react";
+import { userContext } from "../Context/Contexts";
 import { Link } from "react-router-dom";
-import { Card, CardImg, CardBody, CardTitle, CardSubtitle } from "reactstrap";
 import "../Styles/product-card.css";
 
 // DISPLAY THE PRODUCTS CARDS WITH TITLE; PRICE AND IMAGE
@@ -8,7 +8,9 @@ import "../Styles/product-card.css";
 export const ProductCard = (props) => {
   const [, setColors] = useState([]);
   const [, setSizes] = useState([]);
-  const { id, name, price, images, size, color } = props;
+  const { name, price, images, size, color } = props;
+
+  const { user } = useContext(userContext);
 
   useEffect(() => {
     // FIND ALL THE UNIQUE COLORS AND SIZES
@@ -30,32 +32,14 @@ export const ProductCard = (props) => {
       <div>
         <h4>{name}</h4>
         <p className="card-price">$ {price.toLocaleString()}</p>
-        <button>Add to cart</button>
+        {user ? (
+          <button>Add to cart</button>
+        ) : (
+          <Link to="/login">
+            <button>Please log in to buy</button>
+          </Link>
+        )}
       </div>
     </div>
-    /*  <div className="pb-2">
-      <Link
-        to={"/product?" + id}
-        id={id}
-        style={{ textDecoration: "none" }}
-        className="text-dark"
-      >
-        <Card className="w-75 mx-auto text-center">
-          <CardBody>
-            <CardTitle tag="h5">{name}</CardTitle>
-            <CardSubtitle tag="h6" className="mb-2 text-muted">
-              $ {price.toLocaleString()}
-            </CardSubtitle>
-            <CardImg
-              top
-              width="auto"
-              src={images.length ? images[0].url : null}
-              alt="Product image"
-              style={{ height: "150px" }}
-            />
-          </CardBody>
-        </Card>
-      </Link>
-    </div> */
   );
 };

@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 import onlineShopping from "../assets/Online_shopping_PNG.png";
 import { Cart } from "./Cart";
 import "../Styles/header.css";
-import openShop from "../assets/open-shop.jpg";
 
 // DISPLAY THE CLIENT NAV BAR
 
@@ -52,14 +51,18 @@ export const Header = () => {
   const UserNav = () => {
     return dropdown ? (
       <div className="user-nav-show fadeIn ">
-        <p onClick={toggleDropdown}>{user.username}</p>
+        <p onClick={toggleDropdown} className="user-name">
+          {user.username} <i className="fas fa-caret-up"></i>
+        </p>
         <p onClick={toggleModal}>Cart</p>
         <p>Transactions</p>
         <p onClick={logOut}>Log out</p>
       </div>
     ) : (
       <div className="user-nav">
-        <p onClick={toggleDropdown}>Account</p>
+        <p onClick={toggleDropdown}>
+          Account <i className="fas fa-caret-down"></i>{" "}
+        </p>
       </div>
     );
   };
@@ -67,9 +70,9 @@ export const Header = () => {
   // LOGIN BUTTON
   const Login = () => {
     return (
-      <div className="user-nav">
-        <Link to="/login">Log in</Link>
-      </div>
+      <Link to="/login" className="user-nav">
+        Log in
+      </Link>
     );
   };
 
@@ -77,8 +80,7 @@ export const Header = () => {
   const Title = () => {
     return (
       <div className="title-container">
-        {/*  <img src={openShop} alt=" by Mike Petrucci on Unsplash" /> */}
-        <h1>Your Market Name</h1>
+        <h1>EcommercE</h1>
       </div>
     );
   };

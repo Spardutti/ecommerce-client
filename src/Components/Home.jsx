@@ -2,11 +2,13 @@ import { useEffect, useState } from "react";
 import { getProducts } from "../API/API";
 import { ProductCard } from "./ProductCard";
 import { SearchProduct } from "./SearchProduct";
-import { Caetgories, Categories } from "./Categories";
+import { Categories } from "./Categories";
 import "../Styles/home.css";
 
 const Home = () => {
   const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [selectedCat, setSelectedCat] = useState(0);
 
   // GET ALL PRODUCTS
   useEffect(() => {
@@ -20,10 +22,24 @@ const Home = () => {
 
   return (
     <div className="text-center">
-      <Categories products={products} setProducts={setProducts} />
-      <SearchProduct products={products} setProducts={setProducts} />
+      <Categories
+        products={products}
+        setProducts={setProducts}
+        setLoading={setLoading}
+        selectedCat={selectedCat}
+        setSelectedCat={setSelectedCat}
+      />
+      <SearchProduct
+        products={products}
+        setProducts={setProducts}
+        selectedCat={selectedCat}
+        setSelectedCat={setSelectedCat}
+      />
       <div className="home-container container">
-        {products &&
+        {loading ? (
+          <div className="spinner-grow"></div>
+        ) : (
+          products &&
           products.map((product, index) => {
             const { name, _id, description, images, size, color, price } =
               product;
@@ -39,7 +55,8 @@ const Home = () => {
                 key={index}
               />
             );
-          })}
+          })
+        )}
       </div>
     </div>
   );

@@ -24,6 +24,7 @@ export const SearchProduct = (props) => {
 
   const suggestionHandler = async (product) => {
     const singleProduct = [await productDetail(product._id)];
+    props.setSelectedCat("");
     props.setProducts(singleProduct);
     setProductName("");
     setSuggestions([]);

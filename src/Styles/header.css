@@ -10,6 +10,10 @@
   padding: 10px 100px;
 }
 
+.user-name {
+  text-transform: capitalize;
+}
+
 .logo {
   width: 100px;
   height: 100px;
@@ -63,13 +67,12 @@
   box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.5),
     inset 0px 0px 5px rgba(0, 0, 0, 0.5);
   border-radius: 11px;
-  padding: 10px;
   font-size: 20px;
   margin-left: 10px;
   width: 120px;
   text-align: center;
   line-height: 15px;
-  padding-top: 18px;
+  padding-top: 14px;
   transition: all 0.3;
   background-color: white;
 }
@@ -80,9 +83,9 @@
 
 .user-nav-show {
   text-align: center;
-  box-shadow: 1px 0px 4px 0px black;
-  border-radius: 0px 11px 11px 0px;
-  padding: 10px 0px;
+  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.5),
+    inset 0px 0px 5px rgba(0, 0, 0, 0.5);
+  border-radius: 11px;
   font-size: 20px;
   margin-left: 10px;
   display: flex;
@@ -94,6 +97,7 @@
   cursor: pointer;
   padding-top: 18px;
   overflow: hidden;
+  background-color: white;
 }
 
 .fadeIn {
