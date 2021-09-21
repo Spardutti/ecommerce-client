@@ -1,6 +1,5 @@
-import { useEffect, useState, useContext } from "react";
-import { userContext } from "../Context/Contexts";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { ProductDetail } from "./ProductDetail";
 import "../Styles/product-card.css";
 
 // DISPLAY THE PRODUCTS CARDS WITH TITLE; PRICE AND IMAGE
@@ -9,20 +8,9 @@ export const ProductCard = (props) => {
   const [, setColors] = useState([]);
   const [, setSizes] = useState([]);
   const { name, price, images, size, color } = props;
+  const [modal, setModal] = useState(false);
 
-  const { user } = useContext(userContext);
-
-  useEffect(() => {
-    // FIND ALL THE UNIQUE COLORS AND SIZES
-    let sizeArr = [],
-      colorArr = [];
-    if (size && color) {
-      if (sizeArr.indexOf(size) === -1) sizeArr.push(size);
-      if (colorArr.indexOf(color) === -1) colorArr.push(color);
-      setSizes(sizeArr);
-      setColors(colorArr);
-    }
-  }, []);
+  const toggleModal = () => setModal(!modal);
 
   return (
     <div className="card-container">
@@ -32,14 +20,16 @@ export const ProductCard = (props) => {
       <div>
         <h4>{name}</h4>
         <p className="card-price">$ {price.toLocaleString()}</p>
-        {user ? (
-          <button>Add to cart</button>
-        ) : (
-          <Link to="/login">
-            <button>Please log in to buy</button>
-          </Link>
-        )}
+        <button onClick={toggleModal}>Info</button>
       </div>
+      {modal ? (
+        <ProductDetail
+          modal={modal}
+          toggleModal={toggleModal}
+          name={name}
+          img={images[0].url}
+        />
+      ) : null}
     </div>
   );
 };

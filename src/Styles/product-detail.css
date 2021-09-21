@@ -1,0 +1,51 @@
+.ff {
+  z-index: 2;
+  left: 0px;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  background-color: white;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.main-modal {
+  background-color: gray;
+  position: relative;
+}
+
+.close-btn {
+  left: 10px;
+  top: 5px;
+  position: absolute;
+  cursor: pointer;
+}
+
+.header-modal {
+  padding-top: 30px;
+}
+
+.modal-img {
+  height: 200px;
+}
+
+.x {
+  min-height: 100%;
+  min-width: 200px;
+}
+
+.body-modal {
+}
+
+@keyframes animatetop {
+  from {
+    top: -300px;
+    opacity: 0;
+  }
+  to {
+    top: 50%;
+    opacity: 1;
+  }
+}

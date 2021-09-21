@@ -8,6 +8,8 @@ import { GoBackArrow } from "./Styled/GoBackArrow";
 import { Redirect } from "react-router";
 import { ProductSlideShow } from "./ProductSlideShow";
 import { Link } from "react-router-dom";
+import { Modal, ModalHeader, ModalBody } from "reactstrap";
+import "../Styles/product-detail.css";
 
 // SHOWS THE PRODUCT PAGE WITH ALL THE INFO
 
@@ -109,7 +111,25 @@ export const ProductDetail = (props) => {
     );
   };
 
-  return user ? (
+  return (
+    <div className="ff" onClick={() => props.toggleModal()}>
+      <div className="main-modal" onClick={(e) => e.stopPropagation()}>
+        <div className="header-modal">
+          <span className="close-btn" onClick={props.toggleModal}>
+            &#x3A7; Close
+          </span>
+          <h5>{props.name}</h5>
+        </div>
+        <div className="modal-img">
+          <img src={props.img} alt="" className="x" />
+        </div>
+        <div className="body-modal">
+          <p>body</p>
+        </div>
+      </div>
+    </div>
+  );
+  /* return user ? (
     user.admin ? (
       <SingleProduct />
     ) : product.details ? (
@@ -209,5 +229,5 @@ export const ProductDetail = (props) => {
     )
   ) : (
     <Redirect to="/" />
-  );
+  ); */
 };
