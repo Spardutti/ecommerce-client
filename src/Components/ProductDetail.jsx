@@ -4,16 +4,14 @@ import { Col, Row, Button } from "reactstrap";
 import { userContext } from "../Context/Contexts";
 import { SingleProduct } from "./Admin/SingleProduct/SingleProduct";
 import { ColorSquares } from "./Styled/ColorSquares";
-import { GoBackArrow } from "./Styled/GoBackArrow";
 import { Redirect } from "react-router";
 import { ProductSlideShow } from "./ProductSlideShow";
 import { Link } from "react-router-dom";
-import { Modal, ModalHeader, ModalBody } from "reactstrap";
 import "../Styles/product-detail.css";
 
 // SHOWS THE PRODUCT PAGE WITH ALL THE INFO
 
-export const ProductDetail = (props) => {
+export const ProductDetail = ({ toggleModal, name, img, id }) => {
   const [productId, setProductId] = useState("");
   const [product, setProduct] = useState({});
   const [sizes, setSizes] = useState([]);
@@ -22,27 +20,18 @@ export const ProductDetail = (props) => {
   const [selectedColor, setSelectedColor] = useState();
   const [loading, setLoading] = useState(false);
   const [addedToCart, setAddedToCart] = useState(false);
+  const [dropdown, setDropwDown] = useState(false);
 
   const { user, setUser } = useContext(userContext);
 
-  // GET THE ID FROM URL
-  useEffect(() => {
-    const url = window.location.href;
-    const id = url.split("?")[1];
-    setProductId(id);
-    return () => setProductId("");
-  }, []);
-
   // FETCH THE PRODUCT
   useEffect(() => {
-    if (productId) {
+    if (id) {
       (async () => {
-        const token = "Bearer " + localStorage.getItem("token");
-
-        setProduct(await productDetail(productId, token));
+        setProduct(await productDetail(id));
       })();
     }
-  }, [productId]);
+  }, [id]);
 
   // GET THE UNIQUE SIZES
   useEffect(() => {
@@ -59,6 +48,12 @@ export const ProductDetail = (props) => {
       }
     }
   }, [product]);
+
+  const UniqueSizes = () => {
+    return sizes.map((elem, index) => {
+      return <p key={index}>{elem}</p>;
+    });
+  };
 
   // FIND THE COLORS OF THE SELECTED SIZE
   const showColorsBySize = (size) => {
@@ -112,19 +107,40 @@ export const ProductDetail = (props) => {
   };
 
   return (
-    <div className="ff" onClick={() => props.toggleModal()}>
+    <div className="modal-overlay" onClick={toggleModal}>
       <div className="main-modal" onClick={(e) => e.stopPropagation()}>
         <div className="header-modal">
-          <span className="close-btn" onClick={props.toggleModal}>
-            &#x3A7; Close
+          <span className="close-btn" onClick={toggleModal}>
+            &#x3A7;
           </span>
-          <h5>{props.name}</h5>
+          <div className="modal-img">
+            <img src={img} alt="" className="x" />
+          </div>
         </div>
-        <div className="modal-img">
-          <img src={props.img} alt="" className="x" />
-        </div>
-        <div className="body-modal">
-          <p>body</p>
+        <div className="body-modal" onClick={() => setDropwDown(false)}>
+          <p className="detail-name">{name}</p>
+          <p className="detail-price">$50</p>
+          <div
+            className="detail-container"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="detail-sizes">
+              <UniqueSizes />
+            </div>
+
+            {dropdown ? (
+              <div className="detail-color-list">
+                <ColorSquares color="red" width="15px" height="15px" />
+                <ColorSquares color="blue" width="15px" height="15px" />
+              </div>
+            ) : (
+              <div
+                className="detail-color"
+                onClick={() => setDropwDown(!dropdown)}
+              ></div>
+            )}
+            <div>&#8595;</div>
+          </div>
         </div>
       </div>
     </div>

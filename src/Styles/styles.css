@@ -10,6 +10,12 @@
   background: #ff0000;
 }
 
+* {
+  padding: 0px;
+  margin: 0px;
+  box-sizing: border-box;
+}
+
 body {
   background-color: wheat;
   font-family: Georgia, "Times New Roman", Times, serif;

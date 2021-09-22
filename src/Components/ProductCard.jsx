@@ -7,7 +7,7 @@ import "../Styles/product-card.css";
 export const ProductCard = (props) => {
   const [, setColors] = useState([]);
   const [, setSizes] = useState([]);
-  const { name, price, images, size, color } = props;
+  const { id, name, price, images, size, color } = props;
   const [modal, setModal] = useState(false);
 
   const toggleModal = () => setModal(!modal);
@@ -24,6 +24,7 @@ export const ProductCard = (props) => {
       </div>
       {modal ? (
         <ProductDetail
+          id={id}
           modal={modal}
           toggleModal={toggleModal}
           name={name}
