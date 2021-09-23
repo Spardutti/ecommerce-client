@@ -2,8 +2,13 @@ import styled from "styled-components";
 
 export const ColorSquares = styled.div`
   background-color: ${(props) => props.color};
-  width: ${(props) => props.width};
-  height: ${(props) => props.height};
+  width: 18px;
+  height: 18px;
   border-radius: 4px;
   margin: 2px;
+
+  &:hover {
+    transform: scale(1.3);
+    cursor: pointer;
+  }
 `;

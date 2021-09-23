@@ -51,7 +51,11 @@ export const ProductDetail = ({ toggleModal, name, img, id }) => {
 
   const UniqueSizes = () => {
     return sizes.map((elem, index) => {
-      return <p key={index}>{elem}</p>;
+      return (
+        <p key={index} onClick={() => selectSize(elem)}>
+          {elem}
+        </p>
+      );
     });
   };
 
@@ -74,6 +78,7 @@ export const ProductDetail = ({ toggleModal, name, img, id }) => {
   // SELECT SIZE
   const selectSize = (elem) => {
     setSelectedSize(elem);
+    console.log(elem);
     showColorsBySize(elem);
   };
 
@@ -120,27 +125,80 @@ export const ProductDetail = ({ toggleModal, name, img, id }) => {
         <div className="body-modal" onClick={() => setDropwDown(false)}>
           <p className="detail-name">{name}</p>
           <p className="detail-price">$50</p>
-          <div
-            className="detail-container"
-            onClick={(e) => e.stopPropagation()}
-          >
+          <div className="detail-container">
             <div className="detail-sizes">
               <UniqueSizes />
             </div>
-
-            {dropdown ? (
-              <div className="detail-color-list">
-                <ColorSquares color="red" width="15px" height="15px" />
-                <ColorSquares color="blue" width="15px" height="15px" />
-              </div>
-            ) : (
-              <div
-                className="detail-color"
-                onClick={() => setDropwDown(!dropdown)}
-              ></div>
-            )}
-            <div>&#8595;</div>
+            <div className="detail-color-container">
+              {selectedSize ? (
+                !selectedColor ? (
+                  dropdown ? (
+                    <div className="detail-color-list">
+                      {colors.map((elem, index) => {
+                        return (
+                          <div onClick={() => setSelectedColor(elem)}>
+                            <ColorSquares color={elem} key={index} />
+                          </div>
+                        );
+                      })}
+                    </div>
+                  ) : (
+                    <div
+                      className="detail-color"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setDropwDown(!dropdown);
+                      }}
+                    >
+                      <i className="fas fa-caret-down"></i>
+                    </div>
+                  )
+                ) : (
+                  <div className="detail-color">
+                    <ColorSquares color={selectedColor} />
+                  </div>
+                )
+              ) : (
+                <div className="detail-color">
+                  <ColorSquares />
+                </div>
+              )}
+            </div>
           </div>
+          {/*  {selectedSize ? (
+            !selectedColor ? (
+              dropdown ? (
+                <div className="detail-color-list">
+                  {colors.map((elem, index) => {
+                    return (
+                      <div onClick={() => setSelectedColor(elem)}>
+                        <ColorSquares color={elem} key={index} />
+                      </div>
+                    );
+                  })}
+                </div>
+              ) : (
+                <div
+                  className="detail-color"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setDropwDown(!dropdown);
+                  }}
+                >
+                  <i className="fas fa-caret-down"></i>
+                </div>
+              )
+            ) : (
+              <div className="detail-color">
+                <ColorSquares color={selectedColor} />
+              </div>
+            )
+          ) : (
+            <div className="detail-color">
+              <ColorSquares />
+            </div>
+          )} */}
+          <button>add to cart</button>
         </div>
       </div>
     </div>
