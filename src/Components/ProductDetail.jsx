@@ -1,18 +1,14 @@
 import { useState, useEffect, useContext } from "react";
 import { productDetail, addToCart } from "../API/API";
-import { Col, Row, Button } from "reactstrap";
 import { userContext } from "../Context/Contexts";
-import { SingleProduct } from "./Admin/SingleProduct/SingleProduct";
 import { ColorSquares } from "./Styled/ColorSquares";
-import { Redirect } from "react-router";
 import { ProductSlideShow } from "./ProductSlideShow";
-import { Link } from "react-router-dom";
 import "../Styles/product-detail.css";
 
 // SHOWS THE PRODUCT PAGE WITH ALL THE INFO
 
 export const ProductDetail = ({ toggleModal, name, img, id }) => {
-  const [productId, setProductId] = useState("");
+  const [productId, setProductId] = useState();
   const [product, setProduct] = useState({});
   const [sizes, setSizes] = useState([]);
   const [colors, setColors] = useState([]);
@@ -52,7 +48,11 @@ export const ProductDetail = ({ toggleModal, name, img, id }) => {
   const UniqueSizes = () => {
     return sizes.map((elem, index) => {
       return (
-        <p key={index} onClick={() => selectSize(elem)}>
+        <p
+          key={index}
+          onClick={() => selectSize(elem)}
+          className={selectedSize === elem ? "selected-size" : "size"}
+        >
           {elem}
         </p>
       );
@@ -77,8 +77,11 @@ export const ProductDetail = ({ toggleModal, name, img, id }) => {
 
   // SELECT SIZE
   const selectSize = (elem) => {
+    if (selectedSize) {
+      setSelectedSize();
+      setSelectedColor();
+    }
     setSelectedSize(elem);
-    console.log(elem);
     showColorsBySize(elem);
   };
 
@@ -90,25 +93,6 @@ export const ProductDetail = ({ toggleModal, name, img, id }) => {
 
   const productAdded = () => {
     setAddedToCart(true);
-  };
-
-  const GoToCart = () => {
-    return (
-      <div>
-        <p>Product added to cart</p>
-        <div>
-          <Link to="/cart" className="bg-success btn btn-primary mb-2 mx-5">
-            Go to cart
-          </Link>
-          <Button
-            className="bg-primary btn btn-primary mb-2 mx-5"
-            onClick={resetState}
-          >
-            add another
-          </Button>
-        </div>
-      </div>
-    );
   };
 
   return (
@@ -165,143 +149,30 @@ export const ProductDetail = ({ toggleModal, name, img, id }) => {
               )}
             </div>
           </div>
-          {/*  {selectedSize ? (
-            !selectedColor ? (
-              dropdown ? (
-                <div className="detail-color-list">
-                  {colors.map((elem, index) => {
-                    return (
-                      <div onClick={() => setSelectedColor(elem)}>
-                        <ColorSquares color={elem} key={index} />
-                      </div>
-                    );
-                  })}
-                </div>
-              ) : (
-                <div
-                  className="detail-color"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setDropwDown(!dropdown);
-                  }}
-                >
-                  <i className="fas fa-caret-down"></i>
-                </div>
-              )
-            ) : (
-              <div className="detail-color">
-                <ColorSquares color={selectedColor} />
-              </div>
-            )
+          {!selectedColor ? (
+            <p className="btn-disabled btn ">add to cart</p>
           ) : (
-            <div className="detail-color">
-              <ColorSquares />
-            </div>
-          )} */}
-          <button>add to cart</button>
+            <p
+              className="btn btn-black"
+              onClick={async () => {
+                setLoading(true);
+                const newCart = await addToCart(
+                  user._id,
+                  id,
+                  selectedSize,
+                  selectedColor,
+                  1
+                );
+                setUser(newCart);
+                setLoading(false);
+                productAdded();
+              }}
+            >
+              add to cart
+            </p>
+          )}
         </div>
       </div>
     </div>
   );
-  /* return user ? (
-    user.admin ? (
-      <SingleProduct />
-    ) : product.details ? (
-      <div className="container bg-light mt-5">
-        <Row>
-          <Col xs={12} sm={6} className=" text-center">
-            <GoBackArrow route={"/products"} />
-            <h1>{product.name}</h1>
-            <p>{product.description}</p>
-            <hr />
-            <Row>
-              <p>Available sizes</p>
-              <div className="size-container">
-                {sizes.map((size, index) => {
-                  return (
-                    <div
-                      id={size}
-                      key={index}
-                      onClick={() => {
-                        selectSize(size);
-                      }}
-                      className={selectedSize === size ? "selected" : null}
-                    >
-                      {size}
-                    </div>
-                  );
-                })}
-              </div>
-              {selectedSize ? (
-                <div className="color-container mt-4">
-                  <div>
-                    <p>Select a color</p>
-                  </div>
-                  <div>
-                    {colors.map((color, index) => {
-                      return (
-                        <ColorSquares
-                          color={color}
-                          height={"30px"}
-                          width={"30px"}
-                          key={index}
-                          onClick={() => setSelectedColor(color)}
-                          className={
-                            selectedColor === color ? "selected" : "color"
-                          }
-                        ></ColorSquares>
-                      );
-                    })}
-                  </div>
-                </div>
-              ) : (
-                <p> Select a size</p>
-              )}
-              {loading ? (
-                <div className="spinner-grow mx-auto"></div>
-              ) : (
-                selectedColor &&
-                selectSize && (
-                  <div>
-                    {addedToCart ? (
-                      <GoToCart />
-                    ) : (
-                      //<p className="mt-2">Product added to cart</p>
-                      <Button
-                        className="bg-primary my-4"
-                        onClick={async () => {
-                          setLoading(true);
-                          const newCart = await addToCart(
-                            props.id,
-                            productId,
-                            selectedSize,
-                            selectedColor,
-                            1
-                          );
-                          setUser(newCart);
-                          setLoading(false);
-                          productAdded();
-                        }}
-                      >
-                        Add to cart
-                      </Button>
-                    )}
-                  </div>
-                )
-              )}
-            </Row>
-          </Col>
-          <Col xs={12} sm={6} className=" ">
-            <ProductSlideShow images={product.images} />
-          </Col>
-        </Row>
-      </div>
-    ) : (
-      <div className="d-flex justify-content-center mt-5">
-        <div className="spinner-grow mx-auto"></div>
-      </div>
-    )
-  ) : (
-    <Redirect to="/" />
-  ); */
 };
