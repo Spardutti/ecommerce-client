@@ -4,11 +4,12 @@ import { userContext } from "../Context/Contexts";
 import { ColorSquares } from "./Styled/ColorSquares";
 import { ProductSlideShow } from "./ProductSlideShow";
 import "../Styles/product-detail.css";
+import Spinner from "../Components/Styled/Spinner";
+import { LoginScreen } from "../Components/LoginScreen";
 
 // SHOWS THE PRODUCT PAGE WITH ALL THE INFO
 
 export const ProductDetail = ({ toggleModal, name, img, id }) => {
-  const [productId, setProductId] = useState();
   const [product, setProduct] = useState({});
   const [sizes, setSizes] = useState([]);
   const [colors, setColors] = useState([]);
@@ -17,6 +18,7 @@ export const ProductDetail = ({ toggleModal, name, img, id }) => {
   const [loading, setLoading] = useState(false);
   const [addedToCart, setAddedToCart] = useState(false);
   const [dropdown, setDropwDown] = useState(false);
+  const [login, setLogin] = useState(false);
 
   const { user, setUser } = useContext(userContext);
 
@@ -45,6 +47,7 @@ export const ProductDetail = ({ toggleModal, name, img, id }) => {
     }
   }, [product]);
 
+  // GET AND SHOWS THE UNIQUE SIZES
   const UniqueSizes = () => {
     return sizes.map((elem, index) => {
       return (
@@ -95,7 +98,62 @@ export const ProductDetail = ({ toggleModal, name, img, id }) => {
     setAddedToCart(true);
   };
 
-  return (
+  // DROPDOWN OF AVAILABLE COLORS
+  const ColorDropdown = () => {
+    return (
+      <div className="detail-color-list">
+        {colors.map((elem, index) => {
+          return (
+            <div onClick={() => setSelectedColor(elem)}>
+              <ColorSquares color={elem} key={index} />
+            </div>
+          );
+        })}
+      </div>
+    );
+  };
+
+  // ADD TO CART BUTTON
+  const AddToCartBtn = () => {
+    return (
+      <p
+        className="btn btn-black"
+        onClick={async () => {
+          setLoading(true);
+          const newCart = await addToCart(
+            user._id,
+            id,
+            selectedSize,
+            selectedColor,
+            1
+          );
+          setUser(newCart);
+          setLoading(false);
+          productAdded();
+        }}
+      >
+        add to cart
+      </p>
+    );
+  };
+
+  // SHOWS LOG IN FORM
+  const onClickLogin = () => {
+    setLogin(!login);
+  };
+
+  // LOG IN BUTTON
+  const Login = () => {
+    return (
+      <p className="btn btn-login" onClick={onClickLogin}>
+        Log in to continue
+      </p>
+    );
+  };
+
+  return login ? (
+    <LoginScreen setLogin={setLogin} />
+  ) : (
     <div className="modal-overlay" onClick={toggleModal}>
       <div className="main-modal" onClick={(e) => e.stopPropagation()}>
         <div className="header-modal">
@@ -117,16 +175,9 @@ export const ProductDetail = ({ toggleModal, name, img, id }) => {
               {selectedSize ? (
                 !selectedColor ? (
                   dropdown ? (
-                    <div className="detail-color-list">
-                      {colors.map((elem, index) => {
-                        return (
-                          <div onClick={() => setSelectedColor(elem)}>
-                            <ColorSquares color={elem} key={index} />
-                          </div>
-                        );
-                      })}
-                    </div>
+                    <ColorDropdown />
                   ) : (
+                    /* COLOR LIST DROPDOWN BUTTON */
                     <div
                       className="detail-color"
                       onClick={(e) => {
@@ -138,38 +189,30 @@ export const ProductDetail = ({ toggleModal, name, img, id }) => {
                     </div>
                   )
                 ) : (
+                  /* SELECTED COLOR */
                   <div className="detail-color">
                     <ColorSquares color={selectedColor} />
                   </div>
                 )
               ) : (
+                /* NON COLOR SELECTED */
                 <div className="detail-color">
                   <ColorSquares />
                 </div>
               )}
             </div>
           </div>
-          {!selectedColor ? (
+          {!user ? (
+            <Login />
+          ) : !selectedColor ? (
+            /* DISABLED BUTTON */
             <p className="btn-disabled btn ">add to cart</p>
+          ) : loading ? (
+            <Spinner />
+          ) : addedToCart ? (
+            <p className="added-msg">product added </p>
           ) : (
-            <p
-              className="btn btn-black"
-              onClick={async () => {
-                setLoading(true);
-                const newCart = await addToCart(
-                  user._id,
-                  id,
-                  selectedSize,
-                  selectedColor,
-                  1
-                );
-                setUser(newCart);
-                setLoading(false);
-                productAdded();
-              }}
-            >
-              add to cart
-            </p>
+            <AddToCartBtn />
           )}
         </div>
       </div>

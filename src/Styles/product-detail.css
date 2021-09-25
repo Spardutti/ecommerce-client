@@ -120,50 +120,26 @@
   border: 2px groove gray;
 }
 
-.btn {
-  border-radius: 5px;
-  margin: 20px 0px 0px 20px;
-  padding: 10px 20px;
-  width: 150px;
-  font-size: 14px;
-  font-weight: bold;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: all 0.3s;
-}
-
-.btn-black {
-  background-color: black;
-  color: white;
-}
-
-.btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
-}
-
-.btn:active {
-  transform: translateY(-1px);
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
-}
-
-.btn-disabled {
-  background-color: gray;
-  cursor: default;
-}
-
-.btn-disabled:hover,
-.btn-disabled:active {
-  transform: none;
-  box-shadow: none;
-}
-.selected-size {
-  border: 2px solid gray;
-  padding: 3px 6px;
-  border-radius: 6px;
-  font-weight: bold;
-}
-
 .size {
   color: gray;
+}
+
+.added-msg {
+  border-radius: 5px;
+  margin: 30px 0px 0px 20px;
+  width: 150px;
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: black;
+  cursor: pointer;
+  overflow: hidden;
+  white-space: nowrap;
+  animation: letters 2s steps(60, end);
+}
+
+@keyframes letters {
+  from {
+    width: 0;
+  }
 }
