@@ -9,6 +9,16 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  animation: opacity 1s;
+}
+
+@keyframes opacity {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 .form {
@@ -55,10 +65,62 @@
 .btn-container {
   display: flex;
   justify-content: center;
-  margin-bottom: 30px;
 }
 
 .error {
   text-align: center;
   transition: all 0.3;
+}
+
+.spinner-container {
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.new-account {
+  display: flex;
+  justify-content: center;
+}
+
+.google-container {
+  display: flex;
+  justify-content: center;
+}
+
+.btn-google {
+  background-color: #4285f4;
+  height: 40px;
+  font-size: 12px !important;
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+  display: flex;
+  align-items: center;
+  cursor: default !important;
+}
+
+.btn-text {
+  padding-left: 5px;
+  height: 40px;
+  display: block;
+  padding-top: 13px;
+  cursor: pointer;
+}
+
+.google-icon-wrapper {
+  background-color: white;
+  width: 35px;
+  height: 40px;
+  text-align: center;
+  display: flex;
+  border-top-left-radius: 4px;
+  border-left: 1px solid #4285f4;
+  border-top: 1px solid #4285f4;
+  border-bottom: 1px solid #4285f4;
+  border-bottom-left-radius: 4px;
+}
+
+.spinner {
+  margin-top: 20px !important;
 }

@@ -92,11 +92,11 @@
   border-radius: 11px;
   font-size: 20px;
   margin-left: 10px;
-  min-height: 110px;
   width: 120px;
   z-index: 1;
   cursor: pointer;
   padding-top: 10px;
+  padding-bottom: 10px;
   overflow: hidden;
   background-color: white;
 }
@@ -107,10 +107,10 @@
 
 @keyframes showing {
   from {
-    min-height: 0px;
+    height: 40px;
   }
   to {
-    min-height: 135px;
+    height: 100px;
   }
 }
 

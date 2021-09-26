@@ -56,9 +56,24 @@ export const Header = () => {
         <p onClick={toggleDropdown} className="user-name">
           {user.username} <i className="fas fa-caret-up"></i>
         </p>
-        <p onClick={toggleModal}>Cart</p>
-        <p>Transactions</p>
-        <p onClick={logOut}>Log out</p>
+        <p
+          onClick={() => {
+            toggleModal();
+            toggleDropdown();
+          }}
+        >
+          Cart
+        </p>
+        <p onClick={toggleDropdown}>Transactions</p>
+        <p
+          onClick={() => {
+            setModal(false);
+            toggleDropdown();
+            logOut();
+          }}
+        >
+          Log out
+        </p>
       </div>
     ) : (
       <div className="user-nav">

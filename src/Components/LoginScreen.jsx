@@ -1,9 +1,10 @@
-import "../Styles/google-btn.css";
 import { useContext, useState, useEffect } from "react";
 import { localUser } from "../API/API";
-import { Redirect, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { userContext } from "../Context/Contexts";
 import "../Styles/login.css";
+import Spinner from "./Styled/Spinner";
+import { div } from "prelude-ls";
 
 export const LoginScreen = ({ setLogin }) => {
   const [email, setEmail] = useState("");
@@ -11,6 +12,7 @@ export const LoginScreen = ({ setLogin }) => {
   const [logged, setLogged] = useState(false);
   const [loginError, setLogginErros] = useState("");
   const { setUser } = useContext(userContext);
+  const [loading, setLoading] = useState(false);
 
   const emailHandler = (e) => {
     setEmail(e.target.value);
@@ -26,20 +28,21 @@ export const LoginScreen = ({ setLogin }) => {
   };
 
   // LOGIN BUTTON
-  const Button = () => {
+  const LoginBtn = () => {
     return (
       <div className="btn-container">
         <button
           className="btn btn-black"
           onClick={async (e) => {
+            setLoading(true);
             e.preventDefault();
             const response = await localUser(email, password);
-            console.log(response);
             if (response.status === 200) {
               setLogged(true);
               setUser(response.data.user);
             }
             if (response.status === 500) setLogginErros(response.data);
+            setLoading(false);
           }}
         >
           Log in
@@ -77,32 +80,41 @@ export const LoginScreen = ({ setLogin }) => {
             <label>{loginError}</label>
           </div>
         ) : null}
-        <Button />
-        <div className="d-flex justify-content-center pt-2">
-          <div className="google-btn">
-            <div className="google-icon-wrapper">
-              <img
-                src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
-                alt=""
-                className="google-icon"
-              />
-            </div>
-            {/* CHANGE URL ON */}
-            <a
-              href="https://ecommercedemosite.herokuapp.com/user/google/login"
-              className="btn-text"
-            >
-              <b>Log in with google</b>
-            </a>
+
+        {loading ? (
+          <div className="spinner-container">
+            <Spinner />
           </div>
-        </div>
-        <hr />
-        <div className="text-center">
-          <Link to="/newaccount" className="btn bg-success">
-            Crear cuenta
-          </Link>
-        </div>
-        {logged ? <Redirect to="/" /> : null}
+        ) : (
+          <div>
+            <LoginBtn />
+            <div className="google-container">
+              <div className="btn btn-google">
+                <div className="google-icon-wrapper">
+                  <img
+                    src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
+                    alt=""
+                    className="google-icon"
+                  />
+                </div>
+                {/* CHANGE URL ON */}
+                <div>
+                  <a
+                    onClick={() => setLoading(true)}
+                    href="https://ecommercedemosite.herokuapp.com/user/google/login"
+                    className="btn-text"
+                  >
+                    Google Login
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div className="new-account">
+              <button className="btn btn-black">Create Account</button>
+            </div>
+          </div>
+        )}
+        {logged ? setLogin(false) : null}
       </form>
     </div>
   );
