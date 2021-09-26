@@ -73,7 +73,7 @@ export const LoginScreen = ({ setLogin }) => {
           <label>Password</label>
         </div>
         {loginError ? (
-          <div className="text-center pt-1">
+          <div className="error">
             <label>{loginError}</label>
           </div>
         ) : null}

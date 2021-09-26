@@ -13,7 +13,7 @@
 
 .form {
   width: 500px;
-  height: 300px;
+  height: 400px;
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.808);
   border-radius: 10px;
   padding: 10px;
@@ -56,4 +56,9 @@
   display: flex;
   justify-content: center;
   margin-bottom: 30px;
+}
+
+.error {
+  text-align: center;
+  transition: all 0.3;
 }

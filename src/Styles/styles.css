@@ -46,6 +46,7 @@ button {
   text-transform: uppercase;
   cursor: pointer;
   transition: all 0.3s;
+  border: none;
 }
 
 .btn-black {

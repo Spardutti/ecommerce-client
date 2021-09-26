@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import onlineShopping from "../assets/Online_shopping_PNG.png";
 import { Cart } from "./Cart";
 import "../Styles/header.css";
+import { LoginScreen } from "./LoginScreen";
 
 // DISPLAY THE CLIENT NAV BAR
 
@@ -13,6 +14,7 @@ export const Header = () => {
   const [modal, setModal] = useState(false);
   const [dropdown, setDropwdown] = useState(false);
   const [cartTotal, setCartTotal] = useState("");
+  const [login, setLogin] = useState(false);
 
   const toggleModal = () => {
     setModal(!modal);
@@ -70,9 +72,9 @@ export const Header = () => {
   // LOGIN BUTTON
   const Login = () => {
     return (
-      <Link to="/login" className="user-nav">
+      <p className="user-nav" onClick={() => setLogin(true)}>
         Log in
-      </Link>
+      </p>
     );
   };
 
@@ -108,6 +110,7 @@ export const Header = () => {
         </div>
       </div>
       <Title />
+      {login ? <LoginScreen setLogin={setLogin} /> : null}
     </div>
   );
 };

@@ -20,7 +20,9 @@ export const ProductCard = (props) => {
       <div>
         <h4>{name}</h4>
         <p className="card-price">$ {price.toLocaleString()}</p>
-        <button onClick={toggleModal}>Info</button>
+        <button className="btn btn-black" onClick={toggleModal}>
+          Info
+        </button>
       </div>
       {modal ? (
         <ProductDetail
