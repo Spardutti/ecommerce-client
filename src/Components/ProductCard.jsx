@@ -15,7 +15,7 @@ export const ProductCard = (props) => {
   return (
     <div className="card-container">
       <div>
-        <img src={images[0].url} alt={name} />
+        <img className="detail-img" src={images[0].url} alt={name} />
       </div>
       <div>
         <h4>{name}</h4>

@@ -1,10 +1,9 @@
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState } from "react";
 import { localUser } from "../API/API";
-import { Link } from "react-router-dom";
 import { userContext } from "../Context/Contexts";
 import "../Styles/login.css";
 import Spinner from "./Styled/Spinner";
-import { div } from "prelude-ls";
+import { NewAccount } from "./NewAccount";
 
 export const LoginScreen = ({ setLogin }) => {
   const [email, setEmail] = useState("");
@@ -13,6 +12,7 @@ export const LoginScreen = ({ setLogin }) => {
   const [loginError, setLogginErros] = useState("");
   const { setUser } = useContext(userContext);
   const [loading, setLoading] = useState(false);
+  const [newAccount, setNewAccount] = useState(false);
 
   const emailHandler = (e) => {
     setEmail(e.target.value);
@@ -25,6 +25,11 @@ export const LoginScreen = ({ setLogin }) => {
   // HIDE FORM
   const hideForm = () => {
     setLogin(false);
+  };
+
+  // NEW ACCOUNT FORM
+  const toggleAccountForm = () => {
+    setNewAccount(!newAccount);
   };
 
   // LOGIN BUTTON
@@ -51,9 +56,11 @@ export const LoginScreen = ({ setLogin }) => {
     );
   };
 
-  return (
+  return newAccount ? (
+    <NewAccount setNewAccount={setNewAccount} />
+  ) : (
     <div className="login-overlay" onClick={hideForm}>
-      <form className="form" onClick={(e) => e.stopPropagation()}>
+      <div className="form" onClick={(e) => e.stopPropagation()}>
         <div className="input-container">
           <input
             type="text"
@@ -94,10 +101,9 @@ export const LoginScreen = ({ setLogin }) => {
                   <img
                     src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
                     alt=""
-                    className="google-icon"
+                    className=""
                   />
                 </div>
-                {/* CHANGE URL ON */}
                 <div>
                   <a
                     onClick={() => setLoading(true)}
@@ -110,12 +116,15 @@ export const LoginScreen = ({ setLogin }) => {
               </div>
             </div>
             <div className="new-account">
-              <button className="btn btn-black">Create Account</button>
+              <button className="btn btn-black" onClick={toggleAccountForm}>
+                Create Account
+              </button>
             </div>
           </div>
         )}
         {logged ? setLogin(false) : null}
-      </form>
+        {newAccount ? <NewAccount /> : null}
+      </div>
     </div>
   );
 };

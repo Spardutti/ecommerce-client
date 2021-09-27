@@ -94,11 +94,11 @@ export const Cart = (props) => {
   };
 
   return (
-    <Modal isOpen={modal} toggle={toggle} className="cart-items-container">
-      <Button color="danger" onClick={toggle}>
+    <div isOpen={modal} toggle={toggle} className="cart-items-container">
+      <button className=" x-btn" onClick={toggle}>
         x
-      </Button>
-      <ModalHeader>Shopping cart</ModalHeader>
+      </button>
+      <h3>Shopping cart</h3>
       {user && user.cart.length ? (
         <div>
           <div className="clear-cart" onClick={clearCart}>
@@ -127,6 +127,6 @@ export const Cart = (props) => {
       ) : (
         <EmptyCart />
       )}
-    </Modal>
+    </div>
   );
 };

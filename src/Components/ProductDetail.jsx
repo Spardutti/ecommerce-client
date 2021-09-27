@@ -161,7 +161,7 @@ export const ProductDetail = ({ toggleModal, name, img, id }) => {
             &#x3A7;
           </span>
           <div className="modal-img">
-            <img src={img} alt="" className="x" />
+            <img src={img} alt="" className="detail-img" />
           </div>
         </div>
         <div className="body-modal" onClick={() => setDropwDown(false)}>

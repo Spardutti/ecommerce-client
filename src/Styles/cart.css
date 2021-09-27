@@ -23,10 +23,26 @@
 
 .cart-items-container {
   position: absolute;
-  right: 0px;
-  margin: 0px;
-  top: 50px;
+  right: 10px;
+  top: 10px;
   width: 360px;
+  background-color: white;
+  text-align: center;
+  border-radius: 6px;
+}
+
+.cart-items-container h3 {
+  padding-top: 50px;
+}
+
+.x-btn {
+  position: absolute;
+  left: 10px;
+  top: 5px;
+  font-size: 20px;
+  background-color: inherit;
+  border: none;
+  cursor: pointer;
 }
 
 .clear-cart {

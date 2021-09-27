@@ -17,8 +17,10 @@
 }
 
 body {
-  background-color: wheat;
+  background-color: rgb(228, 228, 228);
   font-family: Georgia, "Times New Roman", Times, serif;
+  padding: 30px;
+  padding-top: 0px;
 }
 
 a {
@@ -50,7 +52,7 @@ button {
 }
 
 .btn-black {
-  background-color: black;
+  background-color: rgb(39, 39, 39);
   color: white;
 }
 
@@ -78,7 +80,7 @@ button {
 .btn-login {
   font-size: 12px;
   text-transform: lowercase;
-  background-color: black;
+  background-color: rgb(39, 39, 39);
   color: white;
 }
 

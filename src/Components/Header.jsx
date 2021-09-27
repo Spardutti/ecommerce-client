@@ -105,11 +105,11 @@ export const Header = () => {
   return (
     <div className="">
       <div className=" header-container">
-        <div className="logo">
+        {/*   <div className="logo">
           <Link to="/">
             <img src={onlineShopping} alt="logo" />
           </Link>
-        </div>
+        </div> */}
         <div className="cart-user-container">
           <div className="cart-nav" onClick={toggleModal}>
             <i className="fas fa-shopping-cart"></i>

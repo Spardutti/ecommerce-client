@@ -2,20 +2,22 @@
   width: 220px;
   height: 260px;
   margin: 0px 10px;
+  border-radius: 11px;
+  background-color: white;
 }
 
 .card-container div {
   text-align: center;
 }
 
-.card-container img {
+.detail-img {
   width: 140px;
   height: 140px;
 }
 
 .card-price {
-  color: green;
-  font-weight: 600;
+  color: color;
+  font-weight: bold;
 }
 
 ::-webkit-input-placeholder {

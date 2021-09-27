@@ -124,3 +124,35 @@
 .spinner {
   margin-top: 20px !important;
 }
+
+/* NEW ACC */
+
+.new-acc {
+  animation: appearing 1s;
+  overflow: hidden;
+}
+
+.new-overlay {
+  animation: none;
+}
+
+.errors {
+  padding-left: inherit;
+}
+
+.success-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+@keyframes appearing {
+  from {
+    width: 0px;
+  }
+
+  to {
+    width: 100%;
+  }
+}

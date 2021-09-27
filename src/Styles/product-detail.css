@@ -131,7 +131,7 @@
   font-size: 12px;
   font-weight: bold;
   text-transform: uppercase;
-  color: black;
+  color: rga(39, 39, 39);
   cursor: pointer;
   overflow: hidden;
   white-space: nowrap;

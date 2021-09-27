@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { getCategories, getProductByCat, getProducts } from "../API/API";
 import "../Styles/categories.css";
+import home from "../assets/home.png";
 
 // DISPLAY ALL THE CATEGORIES ON A BAR
 
@@ -39,6 +40,9 @@ export const Categories = (props) => {
             : "categories-card"
         }
         onClick={(e) => getAllProducts(e)}
+        style={{
+          backgroundImage: `url(${home})`,
+        }}
       >
         <div className="ribbon ribbon-top-left">
           <span>all</span>
