@@ -1,13 +1,10 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { ProductDetail } from "./ProductDetail";
-import "../Styles/product-card.css";
 
 // DISPLAY THE PRODUCTS CARDS WITH TITLE; PRICE AND IMAGE
 
 export const ProductCard = (props) => {
-  const [, setColors] = useState([]);
-  const [, setSizes] = useState([]);
-  const { id, name, price, images, size, color } = props;
+  const { id, name, price, images } = props;
   const [modal, setModal] = useState(false);
 
   const toggleModal = () => setModal(!modal);

@@ -1,23 +1,28 @@
 .card-container {
-  width: 220px;
-  height: 260px;
-  margin: 0px 10px;
-  border-radius: 11px;
+  width: 22rem;
+  height: 26rem;
+  margin: 0px 1rem;
+  border-radius: 1.1rem;
   background-color: white;
-}
 
-.card-container div {
-  text-align: center;
+  div {
+    text-align: center;
+  }
+
+  h4 {
+    font-size: 1.8rem;
+  }
 }
 
 .detail-img {
-  width: 140px;
-  height: 140px;
+  width: 14rem;
+  height: 14rem;
 }
 
 .card-price {
-  color: color;
+  color: black;
   font-weight: bold;
+  font-size: 1.7rem;
 }
 
 ::-webkit-input-placeholder {

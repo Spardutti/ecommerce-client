@@ -1,0 +1,51 @@
+.btn {
+  border-radius: 0.5rem;
+  margin: 2rem 0px 0px 2rem;
+  padding: 1rem 2rem;
+  width: 15rem;
+  font-size: 1.4rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s;
+  border: none;
+
+  &:hover {
+    transform: translateY(-0.3rem);
+    box-shadow: 0 1rem 2rem $dark-box-shadow;
+  }
+
+  &:active {
+    transform: translateY(-0.1rem);
+    box-shadow: 0 0.5rem 2rem $dark-box-shadow;
+  }
+}
+
+.btn-black {
+  background-color: $btn-bg-dark;
+  color: white;
+}
+
+.btn-disabled {
+  background-color: gray;
+  cursor: default;
+  &:hover,
+  &:active {
+    transform: none;
+    box-shadow: none;
+  }
+}
+
+.btn-login {
+  font-size: 1.2rem;
+  text-transform: lowercase;
+  background-color: $btn-bg-dark;
+  color: white;
+}
+
+.selected-size {
+  border: 0.2rem solid gray;
+  padding: 0.3rem 0.6rem;
+  border-radius: 0.6rem;
+  font-weight: bold;
+}

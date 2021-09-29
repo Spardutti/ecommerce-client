@@ -2,16 +2,13 @@ import { useState, useEffect, useContext } from "react";
 import { userContext } from "../Context/Contexts";
 import { CartItem } from "./CartItem";
 import { checkStock, newTransaction, updateUserCart } from "../API/API";
-import { Button, Modal, ModalHeader, ModalBody } from "reactstrap";
 import emptyCart from "../assets/empty-cart.svg";
-import "../Styles/cart.css";
 
 // DISPLAY THE CART PAGE
-export const Cart = (props) => {
+export const Cart = ({ setIsCartOpen }) => {
   const [cartItems, setCartItems] = useState([]);
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(false);
-  const { modal, toggle } = props;
 
   const { user, setUser } = useContext(userContext);
 
@@ -56,7 +53,7 @@ export const Cart = (props) => {
 
   const DivTotal = () => {
     return (
-      <div className="total-container text-center">
+      <div className="total-container">
         <div className="total">
           <h4>TOTAL</h4>
           <p>${total.toLocaleString()}</p>
@@ -64,7 +61,12 @@ export const Cart = (props) => {
         {loading ? (
           <div className="spinner-grow"></div>
         ) : (
-          <Button onClick={() => checkoutButton(user._id)}>checkout</Button>
+          <button
+            className="btn btn-black"
+            onClick={() => checkoutButton(user._id)}
+          >
+            checkout
+          </button>
         )}
       </div>
     );
@@ -75,58 +77,64 @@ export const Cart = (props) => {
   const EmptyCart = () => {
     return (
       <div className="empty-cart">
-        <div className="text-center">
+        <div className="">
           <img src={emptyCart} alt="" />
-          <p className="text-center">
+          <p className="">
             <b>Your cart is empty</b>
           </p>
           <p>Check out all of our products</p>
-          <Button
-            className="bg-success w-100"
-            href="/ecommerce-client/#/products"
-            onClick={() => toggle()}
-          >
+          <button className="btn btn-black" onClick={closeOverlay}>
             <b>Products</b>
-          </Button>
+          </button>
         </div>
       </div>
     );
   };
 
+  /* CLOSE OVERLAY */
+  const closeOverlay = () => {
+    setIsCartOpen(false);
+  };
+
   return (
-    <div isOpen={modal} toggle={toggle} className="cart-items-container">
-      <button className=" x-btn" onClick={toggle}>
-        x
-      </button>
-      <h3>Shopping cart</h3>
-      {user && user.cart.length ? (
-        <div>
-          <div className="clear-cart" onClick={clearCart}>
-            <p>
-              <i className="fas fa-trash text-danger"></i> empty cart
-            </p>
+    <div className="overlay" onClick={closeOverlay}>
+      <div
+        className="cart-items-container"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <button className=" x-btn" onClick={closeOverlay}>
+          x
+        </button>
+        <h3>Shopping cart</h3>
+        {user && user.cart.length ? (
+          <div>
+            <div className="clear-cart" onClick={clearCart}>
+              <p>
+                <i className="fas fa-trash text-danger"></i> empty cart
+              </p>
+            </div>
+            {cartItems &&
+              cartItems.map((product, index) => {
+                return (
+                  <div key={index}>
+                    <CartItem
+                      product={product}
+                      cartItems={cartItems}
+                      setCartItems={setCartItems}
+                      index={index}
+                      id={user._id}
+                      setUser={setUser}
+                    />
+                    <hr />
+                  </div>
+                );
+              })}
+            <DivTotal />
           </div>
-          {cartItems &&
-            cartItems.map((product, index) => {
-              return (
-                <ModalBody key={index}>
-                  <CartItem
-                    product={product}
-                    cartItems={cartItems}
-                    setCartItems={setCartItems}
-                    index={index}
-                    id={user._id}
-                    setUser={setUser}
-                  />
-                  <hr />
-                </ModalBody>
-              );
-            })}
-          <DivTotal />
-        </div>
-      ) : (
-        <EmptyCart />
-      )}
+        ) : (
+          <EmptyCart />
+        )}
+      </div>
     </div>
   );
 };

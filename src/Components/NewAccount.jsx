@@ -10,7 +10,6 @@ export const NewAccount = ({ setNewAccount }) => {
   const [createAccErrors, setCreateAccErrors] = useState(false);
   const [accCreated, setAccCreated] = useState(false);
   const [count, setCount] = useState(3);
-  const [redirect, setRedirect] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const emailHandler = (e) => {
@@ -100,7 +99,7 @@ export const NewAccount = ({ setNewAccount }) => {
   };
 
   return (
-    <div className="login-overlay new-overlay" onClick={hideForm}>
+    <div className="overlay" onClick={hideForm}>
       <form action="" className="form " onClick={(e) => e.stopPropagation()}>
         <div className="input-container new-acc">
           <input

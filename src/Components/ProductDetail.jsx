@@ -3,7 +3,6 @@ import { productDetail, addToCart } from "../API/API";
 import { userContext } from "../Context/Contexts";
 import { ColorSquares } from "./Styled/ColorSquares";
 import { ProductSlideShow } from "./ProductSlideShow";
-import "../Styles/product-detail.css";
 import Spinner from "../Components/Styled/Spinner";
 import { LoginScreen } from "../Components/LoginScreen";
 
@@ -154,7 +153,7 @@ export const ProductDetail = ({ toggleModal, name, img, id }) => {
   return login ? (
     <LoginScreen setLogin={setLogin} />
   ) : (
-    <div className="modal-overlay" onClick={toggleModal}>
+    <div className="overlay" onClick={toggleModal}>
       <div className="main-modal" onClick={(e) => e.stopPropagation()}>
         <div className="header-modal">
           <span className="close-btn" onClick={toggleModal}>

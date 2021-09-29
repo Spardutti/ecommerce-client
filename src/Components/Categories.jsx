@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { getCategories, getProductByCat, getProducts } from "../API/API";
-import "../Styles/categories.css";
 import home from "../assets/home.png";
 
 // DISPLAY ALL THE CATEGORIES ON A BAR

@@ -4,20 +4,19 @@ import { logout } from "../API/API";
 import { Link } from "react-router-dom";
 import onlineShopping from "../assets/Online_shopping_PNG.png";
 import { Cart } from "./Cart";
-import "../Styles/header.css";
 import { LoginScreen } from "./LoginScreen";
 
 // DISPLAY THE CLIENT NAV BAR
 
 export const Header = () => {
   const [cartItems, setCartItems] = useState([]);
-  const [modal, setModal] = useState(false);
   const [dropdown, setDropwdown] = useState(false);
   const [cartTotal, setCartTotal] = useState("");
   const [login, setLogin] = useState(false);
+  const [isCartOpen, setIsCartOpen] = useState(false);
 
-  const toggleModal = () => {
-    setModal(!modal);
+  const toggleCartModal = () => {
+    setIsCartOpen(!isCartOpen);
     setDropwdown(false);
   };
 
@@ -52,13 +51,13 @@ export const Header = () => {
   // USER DROPDOWN
   const UserNav = () => {
     return dropdown ? (
-      <div className="user-nav-show fadeIn ">
+      <div className="user-nav-show grow ">
         <p onClick={toggleDropdown} className="user-name">
           {user.username} <i className="fas fa-caret-up"></i>
         </p>
         <p
           onClick={() => {
-            toggleModal();
+            toggleCartModal();
             toggleDropdown();
           }}
         >
@@ -67,7 +66,7 @@ export const Header = () => {
         <p onClick={toggleDropdown}>Transactions</p>
         <p
           onClick={() => {
-            setModal(false);
+            setIsCartOpen(false);
             toggleDropdown();
             logOut();
           }}
@@ -76,7 +75,7 @@ export const Header = () => {
         </p>
       </div>
     ) : (
-      <div className="user-nav">
+      <div className="user-nav nav-buttons">
         <p onClick={toggleDropdown}>
           Account <i className="fas fa-caret-down"></i>{" "}
         </p>
@@ -87,7 +86,7 @@ export const Header = () => {
   // LOGIN BUTTON
   const Login = () => {
     return (
-      <p className="user-nav" onClick={() => setLogin(true)}>
+      <p className="user-nav nav-buttons" onClick={() => setLogin(true)}>
         Log in
       </p>
     );
@@ -105,13 +104,8 @@ export const Header = () => {
   return (
     <div className="">
       <div className=" header-container">
-        {/*   <div className="logo">
-          <Link to="/">
-            <img src={onlineShopping} alt="logo" />
-          </Link>
-        </div> */}
         <div className="cart-user-container">
-          <div className="cart-nav" onClick={toggleModal}>
+          <div className="cart-nav nav-buttons" onClick={toggleCartModal}>
             <i className="fas fa-shopping-cart"></i>
             <i className={cartTotal ? "header-total" : "hidden"}>
               $ {cartTotal.toLocaleString()}
@@ -121,11 +115,11 @@ export const Header = () => {
             ) : null}
           </div>
           {user ? <UserNav /> : <Login />}
-          {modal ? <Cart modal={modal} toggle={toggleModal} /> : null}
         </div>
       </div>
       <Title />
       {login ? <LoginScreen setLogin={setLogin} /> : null}
+      {isCartOpen ? <Cart setIsCartOpen={setIsCartOpen} /> : null}
     </div>
   );
 };

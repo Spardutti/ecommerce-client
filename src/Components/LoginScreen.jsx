@@ -1,7 +1,6 @@
 import { useContext, useState } from "react";
 import { localUser } from "../API/API";
 import { userContext } from "../Context/Contexts";
-import "../Styles/login.css";
 import Spinner from "./Styled/Spinner";
 import { NewAccount } from "./NewAccount";
 
@@ -59,7 +58,7 @@ export const LoginScreen = ({ setLogin }) => {
   return newAccount ? (
     <NewAccount setNewAccount={setNewAccount} />
   ) : (
-    <div className="login-overlay" onClick={hideForm}>
+    <div className="overlay" onClick={hideForm}>
       <div className="form" onClick={(e) => e.stopPropagation()}>
         <div className="input-container">
           <input
