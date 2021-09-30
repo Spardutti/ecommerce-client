@@ -1,0 +1,27 @@
+html {
+  font-size: 62.5%;
+}
+
+body {
+  background-color: $bg-light-color;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  padding: 3rem;
+  padding-top: 0px;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+@media screen and (max-width: 800px) {
+  html {
+    font-size: 50%;
+  }
+}
+
+@media screen and (max-width: 520px) {
+  html {
+    font-size: 35%;
+  }
+}

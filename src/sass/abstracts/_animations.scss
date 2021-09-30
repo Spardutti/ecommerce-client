@@ -1,0 +1,50 @@
+@keyframes fromRight {
+  from {
+    transform: translateX(10rem);
+  }
+  to {
+    transform: translateX(0rem);
+  }
+}
+
+@keyframes fadeInAnimation {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOutAnimation {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes topToBot {
+  from {
+    height: 4rem;
+  }
+  to {
+    height: 10rem;
+  }
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(90deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes lettersFromLeft {
+  from {
+    width: 0;
+  }
+}
