@@ -1,0 +1,14 @@
+.home-container {
+  border-radius: 2rem;
+  margin: 5rem 0px;
+  display: flex;
+  padding: 6rem;
+  background-color: $bg-dark-color;
+  justify-content: space-around;
+  min-height: 40rem;
+}
+
+.search-bar {
+  display: flex;
+  justify-content: center;
+}

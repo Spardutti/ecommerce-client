@@ -1,0 +1,118 @@
+.form {
+  width: 50rem;
+  height: 40rem;
+  box-shadow: 0px 0px 2rem $dark-box-shadow;
+  border-radius: 1rem;
+  padding: 1rem;
+  background-color: $bg-light-color;
+}
+
+.input-container {
+  position: relative;
+  padding: 1rem;
+
+  input {
+    border: none;
+    border-bottom: 2px solid silver;
+    width: 100%;
+    margin-top: 3rem;
+    outline: none;
+    font-size: 2rem;
+    background-color: $bg-light-color;
+
+    &:focus + label,
+    &:valid + label {
+      content: "";
+      outline: none;
+      transform: translateY(-25px);
+      transition: all 0.4s;
+    }
+  }
+
+  label {
+    position: absolute;
+    left: 1rem;
+    margin-top: 3rem;
+    font-size: 1.6rem;
+
+    &:focus {
+      transform: translateY(2rem);
+    }
+  }
+}
+
+.btn-container {
+  display: flex;
+  justify-content: center;
+}
+
+.error {
+  text-align: center;
+  transition: all 0.3;
+}
+
+.spinner-container {
+  height: 15rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.new-account {
+  display: flex;
+  justify-content: center;
+}
+
+.google-container {
+  display: flex;
+  justify-content: center;
+}
+
+.btn-google {
+  background-color: $btn-bg-google;
+  height: 4rem;
+  font-size: 1.2rem !important;
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+  display: flex;
+  align-items: center;
+  cursor: default !important;
+}
+
+.btn-text {
+  padding-left: 0.5rem;
+  height: 4rem;
+  display: block;
+  padding-top: 1.3rem;
+  cursor: pointer;
+}
+
+.google-icon-wrapper {
+  background-color: $bg-light-color;
+  width: 3.5rem;
+  height: 4rem;
+  text-align: center;
+  display: flex;
+  border-top-left-radius: 4rem;
+  border-left: 0.1rem solid $btn-bg-google;
+  border-top: 0.1rem solid $btn-bg-google;
+  border-bottom: 0.1rem solid $btn-bg-google;
+  border-bottom-left-radius: 0.4rem;
+}
+
+.spinner {
+  margin-top: 2rem !important;
+}
+
+/* NEW ACC */
+
+.errors {
+  padding-left: inherit;
+}
+
+.success-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}

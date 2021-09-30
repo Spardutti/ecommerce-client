@@ -1,5 +1,3 @@
-import { Col, Row } from "reactstrap";
-import { ColorSquares } from "./Styled/ColorSquares";
 import { useState, useEffect } from "react";
 import { updateUserCart } from "../API/API";
 
@@ -52,42 +50,31 @@ export const CartItem = (props) => {
   };
 
   return (
-    <Col xs={12} md={6} className="cart-container">
-      <h5 className="text-center">{product.name}</h5>
-      <img src={product.image} className="cart-img" alt="" />
-      <div className="">
-        <Row>
-          <Col className="cart-card">
-            <p>Size: {product.size}</p>
-            <ColorSquares
-              color={product.color}
-              height={"15px"}
-              width={"15px"}
-              className="mt-1"
-            ></ColorSquares>
-          </Col>
-        </Row>
-        <Row className="mb-2">
-          {loading ? (
-            <div className="spinner-grow mx-auto"></div>
-          ) : (
-            <Col className="cart-card">
-              <i className="fas fa-minus cursorPointer" onClick={decrement}></i>
-              <p>{quantity}</p>
-              <i className="fas fa-plus cursorPointer" onClick={increment}></i>
-            </Col>
-          )}
-        </Row>
+    <div className="cart-container">
+      <div className="img-container">
+        <img src={product.image} alt="" />
       </div>
-      <p className="text-center">
-        Total: ${(product.price * product.quantity).toLocaleString()}
-      </p>
-      <div className="text-center cart-button-del">
-        <i
-          className="fas fa-times cursorPointer text-danger"
-          onClick={removeItem}
-        ></i>
+      <div className="title">
+        <h4>{product.name}</h4>
       </div>
-    </Col>
+      <div className="price">
+        <p>$ {product.price.toLocaleString()}</p>
+      </div>
+      <div className="quantity">
+        {product.quantity > 1 ? (
+          <span className="minus fadeIn" onClick={decrement}>
+            <i className="fas fa-minus"></i>
+          </span>
+        ) : (
+          <span className="minus fadeOut" onClick={removeItem}>
+            <i className="fas fa-trash text-danger"></i>
+          </span>
+        )}
+        <span className="number">{product.quantity}</span>
+        <span className="plus" onClick={increment}>
+          <i className="fas fa-plus"></i>
+        </span>
+      </div>
+    </div>
   );
 };

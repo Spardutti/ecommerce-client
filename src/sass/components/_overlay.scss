@@ -1,0 +1,14 @@
+/* DARK OVERLAY */
+.overlay {
+  position: fixed;
+  left: 0px;
+  right: 0px;
+  top: 0px;
+  bottom: 0px;
+  background-color: $dark-box-shadow;
+  z-index: 99;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: fadeInAnimation 1s;
+}

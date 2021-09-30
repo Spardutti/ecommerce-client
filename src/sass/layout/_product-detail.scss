@@ -1,0 +1,109 @@
+.main-modal {
+  background-color: rgb(161, 159, 159);
+  position: relative;
+  width: 28rem;
+  height: 40rem;
+  border: 0.4rem solid white;
+  border-radius: 1rem;
+  animation: rotate 0.5s;
+}
+
+.close-btn {
+  left: 1rem;
+  top: 0.5rem;
+  position: absolute;
+  cursor: pointer;
+}
+
+.header-modal {
+  background-color: rgb(161, 159, 159);
+  border-radius: calc(1rem - 0.4rem) calc(1rem - 0.4rem) 0 0;
+  height: 22.6rem;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.body-modal {
+  background-color: white;
+  height: 16.7rem;
+  border-radius: 0 5rem 0 0;
+}
+
+.detail-name {
+  text-align: left;
+  padding-top: 2.5rem;
+  padding-left: 1rem;
+  font-size: 2rem;
+}
+
+.detail-price {
+  padding-top: 0.5rem;
+  padding-left: 1rem;
+  font-size: 2rem;
+  text-align: left;
+  font-weight: bold;
+}
+
+.detail-container {
+  display: flex;
+  height: 3rem;
+}
+
+.detail-sizes {
+  align-self: center;
+  width: 75%;
+  text-align: center !important;
+  font-size: 1.4rem;
+}
+.detail-sizes p {
+  display: inline-block;
+  margin-left: 0.7rem;
+  cursor: pointer;
+}
+
+.detail-color-container {
+  width: 25%;
+  height: 3rem;
+}
+
+.detail-color {
+  width: 2.8rem;
+  height: 2.8rem;
+  border-radius: 0.4rem;
+  border: 0.2rem solid gray;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.detail-color-list {
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 2.8rem;
+  border-radius: 0.4rem;
+  border: 0.2rem groove gray;
+}
+
+.size {
+  color: gray;
+}
+
+.added-msg {
+  border-radius: 0.5rem;
+  margin: 3rem 0px 0px 2rem;
+  width: 15rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: $bg-dark-color;
+  cursor: pointer;
+  overflow: hidden;
+  white-space: nowrap;
+  animation: lettersFromLeft 1s steps(60, end);
+}
