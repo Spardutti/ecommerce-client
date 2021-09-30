@@ -107,6 +107,7 @@ export const NewAccount = ({ setNewAccount }) => {
             name="email"
             value={email}
             onChange={emailHandler}
+            autoComplete="off"
             required
           />
           <label>Email</label>
@@ -118,6 +119,7 @@ export const NewAccount = ({ setNewAccount }) => {
             value={username}
             onChange={usernameHandler}
             required
+            autoComplete="off"
           />
           <label>Username</label>
         </div>
