@@ -11,4 +11,10 @@ export const ColorSquares = styled.div`
     transform: scale(1.3);
     cursor: pointer;
   }
+
+  @media (max-width: 520px) {
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 0.1rem;
+  }
 `;

@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { productDetail } from "../API/API";
-import "../Styles/search-product.css";
 
 // SEARCH PRODUCTS ON INPUT
 

@@ -3,7 +3,6 @@ import { getProducts } from "../API/API";
 import { ProductCard } from "./ProductCard";
 import { SearchProduct } from "./SearchProduct";
 import { Categories } from "./Categories";
-import "../Styles/home.css";
 
 const Home = () => {
   const [products, setProducts] = useState([]);
